@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Rainer's blog</title>
+  <title>Css3 Animation - Rainer's blog</title>
   <meta name="author" content="Robin">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://Robing.github.io">
+  <link rel="canonical" href="http://Robing.github.io/blog/2014/05/15/css3-animation">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Rainer's blog" type="application/atom+xml">
@@ -63,15 +63,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/05/15/css3-animation/">Css3 Animation</a></h1>
+      <h1 class="entry-title">Css3 Animation</h1>
     
     
       <p class="meta">
@@ -94,7 +91,7 @@
   </header>
 
 
-  <div class="entry-content"><h3>Introduction</h3>
+<div class="entry-content"><h3>Introduction</h3>
 
 
 
@@ -129,23 +126,115 @@
 
 
 
+<!-- more -->
+
+
+
+
+<p>Also consider slide cycle plugins. When you’re at the last slide, what cues tip-off the user that the advancing will re-start the cycle at the first? A better paradigm can be used with a 3D transform, where the slides are placed side by side one another in a circle in 3D space. In that arrangement, the last slide logically comes before the first.</p>
+
+
+
+
+<p>3D transforms are more than just eye candy. We can also use them to solve dilemmas and make our applications more intuitive.</p>
+
+
+
+
+<p>Current Support Environment</p>
+
+
+
+
+<p>The CSS 3D transforms modulehas been out in the wild for several year now. While only Apple-produced browsers like Safari and Mobile Safari originally supported it, support has been added by Google Chrome and Mozilla Firefox. View the chart oncaniuse.com/#feat=transforms3dto check the latest support environment across the browser landscape.</p>
+
+
+
+
+<p>This all adds up to a bit of a challenge for those of us excited for 3D transforms. I’ll give it to you straight: missing that dimension of depth can make degradation a bit ungraceful. Unless the transform is relatively simple and holds up in non-3D-supporting browsers, you’ll most likely have to design another solution. But what’s another hurdle in a steeplechase? We web folk have had our mettle tested for years. We’re galvanized for devising multiple solutions.</p>
+
+
+
+
+<p>Here’s the part of the article where I mentionModernizr, and you brush over it because you’ve read this part of an article a hundreds of times before. But seriously, it’s the best way to test for CSS 3D transform support. Use it.</p>
+
+
+
+
+<p>Even with these difficulties mounted up, trying out 3D transforms today is the right move. The CSS 3D transforms module was developed by the same team at Apple who produced theCSS 2D transformsandanimation. Both specifications have since been adopted by Mozilla and Opera. Transforming three-dimensionally now will guarantee you’ll be ahead of the game when the other browsers catch up.</p>
+
+
+
+
+<p>The choice is yours. You can make excuses and poo-poo 3D transforms because they’re too hard and only snobby Apple fans will see them today. Or, with atip of the fedora to Mr. Andy Clarke, you can get hardboiled and start designing with the best features out there right this instant.</p>
+
+
+
+
+<p>So I bid you,in the words of the eternal Optimus Prime…</p>
+
+
+
+
+<p>Transform and roll out.</p>
+
+
+
+
+<p>Let’s get coding.</p>
+
 </div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/05/15/css3-animation/">Read on &rarr;</a>
-    </footer>
+
+<span class="byline author vcard">Posted by <span class="fn">Robin</span></span>
+
+      
+
+
+
+
+
+
+
+
   
 
 
-    </article>
+<time datetime="2014-05-15T22:28:04+08:00" pubdate data-updated="true">May 15<span>th</span>, 2014</time>
+      
+
+<span class="categories">
   
-  <div class="pagination">
+    <a class='category' href='/blog/categories/css3/'>Css3</a>
+  
+</span>
+
+
+    </p>
     
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://Robing.github.io/blog/2014/05/15/css3-animation/" data-via="" data-counturl="http://Robing.github.io/blog/2014/05/15/css3-animation/" >Tweet</a>
+  
+  
+  
 </div>
+
+    
+    <p class="meta">
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -165,6 +254,7 @@
 
   
 </aside>
+
 
     </div>
   </div>
