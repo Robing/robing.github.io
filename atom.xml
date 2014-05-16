@@ -4,7 +4,7 @@
   <title><![CDATA[Rainer's blog]]></title>
   <link href="http://Robing.github.io/atom.xml" rel="self"/>
   <link href="http://Robing.github.io/"/>
-  <updated>2014-05-16T12:24:55+08:00</updated>
+  <updated>2014-05-16T12:29:03+08:00</updated>
   <id>http://Robing.github.io/</id>
   <author>
     <name><![CDATA[Robin]]></name>
@@ -73,6 +73,8 @@ The most recently added tree is called the <b>younger tree</b>. Previous trees a
 <p>So what&#8217;s the point of using multiple shadows if only the last is invited to the
 rendering party? Enter shadow insertion points.</p>
 <h3 id="toc-shadow-insertion">Shadow Insertion Points</h3>
+
+<!-- more -->
 
 <p>&#8220;Shadow insertion points&#8221; (<code>&lt;shadow&gt;</code>) are similar to normal <a href="http://Robing.github.io/tutorials/webcomponents/shadowdom/#toc-separation-separate">insertion points</a> (<code>&lt;content&gt;</code>) in that they&#8217;re placeholders. However, instead of being placeholders for a host&#8217;s <em>content</em>, they&#8217;re hosts for other <em>shadow trees</em>.
 It&#8217;s Shadow DOM Inception!</p>
@@ -682,7 +684,7 @@ root.innerHTML = '<style>\
     }</style><content></content>';
 })();
 </script>
-
+<!-- more -->
 <h3 id="toc-style-themeing">Theming an element</h3>
 
 <p>The <code>:host-context(&lt;selector&gt;)</code> pseudo class matches the host element if it or any of its ancestors matches <code>&lt;selector&gt;</code>.</p>
