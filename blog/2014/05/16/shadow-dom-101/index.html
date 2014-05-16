@@ -154,17 +154,18 @@ Elements</a></li>
 <p>
 有了 Shadow DOM，元素就可以和一个新类型的节点关联。这个新类型的节点称为 <b>shadow root。</b>与一个 shadow root 关联的元素称作一个 <b>shadow host。</b>shadow host 的内容不会渲染；shadow root 的内容会渲染。
 </p>
-
+<!-- more -->
 <p>
 比如，你拥有如下的标记：
 </p>
 
-<pre class="prettyprint"><span class="tag">&lt;button&gt;</span><span class="pln">Hello, world!</span><span class="tag">&lt;/button&gt;</span><span class="pln">
+<span class="tag">&lt;button&gt;</span><span class="pln">Hello, world!</span><span class="tag">&lt;/button&gt;</span><span class="pln">
 </span><span class="tag">&lt;script&gt;</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> host </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'button'</span><span class="pun">);</span><span class="pln">
+</span><span class="kwd">var</span><span class="pln"> host </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">&#8216;button&#8217;</span><span class="pun">);</span><span class="pln">
 </span><b><span class="kwd">var</span><span class="pln"> root </span><span class="pun">=</span><span class="pln"> host</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span></b><span class="pln">
-root</span><span class="pun">.</span><span class="pln">textContent </span><span class="pun">=</span><span class="pln"> </span><span class="str">'こんにちは、影の世界!'</span><span class="pun">;</span><span class="pln">
-</span><span class="tag">&lt;/script&gt;</span></pre>
+root</span><span class="pun">.</span><span class="pln">textContent </span><span class="pun">=</span><span class="pln"> </span><span class="str">&#8216;こんにちは、影の世界!&#8217;</span><span class="pun">;</span><span class="pln">
+</span><span class="tag">&lt;/script&gt;</span>
+
 
 <p>因此，相比显示以下内容</p>
 
