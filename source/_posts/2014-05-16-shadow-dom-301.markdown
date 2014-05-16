@@ -61,6 +61,8 @@ The most recently added tree is called the <b>younger tree</b>. Previous trees a
 rendering party? Enter shadow insertion points.</p>
 <h3 id="toc-shadow-insertion">Shadow Insertion Points</h3>
 
+<!-- more -->
+
 <p>"Shadow insertion points" (<code>&lt;shadow&gt;</code>) are similar to normal <a href="/tutorials/webcomponents/shadowdom/#toc-separation-separate">insertion points</a> (<code>&lt;content&gt;</code>) in that they're placeholders. However, instead of being placeholders for a host's <em>content</em>, they're hosts for other <em>shadow trees</em>.
 It's Shadow DOM Inception!</p>
 <p>As you can probably imagine, things get more complicated the further you drill down
