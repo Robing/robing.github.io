@@ -4,7 +4,7 @@
   <title><![CDATA[Category: HTML5 | Rainer's blog]]></title>
   <link href="http://Robing.github.io/blog/categories/html5/atom.xml" rel="self"/>
   <link href="http://Robing.github.io/"/>
-  <updated>2014-05-16T12:29:03+08:00</updated>
+  <updated>2014-05-16T12:53:56+08:00</updated>
   <id>http://Robing.github.io/</id>
   <author>
     <name><![CDATA[Robin]]></name>
@@ -568,53 +568,68 @@ document.addEventListener('DOMContentLoaded', function(e) {
     <updated>2014-05-16T12:16:18+08:00</updated>
     <id>http://Robing.github.io/blog/2014/05/16/shadow-dom-201</id>
     <content type="html"><![CDATA[<div class="content" id="article-content">
-<p>This article discusses more of the amazing things you can do with Shadow DOM.
-It builds on the concepts discussed in <a href="http://Robing.github.io/tutorials/webcomponents/shadowdom/">Shadow DOM 101</a>.
-If you're looking for an introduction, see that article.</p>
-<h2 id="toc-intro">Introduction</h2>
 
-<p>Let's face it. There's nothing sexy about unstyled markup. Lucky for us, <a href="http://w3c.github.io/webcomponents/explainer/#acknowledgements">the brilliant folks behind Web Components</a>
-foresaw this and didn't leave us hanging. The <a href="http://dev.w3.org/csswg/css-scoping/">CSS Scoping Module</a> defines many options for styling content in a shadow tree.</p>
-<p class="tip notice">In Chrome, turn on the "Enable experimental Web Platform features" in about:flags to experiment with everything covered in this article.</p>
+    <p>This article discusses more of the amazing things you can do with Shadow DOM. It builds on the concepts discussed in <a href="http://Robing.github.io/tutorials/webcomponents/shadowdom/">Shadow DOM 101</a>. If you're looking for an introduction, see that article.</p>
+    <h2 id="toc-intro">Introduction</h2>
 
-<h2 id="toc-style-scoped">Style encapsulation</h2>
+    <p>Let's face it. There's nothing sexy about unstyled markup. Lucky for us, <a href="http://w3c.github.io/webcomponents/explainer/#acknowledgements">the brilliant folks behind Web Components</a>
+        foresaw this and didn't leave us hanging. The <a href="http://dev.w3.org/csswg/css-scoping/">CSS Scoping Module</a> defines many options for styling content in a shadow tree.</p>
+    <p class="tip notice">In Chrome, turn on the "Enable experimental Web Platform features" in about:flags to experiment with everything covered in this article.</p>
 
-<p>One of the core features of Shadow DOM is the <a href="http://w3c.github.io/webcomponents/spec/shadow/#shadow-trees">shadow boundary</a>. It has a lot of nice properties,
-but one of the best is that it provides style encapsulation for free. Stated another way:</p>
-<p class="notice fact">CSS styles defined inside Shadow DOM are scoped to the ShadowRoot. This means styles are encapsulated by default.</p>
+    <h2 id="toc-style-scoped">Style encapsulation</h2>
 
-<p>Below is an example. If all goes well and your browser supports Shadow DOM (it does<span class="featuresupported no">n't</span>!), you'll see "<span style="color:red">Shadow DOM</span>".</p>
-<pre class="prettyprint"><code><span class="tag">&lt;div&gt;&lt;h3&gt;</span><span class="pln">Light DOM</span><span class="tag">&lt;/h3&gt;&lt;/div&gt;</span><span class="pln">
+    <p>One of the core features of Shadow DOM is the <a href="http://w3c.github.io/webcomponents/spec/shadow/#shadow-trees">shadow boundary</a>. It has a lot of nice properties, but one of the best is that it provides style encapsulation for free. Stated another way:</p>
+    <p class="notice fact">CSS styles defined inside Shadow DOM are scoped to the ShadowRoot. This means styles are encapsulated by default.</p>
+
+    <p>Below is an example. If all goes well and your browser supports Shadow DOM (it does
+        <span class="featuresupported no">n't</span>!), you'll see "
+        <span style="color:red">Shadow DOM</span>".</p>
+    <pre class="prettyprint"><code><span class="tag">&lt;div&gt;&lt;h3&gt;</span><span class="pln">Light DOM</span><span class="tag">&lt;/h3&gt;&lt;/div&gt;</span><span class="pln">
 </span><span class="tag">&lt;script&gt;</span><span class="pln">
 </span><span class="kwd">var</span><span class="pln"> root </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'div'</span><span class="pun">).</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
 root</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">'&lt;style&gt;h3{ color: red; }&lt;/style&gt;'</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> 
                  </span><span class="str">'&lt;h3&gt;Shadow DOM&lt;/h3&gt;'</span><span class="pun">;</span><span class="pln">
 </span><span class="tag">&lt;/script&gt;</span></code></pre>
-<div class="demoarea">
-  <div id="style-ex-scoped"><h3>Light DOM</h3></div>
-</div>
+    <div class="demoarea">
+        <div id="style-ex-scoped">
+            <h3>Light DOM</h3>
+        </div>
+    </div>
 
-<script>
-(function() {
-var container = document.querySelector('#style-ex-scoped');
-var root = container.createShadowRoot();
-root.innerHTML = '<style>h3{color: red;}</style><h3>Shadow DOM</h3>';
-})();
-</script>
+    <script>
+    (function() {
+        var container = document.querySelector('#style-ex-scoped');
+        var root = container.createShadowRoot();
+        root.innerHTML = '<style>h3{color: red;}</style><h3>Shadow DOM</h3>';
+    })();
+    </script>
 
-<p>There are two interesting observations about this demo:</p>
-<ul>
-<li>There are
-<a href="javascript:alert('There are ' + document.querySelectorAll('h3').length + ' <h3> on this page.')">other h3s on this page</a>, but the only one that matches the h3 selector, and therefore styled
-red, is the one in the ShadowRoot. Again, scoped styles by default.</li>
-<li>Other styles rules defined on this page that target h3s don't bleed into my content.
-That's because <strong>selectors don't cross the shadow boundary</strong>.</li>
-</ul>
-<p>Moral of the story? We have style encapsulation from the outside world. Thanks Shadow DOM!</p>
-<h2 id="toc-style-host">Styling the host element</h2>
+    <p>There are two interesting observations about this demo:</p>
+    <ul>
+        <li>There are
+            <a onclick=alertMsg() href="#">other h3s on this page</a>, but the only one that matches the h3 selector, and therefore styled red, is the one in the ShadowRoot. Again, scoped styles by default.</li>
+        <li>Other styles rules defined on this page that target h3s don't bleed into my content. That's because
+            <strong>selectors don't cross the shadow boundary</strong>.</li>
+    </ul>
+    <script type="text/javascript">
+    var alertMsg = function(msg){
+        if(msg){
+            alert(msg)
+        }else{
+            len = document.querySelectorAll('h3').length;
+            msg = 'There are ' + len + ' <h3> on this page.';
+            alert(msg);
+        }
+        return false;
+    }
+    </script>
+    <p>Moral of the story? We have style encapsulation from the outside world. Thanks Shadow DOM!</p>
+    <!-- more -->
+    <h2 id="toc-style-host">Styling the host element</h2>
 
-<p>The <code>:host</code> allows you to select and style the element hosting a shadow tree:</p>
-<pre class="prettyprint"><code><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"red"</span><span class="tag">&gt;</span><span class="pln">My Button</span><span class="tag">&lt;/button&gt;</span><span class="pln">
+    <p>The
+        <code>:host</code>allows you to select and style the element hosting a shadow tree:</p>
+    <pre class="prettyprint"><code><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"red"</span><span class="tag">&gt;</span><span class="pln">My Button</span><span class="tag">&lt;/button&gt;</span><span class="pln">
 </span><span class="tag">&lt;script&gt;</span><span class="pln">
 </span><span class="kwd">var</span><span class="pln"> button </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'button'</span><span class="pun">);</span><span class="pln">
 </span><span class="kwd">var</span><span class="pln"> root </span><span class="pun">=</span><span class="pln"> button</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
@@ -623,34 +638,41 @@ root</span><span class="pun">.</span><span class="pln">innerHTML </span><span cl
     </span><span class="str">'&lt;/style&gt;'</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> 
     </span><span class="str">'&lt;content&gt;&lt;/content&gt;'</span><span class="pun">;</span><span class="pln">
 </span><span class="tag">&lt;/script&gt;</span></code></pre>
-<div class="demoarea">
-  <button id="style-athost" class="red">My Button</button>
-</div>
+    <div class="demoarea">
+        <button id="style-athost" class="red">My Button</button>
+    </div>
 
-<script>
-(function() {
-var container = document.querySelector('#style-athost');
-var root = container.createShadowRoot();
-root.innerHTML = '<style>' + 
-                     ':host { text-transform: uppercase; }' +
-                      '</style>' + 
-                      '<content></content>';
-})();
-</script>
+    <script>
+    (function() {
+        var container = document.querySelector('#style-athost');
+        var root = container.createShadowRoot();
+        root.innerHTML = '<style>' +
+            ':host { text-transform: uppercase; }' +
+            '</style>' +
+            '<content></content>';
+    })();
+    </script>
 
-<p>One gotcha is that rules in the parent page have higher specificity than <code>:host</code>
-rules defined in the element, but lower specificity than a <code>style</code> attribute
-defined on the host element.  This allows users to override your styling from the outside.
-<code>:host</code> also only works in the context of a ShadowRoot so you can't use it outside of Shadow DOM.</p>
-<p>The functional form of <code>:host(&lt;selector&gt;)</code> allows you to target the host element if it matches a <code>&lt;selector&gt;</code>. </p>
-<p><strong>Example</strong> - match only if the element itself has the class <code>.different</code> (e.g.. <code>&lt;x-foo class="different"&gt;&lt;/x-foo&gt;</code>):</p>
-<pre class="prettyprint"><code><span class="pun">:</span><span class="pln">host</span><span class="pun">(.</span><span class="pln">different</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    <p>One gotcha is that rules in the parent page have higher specificity than
+        <code>:host</code>
+        rules defined in the element, but lower specificity than a
+        <code>style</code>attribute defined on the host element. This allows users to override your styling from the outside.
+        <code>:host</code>also only works in the context of a ShadowRoot so you can't use it outside of Shadow DOM.</p>
+    <p>The functional form of
+        <code>:host(&lt;selector&gt;)</code>allows you to target the host element if it matches a
+        <code>&lt;selector&gt;</code>.</p>
+    <p>
+        <strong>Example</strong>- match only if the element itself has the class
+        <code>.different</code>(e.g..
+        <code>&lt;x-foo class="different"&gt;&lt;/x-foo&gt;</code>):</p>
+    <pre class="prettyprint"><code><span class="pun">:</span><span class="pln">host</span><span class="pun">(.</span><span class="pln">different</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
   </span><span class="pun">...</span><span class="pln">  
 </span><span class="pun">}</span></code></pre>
-<h3 id="toc-style-states">Reacting to user states</h3>
+    <h3 id="toc-style-states">Reacting to user states</h3>
 
-<p>A common use case for <code>:host</code> is when you're creating a <a href="http://Robing.github.io/tutorials/webcomponents/customelements/">Custom Element</a> and want to react to different user states (:hover, :focus, :active, etc.).</p>
-<pre class="prettyprint"><code><span class="tag">&lt;style&gt;</span><span class="pln">
+    <p>A common use case for
+        <code>:host</code>is when you're creating a <a href="http://Robing.github.io/tutorials/webcomponents/customelements/">Custom Element</a> and want to react to different user states (:hover, :focus, :active, etc.).</p>
+    <pre class="prettyprint"><code><span class="tag">&lt;style&gt;</span><span class="pln">
 </span><span class="pun">:</span><span class="pln">host </span><span class="pun">{</span><span class="pln">
   </span><span class="kwd">opacity</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0.4</span><span class="pun">;</span><span class="pln">
   </span><span class="kwd">transition</span><span class="pun">:</span><span class="pln"> opacity </span><span class="lit">420ms</span><span class="pln"> ease-in-out</span><span class="pun">;</span><span class="pln">
@@ -664,15 +686,15 @@ defined on the host element.  This allows users to override your styling from th
   </span><span class="kwd">left</span><span class="pun">:</span><span class="pln"> </span><span class="lit">3px</span><span class="pun">;</span><span class="pln">
 </span><span class="pun">}</span><span class="pln">
 </span><span class="tag">&lt;/style&gt;</span></code></pre>
-<div class="demoarea">
-  <button id="style-athost-ex2">My Button</button>
-</div>
+    <div class="demoarea">
+        <button id="style-athost-ex2">My Button</button>
+    </div>
 
-<script>
-(function() {
-var container = document.querySelector('#style-athost-ex2');
-var root = container.createShadowRoot();
-root.innerHTML = '<style>\
+    <script>
+    (function() {
+        var container = document.querySelector('#style-athost-ex2');
+        var root = container.createShadowRoot();
+        root.innerHTML = '<style>\
       :host {\
         opacity: 0.4;\
         transition: opacity 200ms ease-in-out;\
@@ -682,28 +704,34 @@ root.innerHTML = '<style>\
         opacity: 1;\
       }\
     }</style><content></content>';
-})();
-</script>
-<!-- more -->
-<h3 id="toc-style-themeing">Theming an element</h3>
+    })();
+    </script>
 
-<p>The <code>:host-context(&lt;selector&gt;)</code> pseudo class matches the host element if it or any of its ancestors matches <code>&lt;selector&gt;</code>.</p>
-<p>A common use of <code>:host-context()</code> is for theming an element based on its surrounds. For example,
-many people do theming by applying a class to <code>&lt;html&gt;</code> or <code>&lt;body&gt;</code>:</p>
-<pre class="prettyprint"><code><span class="tag">&lt;body</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"different"</span><span class="tag">&gt;</span><span class="pln">
+    <h3 id="toc-style-themeing">Theming an element</h3>
+
+    <p>The
+        <code>:host-context(&lt;selector&gt;)</code>pseudo class matches the host element if it or any of its ancestors matches
+        <code>&lt;selector&gt;</code>.</p>
+    <p>A common use of
+        <code>:host-context()</code>is for theming an element based on its surrounds. For example, many people do theming by applying a class to
+        <code>&lt;html&gt;</code>or
+        <code>&lt;body&gt;</code>:</p>
+    <pre class="prettyprint"><code><span class="tag">&lt;body</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"different"</span><span class="tag">&gt;</span><span class="pln">
   </span><span class="tag">&lt;x-foo&gt;&lt;/x-foo&gt;</span><span class="pln">
 </span><span class="tag">&lt;/body&gt;</span></code></pre>
-<p>You can <code>:host-context(.different)</code> to style <code>&lt;x-foo&gt;</code> when it's a descendant of an element with the class <code>.different</code>:</p>
-<pre class="prettyprint"><code><span class="pun">:</span><span class="pln">host</span><span class="pun">-</span><span class="pln">context</span><span class="pun">(.</span><span class="pln">different</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    <p>You can
+        <code>:host-context(.different)</code>to style
+        <code>&lt;x-foo&gt;</code>when it's a descendant of an element with the class
+        <code>.different</code>:</p>
+    <pre class="prettyprint"><code><span class="pun">:</span><span class="pln">host</span><span class="pun">-</span><span class="pln">context</span><span class="pun">(.</span><span class="pln">different</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
   color</span><span class="pun">:</span><span class="pln"> red</span><span class="pun">;</span><span class="pln">
 </span><span class="pun">}</span></code></pre>
-<p>This gives you the ability encapsulate style rules in an element's Shadow DOM that
-uniquely style it, based on its context.</p>
-<h3 id="toc-style-multi">Support multiple host types from within one shadow root</h3>
+    <p>This gives you the ability encapsulate style rules in an element's Shadow DOM that uniquely style it, based on its context.</p>
+    <h3 id="toc-style-multi">Support multiple host types from within one shadow root</h3>
 
-<p>Another use for <code>:host</code> is if you're creating a theming library and want to
-support styling many types of host elements from within the same Shadow DOM.</p>
-<pre class="prettyprint"><code><span class="pun">:</span><span class="pln">host</span><span class="pun">(</span><span class="pln">x</span><span class="pun">-</span><span class="pln">foo</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> 
+    <p>Another use for
+        <code>:host</code>is if you're creating a theming library and want to support styling many types of host elements from within the same Shadow DOM.</p>
+    <pre class="prettyprint"><code><span class="pun">:</span><span class="pln">host</span><span class="pun">(</span><span class="pln">x</span><span class="pun">-</span><span class="pln">foo</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> 
   </span><span class="com">/* Applies if the host is a &lt;x-foo&gt; element.*/</span><span class="pln">
 </span><span class="pun">}</span><span class="pln">
 
@@ -714,16 +742,18 @@ support styling many types of host elements from within the same Shadow DOM.</p>
 </span><span class="pun">:</span><span class="pln">host</span><span class="pun">(</span><span class="pln">div</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">  </span><span class="pun">{</span><span class="pln">
   </span><span class="com">/* Applies if the host element is a &lt;div&gt;. */</span><span class="pln">
 </span><span class="pun">}</span></code></pre>
-<h2 id="toc-style-cat-hat">Styling Shadow DOM internals from the outside</h2>
+    <h2 id="toc-style-cat-hat">Styling Shadow DOM internals from the outside</h2>
 
-<p>The <code>::shadow</code> pseudo-element and <code>/deep/</code> combinator are like having a Vorpal sword of CSS authority.
-They allow piercing through Shadow DOM's boundary to style elements within shadow trees.</p>
-<h3 id="toc-style-hat">The ::shadow pseudo-element</h3>
+    <p>The
+        <code>::shadow</code>pseudo-element and
+        <code>/deep/</code>combinator are like having a Vorpal sword of CSS authority. They allow piercing through Shadow DOM's boundary to style elements within shadow trees.</p>
+    <h3 id="toc-style-hat">The ::shadow pseudo-element</h3>
 
-<p>If an element has at least one shadow tree, the <code>::shadow</code> pseudo-element matches the shadow root itself.
-It allows you to write selectors that style nodes internal to an element's shadow dom.</p>
-<p>For example, if an element is hosting a shadow root, you can write <code>#host::shadow span {}</code> to style all of the spans within its shadow tree.</p>
-<pre class="prettyprint"><code><span class="tag">&lt;style&gt;</span><span class="pln">
+    <p>If an element has at least one shadow tree, the
+        <code>::shadow</code>pseudo-element matches the shadow root itself. It allows you to write selectors that style nodes internal to an element's shadow dom.</p>
+    <p>For example, if an element is hosting a shadow root, you can write
+        <code>#host::shadow span {}</code>to style all of the spans within its shadow tree.</p>
+    <pre class="prettyprint"><code><span class="tag">&lt;style&gt;</span><span class="pln">
   </span><span class="pun">#</span><span class="kwd">host</span><span class="pun">::</span><span class="pln">shadow span </span><span class="pun">{</span><span class="pln">
     </span><span class="kwd">color</span><span class="pun">:</span><span class="pln"> red</span><span class="pun">;</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
@@ -739,84 +769,107 @@ It allows you to write selectors that style nodes internal to an element's shado
   root</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">"&lt;span&gt;Shadow DOM&lt;/span&gt;"</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> 
                    </span><span class="str">"&lt;content&gt;&lt;/content&gt;"</span><span class="pun">;</span><span class="pln">
 </span><span class="tag">&lt;/script&gt;</span></code></pre>
-<div class="demoarea">
-  <div id="style-hat-ex">
-    <span>Light DOM</span>
-  </div>
-</div>
+    <div class="demoarea">
+        <div id="style-hat-ex">
+            <span>Light DOM</span>
+        </div>
+    </div>
 
-<script>
-(function() {
-var host = document.querySelector('#style-hat-ex');
-var root = host.createShadowRoot();
-root.innerHTML = '<span>Shadow DOM</span>' + 
-                 '<content></content>';
-})();
-</script>
+    <script>
+    (function() {
+        var host = document.querySelector('#style-hat-ex');
+        var root = host.createShadowRoot();
+        root.innerHTML = '<span>Shadow DOM</span>' +
+            '<content></content>';
+    })();
+    </script>
 
-<p><strong>Example</strong> (custom elements) -  <code>&lt;x-tabs&gt;</code>  has <code>&lt;x-panel&gt;</code> children in its Shadow DOM. Each panel hosts its own shadow tree containing <code>h2</code> headings. To style those headings from the main page, one could write:</p>
-<pre class="prettyprint"><code><span class="pln">x</span><span class="pun">-</span><span class="pln">tabs</span><span class="pun">::</span><span class="pln">shadow x</span><span class="pun">-</span><span class="pln">panel</span><span class="pun">::</span><span class="pln">shadow h2 </span><span class="pun">{</span><span class="pln">
+    <p>
+        <strong>Example</strong>(custom elements) -
+        <code>&lt;x-tabs&gt;</code>has
+        <code>&lt;x-panel&gt;</code>children in its Shadow DOM. Each panel hosts its own shadow tree containing
+        <code>h2</code>headings. To style those headings from the main page, one could write:</p>
+    <pre class="prettyprint"><code><span class="pln">x</span><span class="pun">-</span><span class="pln">tabs</span><span class="pun">::</span><span class="pln">shadow x</span><span class="pun">-</span><span class="pln">panel</span><span class="pun">::</span><span class="pln">shadow h2 </span><span class="pun">{</span><span class="pln">
   </span><span class="pun">...</span><span class="pln">
 </span><span class="pun">}</span></code></pre>
-<h3 id="toc-style-cat">The /deep/ combinator</h3>
+    <h3 id="toc-style-cat">The /deep/ combinator</h3>
 
-<p>The <code>/deep/</code> combinator is similar to <code>::shadow</code>, but more powerful. It completely ignores all shadow boundaries and crosses into any number of shadow trees. Put simply, <code>/deep/</code> allows you to drill into an element's guts and target any node.</p>
-<p>The <code>/deep/</code> combinator is particularly useful in the world of Custom Elements where it's common to have multiple levels of Shadow DOM. Prime examples are nesting a bunch of custom elements (each hosting their own shadow tree) or creating an element that inherits from another using <a href="http://Robing.github.io/tutorials/webcomponents/shadowdom-301/#toc-shadow-insertion"><code>&lt;shadow&gt;</code></a>.</p>
-<p><strong>Example</strong> (custom elements) -  select all <code>&lt;x-panel&gt;</code> elements that are descendants of
-<code>&lt;x-tabs&gt;</code>, anywhere in the tree:</p>
-<pre class="prettyprint"><code><span class="pln">x</span><span class="pun">-</span><span class="pln">tabs </span><span class="pun">/</span><span class="pln">deep</span><span class="pun">/</span><span class="pln"> x</span><span class="pun">-</span><span class="pln">panel </span><span class="pun">{</span><span class="pln">
+    <p>The
+        <code>/deep/</code>combinator is similar to
+        <code>::shadow</code>, but more powerful. It completely ignores all shadow boundaries and crosses into any number of shadow trees. Put simply,
+        <code>/deep/</code>allows you to drill into an element's guts and target any node.</p>
+    <p>The
+        <code>/deep/</code>combinator is particularly useful in the world of Custom Elements where it's common to have multiple levels of Shadow DOM. Prime examples are nesting a bunch of custom elements (each hosting their own shadow tree) or creating an element that inherits from another using
+        <a href="http://Robing.github.io/tutorials/webcomponents/shadowdom-301/#toc-shadow-insertion">
+            <code>&lt;shadow&gt;</code>
+        </a>.</p>
+    <p>
+        <strong>Example</strong>(custom elements) - select all
+        <code>&lt;x-panel&gt;</code>elements that are descendants of
+        <code>&lt;x-tabs&gt;</code>, anywhere in the tree:</p>
+    <pre class="prettyprint"><code><span class="pln">x</span><span class="pun">-</span><span class="pln">tabs </span><span class="pun">/</span><span class="pln">deep</span><span class="pun">/</span><span class="pln"> x</span><span class="pun">-</span><span class="pln">panel </span><span class="pun">{</span><span class="pln">
   </span><span class="pun">...</span><span class="pln">
 </span><span class="pun">}</span></code></pre>
-<p><strong>Example</strong> - style all elements with the class <code>.library-theme</code>, anywhere in a shadow tree:</p>
-<pre class="prettyprint"><code><span class="pln">body </span><span class="pun">/</span><span class="pln">deep</span><span class="pun">/</span><span class="pln"> </span><span class="pun">.</span><span class="pln">library</span><span class="pun">-</span><span class="pln">theme </span><span class="pun">{</span><span class="pln">
+    <p>
+        <strong>Example</strong>- style all elements with the class
+        <code>.library-theme</code>, anywhere in a shadow tree:</p>
+    <pre class="prettyprint"><code><span class="pln">body </span><span class="pun">/</span><span class="pln">deep</span><span class="pun">/</span><span class="pln"> </span><span class="pun">.</span><span class="pln">library</span><span class="pun">-</span><span class="pln">theme </span><span class="pun">{</span><span class="pln">
   </span><span class="pun">...</span><span class="pln">
 </span><span class="pun">}</span></code></pre>
-<h3 id="toc-css-traverasl">Working with querySelector()</h3>
+    <h3 id="toc-css-traverasl">Working with querySelector()</h3>
 
-<p>Just like <a href="http://Robing.github.io/tutorials/webcomponents/shadowdom-301/#toc-get-shadowroot"><code>.shadowRoot</code></a> opens
-shadow trees up for DOM traversal, the combinators open shadow trees for selector traversal.
-Instead of writing a nested chain of madness, you can write a single statement:</p>
-<pre class="prettyprint"><code><span class="com">// No fun.</span><span class="pln">
+    <p>Just like
+        <a href="http://Robing.github.io/tutorials/webcomponents/shadowdom-301/#toc-get-shadowroot">
+            <code>.shadowRoot</code>
+        </a>opens shadow trees up for DOM traversal, the combinators open shadow trees for selector traversal. Instead of writing a nested chain of madness, you can write a single statement:</p>
+    <pre class="prettyprint"><code><span class="com">// No fun.</span><span class="pln">
 document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'x-tabs'</span><span class="pun">).</span><span class="pln">shadowRoot
         </span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'x-panel'</span><span class="pun">).</span><span class="pln">shadowRoot
         </span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'#foo'</span><span class="pun">);</span><span class="pln">
 
 </span><span class="com">// Fun.</span><span class="pln">
 document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'x-tabs::shadow x-panel::shadow #foo'</span><span class="pun">);</span></code></pre>
-<h3 id="toc-style-native">Styling native elements</h3>
+    <h3 id="toc-style-native">Styling native elements</h3>
 
-<p>Native HTML controls are a challenge to style. Many people simply give up
-and roll their own. However, with <code>::shadow</code> and <code>/deep/</code>, any element in the web platform that
-uses Shadow DOM can be styled. Great examples are the <code>&lt;input&gt;</code> types and <code>&lt;video&gt;</code>:</p>
-<pre class="prettyprint"><code><span class="pln">video </span><span class="pun">/</span><span class="pln">deep</span><span class="pun">/</span><span class="pln"> input</span><span class="pun">[</span><span class="pln">type</span><span class="pun">=</span><span class="str">"range"</span><span class="pun">]</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    <p>Native HTML controls are a challenge to style. Many people simply give up and roll their own. However, with
+        <code>::shadow</code>and
+        <code>/deep/</code>, any element in the web platform that uses Shadow DOM can be styled. Great examples are the
+        <code>&lt;input&gt;</code>types and
+        <code>&lt;video&gt;</code>:</p>
+    <pre class="prettyprint"><code><span class="pln">video </span><span class="pun">/</span><span class="pln">deep</span><span class="pun">/</span><span class="pln"> input</span><span class="pun">[</span><span class="pln">type</span><span class="pun">=</span><span class="str">"range"</span><span class="pun">]</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
   background</span><span class="pun">:</span><span class="pln"> hotpink</span><span class="pun">;</span><span class="pln">
 </span><span class="pun">}</span></code></pre>
-<div class="demoarea">  
-  <video id="ex-style-video" controls=""></video>
-</div>
+    <div class="demoarea">
+        <video id="ex-style-video" controls=""></video>
+    </div>
 
-<blockquote class="commentary talkinghead">
-Do the <code>::shadow</code> pseudo-element and <code>/deep/</code> combinator defeat the purpose of style encapsulation? Out of the box, Shadow DOM prevents <em>accidental</em> styling from outsiders but it never promises to be a bullet proof vest. Developers should be allowed to <em>intentionally</em> style inner parts of your Shadow tree...if they know what they're doing. Having more control is also good for flexibility, theming, and the re-usability of your elements.
-</blockquote>
+    <blockquote class="commentary talkinghead">
+        Do the
+        <code>::shadow</code>pseudo-element and
+        <code>/deep/</code>combinator defeat the purpose of style encapsulation? Out of the box, Shadow DOM prevents
+        <em>accidental</em>styling from outsiders but it never promises to be a bullet proof vest. Developers should be allowed to
+        <em>intentionally</em>style inner parts of your Shadow tree...if they know what they're doing. Having more control is also good for flexibility, theming, and the re-usability of your elements.
+    </blockquote>
 
-<h2 id="toc-style-hooks">Creating style hooks</h2>
+    <h2 id="toc-style-hooks">Creating style hooks</h2>
 
-<p>Customization is good. In certain cases, you may want to poke holes in your Shadow's
-styling shield and create hooks for others to style.</p>
-<h3 id="toc-custom-pseduo">Using ::shadow and /deep/</h3>
+    <p>Customization is good. In certain cases, you may want to poke holes in your Shadow's styling shield and create hooks for others to style.</p>
+    <h3 id="toc-custom-pseduo">Using ::shadow and /deep/</h3>
 
-<p>There's a lot of power behind <code>/deep/</code>. It gives component authors a way to designate
-individual elements as styleable or a slew of elements as themeable.</p>
-<p><strong>Example</strong> - style all elements that have the class <code>.library-theme</code>, ignoring all shadow trees:</p>
-<pre class="prettyprint"><code><span class="pln">body </span><span class="pun">/</span><span class="pln">deep</span><span class="pun">/</span><span class="pln"> </span><span class="pun">.</span><span class="pln">library</span><span class="pun">-</span><span class="pln">theme </span><span class="pun">{</span><span class="pln">
+    <p>There's a lot of power behind
+        <code>/deep/</code>. It gives component authors a way to designate individual elements as styleable or a slew of elements as themeable.</p>
+    <p>
+        <strong>Example</strong>- style all elements that have the class
+        <code>.library-theme</code>, ignoring all shadow trees:</p>
+    <pre class="prettyprint"><code><span class="pln">body </span><span class="pun">/</span><span class="pln">deep</span><span class="pun">/</span><span class="pln"> </span><span class="pun">.</span><span class="pln">library</span><span class="pun">-</span><span class="pln">theme </span><span class="pun">{</span><span class="pln">
   </span><span class="pun">...</span><span class="pln">
 </span><span class="pun">}</span></code></pre>
-<p></p>
-<h3 id="toc-vars">Using CSS Variables</h3>
+    <p></p>
+    <h3 id="toc-vars">Using CSS Variables</h3>
 
-<p>A powerful way to create theming hooks will be through <a href="http://dev.w3.org/csswg/css-variables/">CSS Variables</a>. Essentially, creating "style placeholders" for other users to fill in.</p>
-<p>Imagine a custom element author who marks out variable placeholders in their Shadow DOM. One for styling an internal button's font and another for its color:</p>
-<pre class="prettyprint"><code><span class="pln">button </span><span class="pun">{</span><span class="pln">
+    <p>A powerful way to create theming hooks will be through <a href="http://dev.w3.org/csswg/css-variables/">CSS Variables</a>. Essentially, creating "style placeholders" for other users to fill in.</p>
+    <p>Imagine a custom element author who marks out variable placeholders in their Shadow DOM. One for styling an internal button's font and another for its color:</p>
+    <pre class="prettyprint"><code><span class="pln">button </span><span class="pun">{</span><span class="pln">
   color</span><span class="pun">:</span><span class="pln"> </span><a href="http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#including_a_mixin" id="tooltip673.63" target="_blank" data-tooltip="/*Vendor prefixes required. Try Compass/SASS.*/
 -webkit-var ...
    -moz-var ...
@@ -830,9 +883,8 @@ individual elements as styleable or a slew of elements as themeable.</p>
      -o-var ...
         var ..." role="tooltip" aria-describedby="tooltip673.63" class="noexternal tooltip"><span class="pun">+</span><span class="property"><span class="kwd">var</span></span><span class="pln"> </span><span class="pun">(</span><span class="pln">button</span><span class="pun">-</span><span class="pln">font</span><span class="pun">)</span><span class="pln"> </span><span class="pun">;</span></a><span class="pln">
 </span><span class="pun">}</span></code></pre>
-<p>Then, the embedder of the element defines those values to their liking. Perhaps
-to match the super cool Comic Sans theme of their own page:</p>
-<pre class="prettyprint"><code><span class="com">#host {</span><span class="pln">
+    <p>Then, the embedder of the element defines those values to their liking. Perhaps to match the super cool Comic Sans theme of their own page:</p>
+    <pre class="prettyprint"><code><span class="com">#host {</span><span class="pln">
   </span><a href="http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#including_a_mixin" id="tooltip673.63" target="_blank" data-tooltip="/*Vendor prefixes required. Try Compass/SASS.*/
 -webkit-var-button-text-color: ...
    -moz-var-button-text-color: ...
@@ -846,9 +898,8 @@ to match the super cool Comic Sans theme of their own page:</p>
      -o-var-button-font: ...
         var-button-font: ..." role="tooltip" aria-describedby="tooltip673.63" class="noexternal tooltip"><span class="pun">+</span><span class="property"><span class="kwd">var</span><span class="pun">-</span><span class="pln">button</span><span class="pun">-</span><span class="pln">font</span><span class="pun">:</span></span><span class="pln"> </span><span class="str">"Comic Sans MS"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Comic Sans"</span><span class="pun">,</span><span class="pln"> cursive</span><span class="pun">;</span></a><span class="pln">
 </span><span class="pun">}</span></code></pre>
-<p>Due to the way CSS Variables inherit, everything is peachy and this
-works beautifully! The whole picture looks like this:</p>
-<pre class="prettyprint"><code><span class="tag">&lt;style&gt;</span><span class="pln">
+    <p>Due to the way CSS Variables inherit, everything is peachy and this works beautifully! The whole picture looks like this:</p>
+    <pre class="prettyprint"><code><span class="tag">&lt;style&gt;</span><span class="pln">
   </span><span class="pun">#</span><span class="pln">host </span><span class="pun">{</span><span class="pln">
     </span><a href="http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#including_a_mixin" id="tooltip673.63" target="_blank" data-tooltip="/*Vendor prefixes required. Try Compass/SASS.*/
 -webkit-var-button-text-color: ...
@@ -885,28 +936,27 @@ root</span><span class="pun">.</span><span class="pln">innerHTML </span><span cl
     </span><span class="str">'&lt;/style&gt;'</span><span class="pln"> </span><span class="pun">+</span><span class="pln">
     </span><span class="str">'&lt;content&gt;&lt;/content&gt;'</span><span class="pun">;</span><span class="pln">
 </span><span class="tag">&lt;/script&gt;</span></code></pre>
-<blockquote class="commentary talkinghead">
-I've already mentioned <a href="http://Robing.github.io/tutorials/webcomponents/customelements/">Custom Elements</a> a few times in this article. For now, just know that Shadow DOM forms their structural foundation
-by providing styling and DOM encapsulation. The concepts here pertain to styling Custom Elements.
-</blockquote>
+    <blockquote class="commentary talkinghead">
+        I've already mentioned <a href="http://Robing.github.io/tutorials/webcomponents/customelements/">Custom Elements</a> a few times in this article. For now, just know that Shadow DOM forms their structural foundation by providing styling and DOM encapsulation. The concepts here pertain to styling Custom Elements.
+    </blockquote>
 
-<p></p>
-<h2 id="toc-style-disbtributed-nodes">Styling distributed nodes</h2>
+    <p></p>
+    <h2 id="toc-style-disbtributed-nodes">Styling distributed nodes</h2>
 
-<p>Distributed nodes are elements that render at an <a href="http://Robing.github.io/tutorials/webcomponents/shadowdom-301/#toc-distributed-nodes">insertion point</a> (a <code>&lt;content&gt;</code> element). The <code>&lt;content&gt;</code> element allows you to select nodes from the Light DOM and render them at predefined locations in your Shadow DOM. They're not logically in the Shadow DOM; they're still children of the host element. Insertion points are just a rendering thing.</p>
-<p>Distributed nodes retain styles from the main document. That is, style rules
-from the main page continue to apply to the elements, even when they render at an insertion point.
-Again, distributed nodes are still logically in the light dom and don't move. They just render
-elsewhere. However, when the nodes get distributed into the Shadow DOM, they can take on additional styles
-defined inside the shadow tree.</p>
-<h3 id="toc-distributed">::content pseudo element</h3>
+    <p>Distributed nodes are elements that render at an <a href="http://Robing.github.io/tutorials/webcomponents/shadowdom-301/#toc-distributed-nodes">insertion point</a> (a
+        <code>&lt;content&gt;</code>element). The
+        <code>&lt;content&gt;</code>element allows you to select nodes from the Light DOM and render them at predefined locations in your Shadow DOM. They're not logically in the Shadow DOM; they're still children of the host element. Insertion points are just a rendering thing.</p>
+    <p>Distributed nodes retain styles from the main document. That is, style rules from the main page continue to apply to the elements, even when they render at an insertion point. Again, distributed nodes are still logically in the light dom and don't move. They just render elsewhere. However, when the nodes get distributed into the Shadow DOM, they can take on additional styles defined inside the shadow tree.</p>
+    <h3 id="toc-distributed">::content pseudo element</h3>
 
-<p>Distributed nodes are children of the host element, so how can we target
-them from <em>within</em> the Shadow DOM? The answer is the CSS <code>::content</code> pseudo element.
-It's a way to target Light DOM nodes that pass through an insertion point. For example:</p>
-<p><code>::content &gt; h3</code> styles any <code>h3</code> tags that pass through an insertion point.</p>
-<p>Let's see an example:</p>
-<pre class="prettyprint"><code><span class="tag">&lt;div&gt;</span><span class="pln">
+    <p>Distributed nodes are children of the host element, so how can we target them from
+        <em>within</em>the Shadow DOM? The answer is the CSS
+        <code>::content</code>pseudo element. It's a way to target Light DOM nodes that pass through an insertion point. For example:</p>
+    <p>
+        <code>::content &gt; h3</code>styles any
+        <code>h3</code>tags that pass through an insertion point.</p>
+    <p>Let's see an example:</p>
+    <pre class="prettyprint"><code><span class="tag">&lt;div&gt;</span><span class="pln">
   </span><span class="tag">&lt;h3&gt;</span><span class="pln">Light DOM</span><span class="tag">&lt;/h3&gt;</span><span class="pln">
   </span><span class="tag">&lt;section&gt;</span><span class="pln">
     </span><span class="tag">&lt;div&gt;</span><span class="pln">I'm not underlined</span><span class="tag">&lt;/div&gt;</span><span class="pln">
@@ -931,21 +981,21 @@ root</span><span class="pun">.</span><span class="pln">innerHTML </span><span cl
     </span><span class="pun">&lt;</span><span class="pln">content select</span><span class="pun">=</span><span class="str">"h3"</span><span class="pun">&gt;&lt;/</span><span class="pln">content</span><span class="pun">&gt;</span><span class="pln">\
     </span><span class="pun">&lt;</span><span class="pln">content select</span><span class="pun">=</span><span class="str">"section"</span><span class="pun">&gt;&lt;/</span><span class="pln">content</span><span class="pun">&gt;</span><span class="str">';</span><span class="pln">
 </span><span class="tag">&lt;/script&gt;</span></code></pre>
-<div class="demoarea">
-  <div id="style-ex-distributed">
-    <h3>Light DOM</h3>
-    <section>
-      <div>I'm not underlined</div>
-      <p>I'm underlined in Shadow DOM!</p>
-      </section>
-  </div>
-</div>
+    <div class="demoarea">
+        <div id="style-ex-distributed">
+            <h3>Light DOM</h3>
+            <section>
+                <div>I'm not underlined</div>
+                <p>I'm underlined in Shadow DOM!</p>
+            </section>
+        </div>
+    </div>
 
-<script>
-(function() {
-var container = document.querySelector('#style-ex-distributed');
-var root = container.createShadowRoot();
-root.innerHTML = '\
+    <script>
+    (function() {
+        var container = document.querySelector('#style-ex-distributed');
+        var root = container.createShadowRoot();
+        root.innerHTML = '\
   <style>\
     h3 { color: red; }\
     content[select="h3"]::content > h3 {\
@@ -958,56 +1008,52 @@ root.innerHTML = '\
   <h3>Shadow DOM</h3>\
   <content select="h3"></content>\
   <content select="section"></content>';
-})();
-</script>
+    })();
+    </script>
 
-<p>You should see "<span style="color:red">Shadow DOM</span>" and
-"<span style="color:green">Light DOM</span>" below it. Also note that
-"Light DOM" is still retaining the styles (margins etc.) defined on this page.
-That's because the page's styles still match!</p>
-<p></p>
+    <p>You should see "
+        <span style="color:red">Shadow DOM</span>" and "
+        <span style="color:green">Light DOM</span>" below it. Also note that "Light DOM" is still retaining the styles (margins etc.) defined on this page. That's because the page's styles still match!</p>
+    <p></p>
 
 
-<blockquote class="commentary talkinghead">
-Remember: styles defined in the host document continue to apply to nodes they target,
-even when those nodes get distributed "inside" the Shadow DOM. Going into an
-insertion point doesn't change what's applied.
-</blockquote>
+    <blockquote class="commentary talkinghead">
+        Remember: styles defined in the host document continue to apply to nodes they target, even when those nodes get distributed "inside" the Shadow DOM. Going into an insertion point doesn't change what's applied.
+    </blockquote>
 
-<h2 id="toc-conclusion">Conclusion</h2>
+    <h2 id="toc-conclusion">Conclusion</h2>
 
-<p>As authors of custom elements, we have a ton of options for controlling
-the look and feel of our content. Shadow DOM forms the basis for this brave new world.</p>
-<p>Shadow DOM gives us scoped style encapsulation and a means to let in as much (or as little)
-of the outside world as we choose. By defining custom pseudo elements or including
-CSS Variable placeholders, authors can provide third-parties convenient styling hooks
-to further customize their content. All in all, web authors are in full control
-of how their content is represented.</p>
-<p class="small-notice">
-Thanks to <a href="http://Robing.github.io/profiles/#dominiccooney">Dominic Cooney</a> and 
-<a href="https://plus.google.com/111648463906387632236/posts">Dimitri Glazkov</a> for reviewing
-the content of this tutorial.
-</p>
+    <p>As authors of custom elements, we have a ton of options for controlling the look and feel of our content. Shadow DOM forms the basis for this brave new world.</p>
+    <p>Shadow DOM gives us scoped style encapsulation and a means to let in as much (or as little) of the outside world as we choose. By defining custom pseudo elements or including CSS Variable placeholders, authors can provide third-parties convenient styling hooks to further customize their content. All in all, web authors are in full control of how their content is represented.</p>
+    <p class="small-notice">
+        Thanks to <a href="http://Robing.github.io/profiles/#dominiccooney">Dominic Cooney</a> and
+        <a href="https://plus.google.com/111648463906387632236/posts">Dimitri Glazkov</a> for reviewing the content of this tutorial.
+    </p>
 
-<p>
-</p><aside class="panel">
-  <h2>Related reading</h2>
-  <ul>
-    <li><a href="http://Robing.github.io/tutorials/webcomponents/shadowdom/">Shadow DOM 101</a></li>
-    <li><a href="http://Robing.github.io/tutorials/webcomponents/shadowdom-301/">Shadow DOM 301 - Advanced Concepts &amp; DOM APIs</a></li>
-    <li><a href="http://Robing.github.io/tutorials/webcomponents/customelements/">Custom Elements - defining new elements in HTML</a></li>
-  </ul>
-</aside>
-<p></p><script>
-document.addEventListener('DOMContentLoaded', function(e) {
-  if (!isCompatible()) {
-    document.body.classList.add('disabledemos');
-    $('.featuresupported').removeClass('no');
-  }
-});
-</script>
+    <p>
+    </p>
+    <aside class="panel">
+        <h2>Related reading</h2>
+        <ul>
+            <li><a href="http://Robing.github.io/tutorials/webcomponents/shadowdom/">Shadow DOM 101</a>
+            </li>
+            <li><a href="http://Robing.github.io/tutorials/webcomponents/shadowdom-301/">Shadow DOM 301 - Advanced Concepts &amp; DOM APIs</a>
+            </li>
+            <li><a href="http://Robing.github.io/tutorials/webcomponents/customelements/">Custom Elements - defining new elements in HTML</a>
+            </li>
+        </ul>
+    </aside>
+    <p></p>
+    <script>
+    document.addEventListener('DOMContentLoaded', function(e) {
+        if (!isCompatible()) {
+            document.body.classList.add('disabledemos');
+            $('.featuresupported').removeClass('no');
+        }
+    });
+    </script>
 
-      </div>
+</div>
 
 ]]></content>
   </entry>

@@ -191,123 +191,63 @@ rendering party? Enter shadow insertion points.</p>
 
 
   <div class="entry-content"><div class="content" id="article-content">
-<p>This article discusses more of the amazing things you can do with Shadow DOM.
-It builds on the concepts discussed in <a href="/tutorials/webcomponents/shadowdom/">Shadow DOM 101</a>.
-If you&#8217;re looking for an introduction, see that article.</p>
-<h2 id="toc-intro">Introduction</h2>
 
-<p>Let&#8217;s face it. There&#8217;s nothing sexy about unstyled markup. Lucky for us, <a href="http://w3c.github.io/webcomponents/explainer/#acknowledgements">the brilliant folks behind Web Components</a>
-foresaw this and didn&#8217;t leave us hanging. The <a href="http://dev.w3.org/csswg/css-scoping/">CSS Scoping Module</a> defines many options for styling content in a shadow tree.</p>
-<p class="tip notice">In Chrome, turn on the &#8220;Enable experimental Web Platform features&#8221; in about:flags to experiment with everything covered in this article.</p>
+    <p>This article discusses more of the amazing things you can do with Shadow DOM. It builds on the concepts discussed in <a href="/tutorials/webcomponents/shadowdom/">Shadow DOM 101</a>. If you&#8217;re looking for an introduction, see that article.</p>
+    <h2 id="toc-intro">Introduction</h2>
 
-<h2 id="toc-style-scoped">Style encapsulation</h2>
+    <p>Let&#8217;s face it. There&#8217;s nothing sexy about unstyled markup. Lucky for us, <a href="http://w3c.github.io/webcomponents/explainer/#acknowledgements">the brilliant folks behind Web Components</a>
+        foresaw this and didn&#8217;t leave us hanging. The <a href="http://dev.w3.org/csswg/css-scoping/">CSS Scoping Module</a> defines many options for styling content in a shadow tree.</p>
+    <p class="tip notice">In Chrome, turn on the &#8220;Enable experimental Web Platform features&#8221; in about:flags to experiment with everything covered in this article.</p>
 
-<p>One of the core features of Shadow DOM is the <a href="http://w3c.github.io/webcomponents/spec/shadow/#shadow-trees">shadow boundary</a>. It has a lot of nice properties,
-but one of the best is that it provides style encapsulation for free. Stated another way:</p>
-<p class="notice fact">CSS styles defined inside Shadow DOM are scoped to the ShadowRoot. This means styles are encapsulated by default.</p>
+    <h2 id="toc-style-scoped">Style encapsulation</h2>
 
-<p>Below is an example. If all goes well and your browser supports Shadow DOM (it does<span class="featuresupported no">n&#8217;t</span>!), you&#8217;ll see &#8221;<span style="color:red">Shadow DOM</span>&#8221;.</p>
-<pre class="prettyprint"><code><span class="tag">&lt;div&gt;&lt;h3&gt;</span><span class="pln">Light DOM</span><span class="tag">&lt;/h3&gt;&lt;/div&gt;</span><span class="pln">
+    <p>One of the core features of Shadow DOM is the <a href="http://w3c.github.io/webcomponents/spec/shadow/#shadow-trees">shadow boundary</a>. It has a lot of nice properties, but one of the best is that it provides style encapsulation for free. Stated another way:</p>
+    <p class="notice fact">CSS styles defined inside Shadow DOM are scoped to the ShadowRoot. This means styles are encapsulated by default.</p>
+
+    <p>Below is an example. If all goes well and your browser supports Shadow DOM (it does
+        <span class="featuresupported no">n&#8217;t</span>!), you&#8217;ll see &#8221;
+        <span style="color:red">Shadow DOM</span>&#8221;.</p>
+    <pre class="prettyprint"><code><span class="tag">&lt;div&gt;&lt;h3&gt;</span><span class="pln">Light DOM</span><span class="tag">&lt;/h3&gt;&lt;/div&gt;</span><span class="pln">
 </span><span class="tag">&lt;script&gt;</span><span class="pln">
 </span><span class="kwd">var</span><span class="pln"> root </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'div'</span><span class="pun">).</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
 root</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">'&lt;style&gt;h3{ color: red; }&lt;/style&gt;'</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> 
                  </span><span class="str">'&lt;h3&gt;Shadow DOM&lt;/h3&gt;'</span><span class="pun">;</span><span class="pln">
 </span><span class="tag">&lt;/script&gt;</span></code></pre>
-<div class="demoarea">
-  <div id="style-ex-scoped"><h3>Light DOM</h3></div>
-</div>
+    <div class="demoarea">
+        <div id="style-ex-scoped">
+            <h3>Light DOM</h3>
+        </div>
+    </div>
 
-<script>
-(function() {
-var container = document.querySelector('#style-ex-scoped');
-var root = container.createShadowRoot();
-root.innerHTML = '<style>h3{color: red;}</style><h3>Shadow DOM</h3>';
-})();
-</script>
+    <script>
+    (function() {
+        var container = document.querySelector('#style-ex-scoped');
+        var root = container.createShadowRoot();
+        root.innerHTML = '<style>h3{color: red;}</style><h3>Shadow DOM</h3>';
+    })();
+    </script>
 
-<p>There are two interesting observations about this demo:</p>
-<ul>
-<li>There are
-<a href="javascript:alert('There are ' + document.querySelectorAll('h3').length + ' <h3> on this page.&#8217;)&#8221;>other h3s on this page</a>, but the only one that matches the h3 selector, and therefore styled
-red, is the one in the ShadowRoot. Again, scoped styles by default.</li>
-<li>Other styles rules defined on this page that target h3s don&#8217;t bleed into my content.
-That&#8217;s because <strong>selectors don&#8217;t cross the shadow boundary</strong>.</li>
-</ul>
-<p>Moral of the story? We have style encapsulation from the outside world. Thanks Shadow DOM!</p>
-<h2 id="toc-style-host">Styling the host element</h2>
-
-<p>The <code>:host</code> allows you to select and style the element hosting a shadow tree:</p>
-<pre class="prettyprint"><code><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"red"</span><span class="tag">&gt;</span><span class="pln">My Button</span><span class="tag">&lt;/button&gt;</span><span class="pln">
-</span><span class="tag">&lt;script&gt;</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> button </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'button'</span><span class="pun">);</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> root </span><span class="pun">=</span><span class="pln"> button</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-root</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">'&lt;style&gt;'</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> 
-    </span><span class="str">':host { text-transform: uppercase; }'</span><span class="pln"> </span><span class="pun">+</span><span class="pln">
-    </span><span class="str">'&lt;/style&gt;'</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> 
-    </span><span class="str">'&lt;content&gt;&lt;/content&gt;'</span><span class="pun">;</span><span class="pln">
-</span><span class="tag">&lt;/script&gt;</span></code></pre>
-<div class="demoarea">
-  <button id="style-athost" class="red">My Button</button>
-</div>
-
-<script>
-(function() {
-var container = document.querySelector('#style-athost');
-var root = container.createShadowRoot();
-root.innerHTML = '<style>' + 
-                     ':host { text-transform: uppercase; }' +
-                      '</style>' + 
-                      '<content></content>';
-})();
-</script>
-
-<p>One gotcha is that rules in the parent page have higher specificity than <code>:host</code>
-rules defined in the element, but lower specificity than a <code>style</code> attribute
-defined on the host element.  This allows users to override your styling from the outside.
-<code>:host</code> also only works in the context of a ShadowRoot so you can&#8217;t use it outside of Shadow DOM.</p>
-<p>The functional form of <code>:host(&lt;selector&gt;)</code> allows you to target the host element if it matches a <code>&lt;selector&gt;</code>. </p>
-<p><strong>Example</strong> - match only if the element itself has the class <code>.different</code> (e.g.. <code>&lt;x-foo class="different"&gt;&lt;/x-foo&gt;</code>):</p>
-<pre class="prettyprint"><code><span class="pun">:</span><span class="pln">host</span><span class="pun">(.</span><span class="pln">different</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-  </span><span class="pun">...</span><span class="pln">  
-</span><span class="pun">}</span></code></pre>
-<h3 id="toc-style-states">Reacting to user states</h3>
-
-<p>A common use case for <code>:host</code> is when you&#8217;re creating a <a href="/tutorials/webcomponents/customelements/">Custom Element</a> and want to react to different user states (:hover, :focus, :active, etc.).</p>
-<pre class="prettyprint"><code><span class="tag">&lt;style&gt;</span><span class="pln">
-</span><span class="pun">:</span><span class="pln">host </span><span class="pun">{</span><span class="pln">
-  </span><span class="kwd">opacity</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0.4</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">transition</span><span class="pun">:</span><span class="pln"> opacity </span><span class="lit">420ms</span><span class="pln"> ease-in-out</span><span class="pun">;</span><span class="pln">
-</span><span class="pun">}</span><span class="pln">
-</span><span class="pun">:</span><span class="pln">host</span><span class="pun">(:</span><span class="pln">hover</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-  </span><span class="kwd">opacity</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1</span><span class="pun">;</span><span class="pln">
-</span><span class="pun">}</span><span class="pln">
-</span><span class="pun">:</span><span class="pln">host</span><span class="pun">(:</span><span class="pln">active</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-  </span><span class="kwd">position</span><span class="pun">:</span><span class="pln"> relative</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">top</span><span class="pun">:</span><span class="pln"> </span><span class="lit">3px</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">left</span><span class="pun">:</span><span class="pln"> </span><span class="lit">3px</span><span class="pun">;</span><span class="pln">
-</span><span class="pun">}</span><span class="pln">
-</span><span class="tag">&lt;/style&gt;</span></code></pre>
-<div class="demoarea">
-  <button id="style-athost-ex2">My Button</button>
-</div>
-
-<script>
-(function() {
-var container = document.querySelector('#style-athost-ex2');
-var root = container.createShadowRoot();
-root.innerHTML = '<style>\
-      :host {\
-        opacity: 0.4;\
-        transition: opacity 200ms ease-in-out;\
-      }\
-      :host(:active) { position:relative;top:3px;left:3px; }\
-      :host(:hover) {\
-        opacity: 1;\
-      }\
-    }</style><content></content>';
-})();
-</script>
-</div>
+    <p>There are two interesting observations about this demo:</p>
+    <ul>
+        <li>There are
+            <a onclick=alertMsg() href="#">other h3s on this page</a>, but the only one that matches the h3 selector, and therefore styled red, is the one in the ShadowRoot. Again, scoped styles by default.</li>
+        <li>Other styles rules defined on this page that target h3s don&#8217;t bleed into my content. That&#8217;s because
+            <strong>selectors don&#8217;t cross the shadow boundary</strong>.</li>
+    </ul>
+    <script type="text/javascript">
+    var alertMsg = function(msg){
+        if(msg){
+            alert(msg)
+        }else{
+            len = document.querySelectorAll('h3').length;
+            msg = 'There are ' + len + ' <h3> on this page.';
+            alert(msg);
+        }
+        return false;
+    }
+    </script>
+    <p>Moral of the story? We have style encapsulation from the outside world. Thanks Shadow DOM!</p>
+    </div>
   
   
     <footer>
