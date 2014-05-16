@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Rainer's blog</title>
+  <title>Shadow DOM 101 - Rainer's blog</title>
   <meta name="author" content="Robin">
 
   
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://Robing.github.io">
+  <link rel="canonical" href="http://Robing.github.io/blog/2014/05/16/shadow-dom-101">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Rainer's blog" type="application/atom+xml">
@@ -64,15 +64,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/05/16/shadow-dom-101/">Shadow DOM 101</a></h1>
+      <h1 class="entry-title">Shadow DOM 101</h1>
     
     
       <p class="meta">
@@ -95,7 +92,7 @@
   </header>
 
 
-  <div class="entry-content"><div class="content" id="article-content">        
+<div class="entry-content"><div class="content" id="article-content">        
 <p></p>
 
 <h2 id="toc-introduction">介绍</h2>
@@ -690,22 +687,16 @@ Fisher，Dimitri Glazkov，Alex Komoroske，Alex Russell，和 <a href="/profile
       </div>
 
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/15/css3-animation/">Css3 Animation</a></h1>
-    
-    
-      <p class="meta">
-        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Robin</span></span>
+
+      
 
 
 
@@ -717,65 +708,32 @@ Fisher，Dimitri Glazkov，Alex Komoroske，Alex Russell，和 <a href="/profile
   
 
 
-<time datetime="2014-05-15T22:28:04+08:00" pubdate data-updated="true">May 15<span>th</span>, 2014</time>
-        
-      </p>
+<time datetime="2014-05-16T10:09:17+08:00" pubdate data-updated="true">May 16<span>th</span>, 2014</time>
+      
+
+
+    </p>
     
-  </header>
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://Robing.github.io/blog/2014/05/16/shadow-dom-101/" data-via="" data-counturl="http://Robing.github.io/blog/2014/05/16/shadow-dom-101/" >Tweet</a>
+  
+  
+  
+</div>
 
-
-  <div class="entry-content"><h3>Introduction</h3>
-
-
-
-
-<p>Ladies and gentlemen, it is the second decade of the second millennium and we are still kicking around the same 2D interface we got three decades ago. Sure, Apple debuted a few apps for OSX 10.7 that have a couple more 3D flourishes, and Microsoft has had thatFlip 3Dfor a while. But c’mon, 2011 is right around the corner. That’sTwenty Elevenfolks. Where is our 3D virtual reality? By now, we should be zipping around theMetaverse in super-sonic motorbikes.</p>
-
-
-
-
-<p>Granted, the capability of rendering complex 3D environments has been present for years. On the Web, there already are number of solutions –Flash,three.jsin canvas, and eventually WebGL. And finally, we meager front-end developers have our own three-dimensional jewel: CSS 3D Transforms!</p>
-
-
-
-
-<h3>Rationale</h3>
-
-
-
-
-<p>Like a beautiful jewel, 3D transform can be dazzling, a true spectacle to behold. But before we start tacking 3D diamonds and rubies to our compositions like Liberace’s tailor, we owe it to our users to ask what can they benefit from this awesome feature.</p>
-
-
-
-
-<p>The entire application does not, and should not, take advantage of 3D. CSS was built to style documents, not generate explorable environments. I fail to find a benefit to filling out a web form that can be accessed by swiveling my viewport to the Sign-Up Room (although there have been proposals to make the Web just that). However, there is plenty of opportunity to use 3D transformsin betweenthe interface, via transitions.</p>
-
-
-
-
-<p>Take for instance the Weather App on the iPhone. The application uses two views: a details view and an options view. Switching between these two views is done with a 3D flip transition. This affords the user that the interface has two and only two views, as they can only exist on either side of the same plane.</p>
-
-
-
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/05/15/css3-animation/" title="Previous Post: Css3 animation">&laquo; Css3 animation</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/05/15/css3-animation/">Read on &rarr;</a>
-    </footer>
-  
 
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
 <aside class="sidebar">
   
     <section>
@@ -799,6 +757,7 @@ Fisher，Dimitri Glazkov，Alex Komoroske，Alex Russell，和 <a href="/profile
 
   
 </aside>
+
 
     </div>
   </div>
