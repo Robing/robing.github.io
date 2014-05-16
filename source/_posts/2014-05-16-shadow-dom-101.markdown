@@ -3,7 +3,7 @@ layout: post
 title: "Shadow DOM 101"
 date: 2014-05-16 10:09:17 +0800
 comments: true
-categories: 
+categories: HTML5
 ---
 <div class="content" id="article-content">        
 <p></p>
