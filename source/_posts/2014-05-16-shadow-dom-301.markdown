@@ -4,6 +4,7 @@ title: "Shadow DOM 301"
 date: 2014-05-16 12:21:36 +0800
 comments: true
 categories: HTML5
+tags: Html5
 ---
 <div class="content" id="article-content">
 <p>This article discusses more of the amazing things you can do with Shadow DOM! It builds on the concepts discussed in <a href="/tutorials/webcomponents/shadowdom/">Shadow DOM 101</a>
