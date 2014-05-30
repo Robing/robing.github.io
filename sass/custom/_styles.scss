@@ -9,9 +9,6 @@ body{
 #main{
 	// width:90%;
 }
-body>header{
-	background:#222;
-}
 article blockquote{
 	font-size:1.1em;
 }
@@ -21,11 +18,11 @@ article blockquote{
 	}
 }
 body > header{
-	// background: #fff;
+	background: #fff;
 }
 
 body > header h1 a, body > header h1 a:visited, body > header h1 a:hover{
-	// color:#333;
+	color:#333;
 }
 
 body > footer{
