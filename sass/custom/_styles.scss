@@ -20,3 +20,47 @@ article blockquote{
 		margin-bottom:15px;
 	}
 }
+body > header{
+	// background: #fff;
+}
+
+body > header h1 a, body > header h1 a:visited, body > header h1 a:hover{
+	// color:#333;
+}
+
+body > footer{
+	margin-bottom:0;
+	background:#f5f5f5;
+	border-radius: 0;
+	text-align:center;
+	text-shadow: none;
+	padding-top:2.5em;
+	padding-bottom:2.5em;
+	color:#ccc;
+	margin-top:-1px;
+	border-top:1px dotted #eee;
+}
+
+body > nav{
+	background:linear-gradient(to bottom, #f5f5f5 20%, #ddd 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	box-shadow: 0 -2px 0 0 #F5F5F5 inset, 0 1px 0 0 #eee inset;
+	border:none;
+	padding-top:0.45em;
+	padding-bottom:0.45em;
+}
+
+body > nav a {
+	text-shadow:none;
+}
+body > nav form .search{
+	border:1px solid #ccc;
+	box-shadow:0 1px #f5f5f5;
+	background:#fff;
+}
+body > div{
+	background:#fff;
+}
+
+body > div > div{
+	background:#fff;
+}
