@@ -24,17 +24,11 @@ tags: Notifications
         <p>An application that needs to send a notification can check the current permission status thanks to the
             <a href="/en-US/docs/Web/API/Notification.permission" title="The permission property indicates the current permission granted by the user about web notification for the current application."><code>Notification.permission</code></a>read only property. It can have one of three possible values:</p>
         <ul>
-            <li>
-                <code>default</code>: the user didn't give any permission yet (and therefore no notification will be displayed to the user).</li>
-            <li>
-                <code>granted</code>: the user explicitly accepted to be notified by the application.</li>
-            <li>
-                <code>denied</code>: the user explicitly refused to be notified by the application.</li>
+            <li><code>default</code>: the user didn't give any permission yet (and therefore no notification will be displayed to the user).</li><li><code>granted</code>: the user explicitly accepted to be notified by the application.</li>
+            <li><code>denied</code>: the user explicitly refused to be notified by the application.</li>
         </ul>
         <div class="note">
-            <p>
-                <strong>Note:</strong>Chrome and Safari do not implement the
-                <code>permission</code>property yet.</p>
+            <p><strong>Note:</strong>Chrome and Safari do not implement the<code>permission</code>property yet.</p>
         </div>
         <p>If the permission is not granted, the application has to use the<a href="/en-US/docs/Web/API/Notification.requestPermission" title="The requestPermission static method is used to ask the user for his permission to display a Notification to him."><code>Notification.requestPermission()</code></a>method to let the user make a choice. This method accepts a callback function that receives the permission chosen by the user in order to react to it.</p>
         <p>It's a common practice to ask for the permission at the initialization of the app:</p>
@@ -66,33 +60,19 @@ tags: Notifications
         <p>A notification is displayed as soon as possible when instantiated. To track the current state of a notification, four events are triggered at the
             <a href="/en-US/docs/Web/API/Notification" title="The Notification object is used to configure and display desktop notifications to the user."><code>Notification</code></a>instance level:</p>
         <ul>
-            <li>
-                <code><a href="/en-US/docs/Web/Reference/Events/show" title="/en-US/docs/Web/Reference/Events/show">show</a></code>: triggered when the notification is displayed to the user.</li>
-            <li>
-                <code><a href="/en-US/docs/Web/Reference/Events/click" title="/en-US/docs/Web/Reference/Events/click">click</a>
-                </code>: triggered when the user clicks on the notification.</li>
-            <li>
-                <code><a class="new" href="/en-US/docs/Web/Reference/Events/close" title="/en-US/docs/Web/Reference/Events/close">close</a>
-                </code>: triggered when the notification is closed.</li>
-            <li>
-                <code><a href="/en-US/docs/Web/Reference/Events/error" title="/en-US/docs/Web/Reference/Events/error">error</a>
-                </code>: triggered when something wrong happens with the notification (mostly when something prevents the notification from being displayed)</li>
+            <li><code><a href="/en-US/docs/Web/Reference/Events/show" title="/en-US/docs/Web/Reference/Events/show">show</a></code>: triggered when the notification is displayed to the user.</li>
+            <li><code><a href="/en-US/docs/Web/Reference/Events/click" title="/en-US/docs/Web/Reference/Events/click">click</a></code>: triggered when the user clicks on the notification.</li>
+            <li><code><a class="new" href="/en-US/docs/Web/Reference/Events/close" title="/en-US/docs/Web/Reference/Events/close">close</a></code>: triggered when the notification is closed.</li>
+            <li><code><a href="/en-US/docs/Web/Reference/Events/error" title="/en-US/docs/Web/Reference/Events/error">error</a></code>: triggered when something wrong happens with the notification (mostly when something prevents the notification from being displayed)</li>
         </ul>
         <p>Those events can be tracked using the event handlers
-            <a href="/en-US/docs/Web/API/Notification.onshow" title="Specifies an event listener to receive show events. These events occur when a Notification is displayed."><code>onshow</code>
-            </a>,
-            <a href="/en-US/docs/Web/API/Notification.onclick" title="Specifies an event listener to receive click events. These events occur when the user clicks on a displayed Notification."><code>onclick</code>
-            </a>,
-            <a href="/en-US/docs/Web/API/Notification.onclose" title="Specifies an event listener to receive close events. These events occur when a Notification is closed."><code>onclose</code>
-            </a>, or
-            <a href="/en-US/docs/Web/API/Notification.onerror" title="Specifies an event listener to receive error events. These events occur when something goes wrong with a Notification (in many cases an error prevented the notification from being displayed)."><code>onerror</code>
-            </a>. Because
-            <a href="/en-US/docs/Web/API/Notification" title="The Notification object is used to configure and display desktop notifications to the user."><code>Notification</code>
-            </a>also inherits from
-            <a href="/en-US/docs/Web/API/EventTarget" title="EventTarget is a DOM interface implemented by objects that can receive DOM events and have listeners for them."><code>EventTarget</code>
-            </a>, it's possible to use the
-            <a href="/en-US/docs/Web/API/EventTarget.addEventListener" title="The EventTarget.addEventListener() method registers the specified listener on the EventTarget it's called on. The event target may be an Element in a document, the Document itself, a Window, or any other object that supports events (such as XMLHttpRequest)."><code>addEventListener()</code>
-            </a>method.</p>
+            <a href="/en-US/docs/Web/API/Notification.onshow" title="Specifies an event listener to receive show events. These events occur when a Notification is displayed."><code>onshow</code></a>,
+            <a href="/en-US/docs/Web/API/Notification.onclick" title="Specifies an event listener to receive click events. These events occur when the user clicks on a displayed Notification."><code>onclick</code></a>,
+            <a href="/en-US/docs/Web/API/Notification.onclose" title="Specifies an event listener to receive close events. These events occur when a Notification is closed."><code>onclose</code></a>, or
+            <a href="/en-US/docs/Web/API/Notification.onerror" title="Specifies an event listener to receive error events. These events occur when something goes wrong with a Notification (in many cases an error prevented the notification from being displayed)."><code>onerror</code></a>. Because
+            <a href="/en-US/docs/Web/API/Notification" title="The Notification object is used to configure and display desktop notifications to the user."><code>Notification</code></a>also inherits from
+            <a href="/en-US/docs/Web/API/EventTarget" title="EventTarget is a DOM interface implemented by objects that can receive DOM events and have listeners for them."><code>EventTarget</code></a>, it's possible to use the
+            <a href="/en-US/docs/Web/API/EventTarget.addEventListener" title="The EventTarget.addEventListener() method registers the specified listener on the EventTarget it's called on. The event target may be an Element in a document, the Document itself, a Window, or any other object that supports events (such as XMLHttpRequest)."><code>addEventListener()</code></a>method.</p>
         <div class="note">
             <p>
                 <strong>Note:</strong>Firefox and Safari close the notifications automatically after a few moments, e.g. 4&nbsp; seconds.</p>
@@ -224,188 +204,29 @@ n<span class="token punctuation">.</span>onshow <span class="token operator">=</
         <p>
             <iframe class="live-sample-frame" frameborder="0" height="30" src="https://mdn.mozillademos.org/en-US/docs/WebAPI/Using_Web_Notifications$samples/Tag_example?revision=561527" width="100%"></iframe>
         </p>
-        <h2 id="Specifications">Specifications</h2>
-        <table class="standard-table">
-            <thead>
-                <tr>
-                    <th scope="col">Specification</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Comment</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><a class="external external-icon" href="https://dvcs.w3.org/hg/notifications/raw-file/tip/Overview.html" hreflang="en" lang="en" title="The 'Web Notifications' specification">Web Notifications</a>
-                    </td>
-                    <td>
-                        <span class="spec-WD">Working Draft</span>
-                    </td>
-                    <td>Initial specification.</td>
-                </tr>
-            </tbody>
-        </table>
-        <h2 id="Browser_compatibility">Browser compatibility</h2>
-        <p></p>
-        <p></p>
-        <div class="htab">
-            <a id="AutoCompatibilityTable" name="AutoCompatibilityTable">
-            </a>
-            <ul>
-                <a id="AutoCompatibilityTable" name="AutoCompatibilityTable"></a>
-                <li class="selected">
-                    <a id="AutoCompatibilityTable" name="AutoCompatibilityTable"></a><a>Desktop</a>
-                </li>
-                <li><a>Mobile</a>
-                </li>
-            </ul>
-            <div id="compat-desktop" style="display: block;">
-                <table class="compat-table">
-                    <tbody>
-                        <tr>
-                            <th>Feature</th>
-                            <th>Chrome</th>
-                            <th>Firefox (Gecko)</th>
-                            <th>Internet Explorer</th>
-                            <th>Opera</th>
-                            <th>Safari</th>
-                        </tr>
-                        <tr>
-                            <td>Basic support</td>
-                            <td>5
-                                <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">webkit</span>(see notes)
-                                <br>22
-                            </td>
-                            <td>4.0
-                                <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">moz</span>(see notes)
-                                <br>22
-                            </td>
-                            <td>
-                                <span style="color: #f00;">Not&nbsp;supported</span>
-                            </td>
-                            <td>
-                                <span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span>
-                            </td>
-                            <td>6 (see notes)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div id="compat-mobile" style="display: none;">
-                <table class="compat-table">
-                    <tbody>
-                        <tr>
-                            <th>Feature</th>
-                            <th>Android</th>
-                            <th>Firefox Mobile (Gecko)</th>
-                            <th>Firefox OS</th>
-                            <th>IE Mobile</th>
-                            <th>Opera Mobile</th>
-                            <th>Safari Mobile</th>
-                        </tr>
-                        <tr>
-                            <td>Basic support</td>
-                            <td>
-                                <span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span>
-                            </td>
-                            <td>4.0
-                                <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">moz</span>(see notes)
-                                <br>22
-                            </td>
-                            <td>1.0.1
-                                <span class="inlineIndicator prefixBox prefixBoxInline" title="prefix">moz</span>(see notes)
-                                <br>1.2
-                            </td>
-                            <td>
-                                <span style="color: #f00;">Not&nbsp;supported</span>
-                            </td>
-                            <td>
-                                <span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span>
-                            </td>
-                            <td>
-                                <span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <p>
-        </p>
 
         <h3 id="Gecko_notes">Gecko notes</h3>
         <ul>
             <li>Prior to Firefox 22 (Firefox OS &lt;1.2), the instantiation of a new notification must be done with the
-                <a href="/en-US/docs/Web/API/window.navigator.mozNotification" title="Provides support for creating notification objects, which are used to display desktop notification alerts to the user. Currently, these are only supported on Firefox Mobile and Firefox OS. See Displaying notifications for an example.">
-                    <code>navigator.mozNotification</code>
-                </a>object through its
-                <code>createNotification</code>method.</li>
-            <li>Prior to Firefox 22 (Firefox OS &lt;1.2), the Notification was displayed when calling the
-                <code>show</code>method and was supporting the
-                <code>click</code>and
-                <code>close</code>events only.</li>
+                <a href="/en-US/docs/Web/API/window.navigator.mozNotification" title="Provides support for creating notification objects, which are used to display desktop notification alerts to the user. Currently, these are only supported on Firefox Mobile and Firefox OS. See Displaying notifications for an example."><code>navigator.mozNotification</code></a>object through its<code>createNotification</code>method.</li>
+            <li>Prior to Firefox 22 (Firefox OS &lt;1.2), the Notification was displayed when calling the<code>show</code>method and was supporting the<code>click</code>and<code>close</code>events only.</li>
             <li>Nick Desaulniers has written a <a class="external external-icon" href="https://github.com/nickdesaulniers/fxos-irc/blob/master/js/notification.js">Notification shim</a> to cover both newer and older implementations.</li>
-            <li>One particular Firefox OS issue is that you can <a class="external external-icon" href="https://github.com/nickdesaulniers/fxos-irc/blob/0160cf6c3a2b5c9fe33822aaf6bcba3b7e846da9/my.js#L171">pass a path to an icon</a> to use in the notification, but if the app is packaged you cannot use a relative path like
-                <code>/my_icon.png</code>. You also can't use
-                <code>window.location.origin + "/my_icon.png"</code>because
-                <code>window.location.origin</code>is null in packaged apps. The <a href="https://developer.mozilla.org/en-US/Apps/Developing/Manifest#origin">manifest origin field</a> fixes this, but it is only available in Firefox OS 1.1+. A potential solution for supporting Firefox OS &lt;1.1 is to <a class="external external-icon" href="https://github.com/nickdesaulniers/fxos-irc/blob/0160cf6c3a2b5c9fe33822aaf6bcba3b7e846da9/my.js#L168">pass an absolute URL to an externally hosted version of the icon</a>. This is less than ideal as the notification is displayed immediately with the icon missing, then the icon is fetched, but it works on all versions of Firefox OS.</li>
+            <li>One particular Firefox OS issue is that you can <a class="external external-icon" href="https://github.com/nickdesaulniers/fxos-irc/blob/0160cf6c3a2b5c9fe33822aaf6bcba3b7e846da9/my.js#L171">pass a path to an icon</a> to use in the notification, but if the app is packaged you cannot use a relative path like<code>/my_icon.png</code>. You also can't use<code>window.location.origin + "/my_icon.png"</code>because<code>window.location.origin</code>is null in packaged apps. The <a href="https://developer.mozilla.org/en-US/Apps/Developing/Manifest#origin">manifest origin field</a> fixes this, but it is only available in Firefox OS 1.1+. A potential solution for supporting Firefox OS &lt;1.1 is to <a class="external external-icon" href="https://github.com/nickdesaulniers/fxos-irc/blob/0160cf6c3a2b5c9fe33822aaf6bcba3b7e846da9/my.js#L168">pass an absolute URL to an externally hosted version of the icon</a>. This is less than ideal as the notification is displayed immediately with the icon missing, then the icon is fetched, but it works on all versions of Firefox OS.</li>
         </ul>
         <h3 id="Chrome_notes">Chrome notes</h3>
         <ul>
             <li>Prior to Chrome 22, the support for notification was following an <a class="external external-icon" href="http://www.chromium.org/developers/design-documents/desktop-notifications/api-specification" title="http://www.chromium.org/developers/design-documents/desktop-notifications/api-specification">old prefixed version of the specification</a> and was using the
-                <a class="new" href="/en-US/docs/Web/API/window.navigator.webkitNotifications" title="The documentation about this has not yet been written; please consider contributing!"><code>navigator.webkitNotifications</code>
-                </a>object to instantiate a new notification.</li>
+                <a class="new" href="/en-US/docs/Web/API/window.navigator.webkitNotifications" title="The documentation about this has not yet been written; please consider contributing!"><code>navigator.webkitNotifications</code></a>object to instantiate a new notification.</li>
             <li>Prior to Chrome 32,
-                <a href="/en-US/docs/Web/API/Notification.permission" title="The permission property indicates the current permission granted by the user about web notification for the current application."><code>Notification.permission</code>
-                </a>was not supported.</li>
+                <a href="/en-US/docs/Web/API/Notification.permission" title="The permission property indicates the current permission granted by the user about web notification for the current application."><code>Notification.permission</code></a>was not supported.</li>
         </ul>
         <h3 id="Safari_notes">Safari notes</h3>
         <ul>
             <li>Safari started supporting notification with Safari 6 but only on Mac OSX 10.8+ (Mountain Lion).</li>
         </ul>
-        <p></p>
-        <h2 id="See_also">See also</h2>
-        <ul>
-            <li>
-                <a href="/en-US/docs/Web/API/Notification" title="The Notification object is used to configure and display desktop notifications to the user."><code>Notification</code></a>
-            </li>
-        </ul>
+        
     </article>
 
 
     <!-- attachments list -->
-
-    <!-- contributors -->
-    <div class="wiki-block contributors">
-        <h2 class="offscreen">Document Tags and Contributors</h2>
-        <!-- tags if present -->
-        <div class="tag-attach-list tags contributor-sub">
-            <i aria-hidden="true" class="icon-tags"></i>
-            <strong>Tags:</strong>
-            <ul class="tag-list">
-                <li><a href="/en-US/docs/tag/Notifications">Notifications</a>
-                </li>
-                <li><a href="/en-US/docs/tag/Guide">Guide</a>
-                </li>
-                <li><a href="/en-US/docs/tag/Firefox%20OS">Firefox OS</a>
-                </li>
-                <li><a href="/en-US/docs/tag/B2G">B2G</a>
-                </li>
-                <li><a href="/en-US/docs/tag/Advanced">Advanced</a>
-                </li>
-                <li><a href="/en-US/docs/tag/WebAPI">WebAPI</a>
-                </li>
-                <li><a href="/en-US/docs/tag/DOM">DOM</a>
-                </li>
-            </ul>
-        </div>
-        <div class="contributor-sub"> <i aria-hidden="true" class="icon-group"></i>
-            <strong>Contributors to this page:</strong> <a href="/en-US/profiles/kscarfone">kscarfone</a>, <a href="/en-US/profiles/SignpostMarv">SignpostMarv</a>, <a href="/en-US/profiles/Nickolay">Nickolay</a>, <a href="/en-US/profiles/claudepache">claudepache</a>, <a href="/en-US/profiles/damianmoore">damianmoore</a>, <a href="/en-US/profiles/BenB">BenB</a>, <a href="/en-US/profiles/gschnieders">gschnieders</a>, <a href="/en-US/profiles/Jeremie">Jeremie</a>, <a href="/en-US/profiles/derekmeyer">derekmeyer</a> 
-        </div>
-        <div class="contributor-sub">
-            <i aria-hidden="true" class="icon-time"></i>
-            <strong>Last updated by:</strong>
-            <a href="/en-US/profiles/BenB">BenB</a>,
-            <time datetime="2014-04-16T12:05:37-07:00">Apr 16, 2014 12:05:37 PM</time>
-        </div>
-    </div>
 </div>
