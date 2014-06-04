@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Rainer's blog</title>
+  <title>Using Web Notifications - Rainer's blog</title>
   <meta name="author" content="Robin">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://Robing.github.io">
+  <link rel="canonical" href="http://Robing.github.io/blog/2014/06/03/using-web-notifications">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Rainer's blog" type="application/atom+xml">
@@ -63,15 +63,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/06/03/using-web-notifications/">Using Web Notifications</a></h1>
+      <h1 class="entry-title">Using Web Notifications</h1>
     
     
       <p class="meta">
@@ -89,15 +86,15 @@
 
 <time datetime="2014-06-03T16:46:58+08:00" pubdate data-updated="true">Jun 3<span>rd</span>, 2014</time>
         
-           | <a href="/blog/2014/06/03/using-web-notifications/#disqus_thread"
-             data-disqus-identifier="http://Robing.github.io/blog/2014/06/03/using-web-notifications/">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://Robing.github.io">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><div id="wiki-content" class="column-main wiki-column text-content">
+<div class="entry-content"><div id="wiki-content" class="column-main wiki-column text-content">
     <!-- just the article content -->
     <article id="wikiArticle">
         <h2 id="Summary">Summary</h2>
@@ -323,120 +320,16 @@ n<span class="token punctuation">.</span>onshow <span class="token operator">=</
 </div>
 
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/16/shadow-dom-301/">Shadow DOM 301</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">Robin</span></span>
 
-<time datetime="2014-05-16T12:21:36+08:00" pubdate data-updated="true">May 16<span>th</span>, 2014</time>
-        
-           | <a href="/blog/2014/05/16/shadow-dom-301/#disqus_thread"
-             data-disqus-identifier="http://Robing.github.io/blog/2014/05/16/shadow-dom-301/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class="content" id="article-content">
-<p>This article discusses more of the amazing things you can do with Shadow DOM! It builds on the concepts discussed in <a href="/tutorials/webcomponents/shadowdom/">Shadow DOM 101</a>
-and <a href="/tutorials/webcomponents/shadowdom-201/">Shadow DOM 201</a>.</p>
-<p class="tip notice">In Chrome, turn on the &#8220;Enable experimental Web Platform features&#8221; in about:flags to experiment with everything covered in this article.</p>
-
-<h2 id="toc-shadow-multiple">Using multiple shadow roots</h2>
-
-<p>If you&#8217;re hosting a party, it gets stuffy if everyone is crammed into the same room.
-You want the option of distributing groups of people across multiple rooms. Elements hosting
-Shadow DOM can do this too, that is to say, they can host more than one shadow
-root at a time.</p>
-<p>Let&#8217;s see what happens if we try to attach multiple shadow roots to a host:</p>
-<pre class="prettyprint"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"example1"</span><span class="tag">&gt;</span><span class="pln">Light DOM</span><span class="tag">&lt;/div&gt;</span><span class="pln">
-</span><span class="tag">&lt;script&gt;</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> container </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'#example1'</span><span class="pun">);</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> root1 </span><span class="pun">=</span><span class="pln"> container</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> root2 </span><span class="pun">=</span><span class="pln"> container</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-root1</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">'&lt;div&gt;Root 1 FTW&lt;/div&gt;'</span><span class="pun">;</span><span class="pln">
-root2</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">'&lt;div&gt;Root 2 FTW&lt;/div&gt;'</span><span class="pun">;</span><span class="pln">
-</span><span class="tag">&lt;/script&gt;</span></pre>
-
-<div class="demodevtools"> 
-<img src="http://rainer.qiniudn.com/stacking.png" title="Attaching multiple shadow trees" alt="Attaching multiple shadow trees" style="width:250px;">
-</div>
-
-<div class="demoarea">
-  <div id="example1">Light DOM</div>
-</div>
-
-<script>
-(function() {
-var container = document.querySelector('#example1');
-var root1 = container.createShadowRoot();
-var root2 = container.createShadowRoot();
-root1.innerHTML = '<div>Root 1 FTW</div>';
-root2.innerHTML = '<div>Root 2 FTW</div>';
-})();
-</script>
-
-<p class="notice tip">In the DevTools, turn on &#8220;Show Shadow DOM&#8221; to be
-  able to inspect ShadowRoots.</p>
-
-<p>What renders is &#8220;Root 2 FTW&#8221;, despite the fact that we had already attached a shadow tree.
-This is because the last shadow tree added to a host, wins. It&#8217;s a LIFO stack as
-far as rendering is concerned. Examining the DevTools verifies this behavior.</p>
-<p class="notice fact">Shadow trees added to a host are stacked in the order they&#8217;re added,
-starting with the most recent first. The last one added is the one that renders.</p>
-
-<blockquote class="commentary talkinghead" id="youngest-tree">
-The most recently added tree is called the <b>younger tree</b>. Previous trees are called <b>older trees</b>. In this example, <code>root2</code> is the younger tree and  <code>root1</code> is the older tree.
-</blockquote>
-
-<p>So what&#8217;s the point of using multiple shadows if only the last is invited to the
-rendering party? Enter shadow insertion points.</p>
-<h3 id="toc-shadow-insertion">Shadow Insertion Points</h3>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/05/16/shadow-dom-301/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/16/shadow-dom-201/">Shadow DOM 201</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -448,271 +341,44 @@ rendering party? Enter shadow insertion points.</p>
   
 
 
-<time datetime="2014-05-16T12:16:18+08:00" pubdate data-updated="true">May 16<span>th</span>, 2014</time>
-        
-           | <a href="/blog/2014/05/16/shadow-dom-201/#disqus_thread"
-             data-disqus-identifier="http://Robing.github.io/blog/2014/05/16/shadow-dom-201/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div class="content" id="article-content">
-
-    <p>This article discusses more of the amazing things you can do with Shadow DOM. It builds on the concepts discussed in <a href="/tutorials/webcomponents/shadowdom/">Shadow DOM 101</a>. If you&#8217;re looking for an introduction, see that article.</p>
-    <h2 id="toc-intro">Introduction</h2>
-
-    <p>Let&#8217;s face it. There&#8217;s nothing sexy about unstyled markup. Lucky for us, <a href="http://w3c.github.io/webcomponents/explainer/#acknowledgements">the brilliant folks behind Web Components</a>
-        foresaw this and didn&#8217;t leave us hanging. The <a href="http://dev.w3.org/csswg/css-scoping/">CSS Scoping Module</a> defines many options for styling content in a shadow tree.</p>
-    <p class="tip notice">In Chrome, turn on the &#8220;Enable experimental Web Platform features&#8221; in about:flags to experiment with everything covered in this article.</p>
-
-    <h2 id="toc-style-scoped">Style encapsulation</h2>
-
-    <p>One of the core features of Shadow DOM is the <a href="http://w3c.github.io/webcomponents/spec/shadow/#shadow-trees">shadow boundary</a>. It has a lot of nice properties, but one of the best is that it provides style encapsulation for free. Stated another way:</p>
-    <p class="notice fact">CSS styles defined inside Shadow DOM are scoped to the ShadowRoot. This means styles are encapsulated by default.</p>
-
-    <p>Below is an example. If all goes well and your browser supports Shadow DOM (it does
-        <span class="featuresupported no">n&#8217;t</span>!), you&#8217;ll see &#8221;
-        <span style="color:red">Shadow DOM</span>&#8221;.</p>
-    <pre class="prettyprint"><code><span class="tag">&lt;div&gt;&lt;h3&gt;</span><span class="pln">Light DOM</span><span class="tag">&lt;/h3&gt;&lt;/div&gt;</span><span class="pln">
-</span><span class="tag">&lt;script&gt;</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> root </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'div'</span><span class="pun">).</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-root</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">'&lt;style&gt;h3{ color: red; }&lt;/style&gt;'</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> 
-                 </span><span class="str">'&lt;h3&gt;Shadow DOM&lt;/h3&gt;'</span><span class="pun">;</span><span class="pln">
-</span><span class="tag">&lt;/script&gt;</span></code></pre>
-    <div class="demoarea">
-        <div id="style-ex-scoped">
-            <h3>Light DOM</h3>
-        </div>
-    </div>
-
-    <script>
-    (function() {
-        var container = document.querySelector('#style-ex-scoped');
-        var root = container.createShadowRoot();
-        root.innerHTML = '<style>h3{color: red;}</style><h3>Shadow DOM</h3>';
-    })();
-    </script>
-
-    <p>There are two interesting observations about this demo:</p>
-    <ul>
-        <li>There are
-            <a onclick=alertMsg() href="#">other h3s on this page</a>, but the only one that matches the h3 selector, and therefore styled red, is the one in the ShadowRoot. Again, scoped styles by default.</li>
-        <li>Other styles rules defined on this page that target h3s don&#8217;t bleed into my content. That&#8217;s because
-            <strong>selectors don&#8217;t cross the shadow boundary</strong>.</li>
-    </ul>
-    <script type="text/javascript">
-    var alertMsg = function(msg){
-        if(msg){
-            alert(msg)
-        }else{
-            len = document.querySelectorAll('h3').length;
-            msg = 'There are ' + len + ' <h3> on this page.';
-            alert(msg);
-        }
-        return false;
-    }
-    </script>
-    <p>Moral of the story? We have style encapsulation from the outside world. Thanks Shadow DOM!</p>
-    </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/05/16/shadow-dom-201/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
+<time datetime="2014-06-03T16:46:58+08:00" pubdate data-updated="true">Jun 3<span>rd</span>, 2014</time>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/16/shadow-dom-101/">Shadow DOM 101</a></h1>
-    
-    
-      <p class="meta">
-        
 
-
-
-
-
-
-
-
+<span class="categories">
   
+    <a class='category' href='/blog/categories/html5/'>HTML5</a>
+  
+</span>
 
 
-<time datetime="2014-05-16T10:09:17+08:00" pubdate data-updated="true">May 16<span>th</span>, 2014</time>
-        
-           | <a href="/blog/2014/05/16/shadow-dom-101/#disqus_thread"
-             data-disqus-identifier="http://Robing.github.io/blog/2014/05/16/shadow-dom-101/">Comments</a>
-        
-      </p>
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><div class="content" id="article-content">        
-<p></p>
-
-<h2 id="toc-introduction">介绍</h2>
-
-<p>
-Web 组件是一系列前沿规范，它：
-</p>
-
-<ol>
-<li>使得构建部件(widget)成为可能</li>
-<li>…重用更为可靠</li>
-<li>
-…即便后续版本的组件修改了内部实现细节也不会使页面出错。
-</li>
-</ol>
-
-<p>
-这是否意味着你得决定什么时候用 HTML/JavaScript，什么时候用 Web 组件？不！HTML 和 JavaScript 可以制作交互式可视化内容，
-部件也是交互式可视化内容。在开发部件的过程中自然而然的就会利用你的 HTML 和 JavaScript 技巧。Web 组件标准就是以此为目的而设计的。
-</p>
-
-<blockquote class="commentary talkinghead">
-若是使用别的技术来构建部件却也说不通。比如，我就肯定不会推荐你用 <code>&lt;canvas&gt;</code> 来写部件。它确实可靠——如果你修改绘制的内容也不会破坏页面——但它对可访问性(accessibility)，索引(indexing)，组合(composition)，分辨率无关(resolution independence)都不友好。
-</blockquote>
-
-<p>
-但有个根本问题，导致 HTML 和 JavaScript 构建出来的部件难以使用：部件中的 DOM 树并没有封装起来。
-封装的缺乏意味着文档中的样式表会无意中影响部件中的某些部分；
-JavaScript 可能在无意中修改部件中的某些部分；你书写的 ID 也可能会把部件内部的 ID 覆盖。
-</p>
-
-<blockquote class="commentary">
-缺乏封装的一个明显缺点在于：如果你更新了库或者部件的 DOM 更改了内部细节，你的样式和脚本就可能在不经意间遭到破坏。
-</blockquote>
-
-<p>
-Web 组件由四部分组成：
-</p>
-
-<ol>
-<li><a href="https://dvcs.w3.org/hg/webcomponents/raw-file/tip/spec/templates/index.html">Templates</a></li>
-<li><a href="http://www.w3.org/TR/shadow-dom/">Shadow
-DOM</a></li>
-<li><a href="https://dvcs.w3.org/hg/webcomponents/raw-file/tip/spec/custom/index.html">Custom
-Elements</a></li>
-<li><a href="https://dvcs.w3.org/hg/webcomponents/raw-file/tip/explainer/index.html#external-custom-elements-and-decorators">Packaging</a></li>
-</ol>
-
-<p>
-<b>Shadow DOM</b> 解决了 DOM 树的封装问题。Web 组件的四部分被设计成配合工作，但你也可以选择 Web 组件中的某个部分来使用。该教程将教会你如何使用 Shadow DOM。
-</p>
-
-<p class="notice">
-<b>注意：</b> Chrome 25+ 支持 Shadow DOM，但 API 需要加 <code>webkit</code> 前缀。 在 Chrome 的最新版本中增加了无前缀的 API，可以通过开启 <code>about:flags</code> 下的 &#8220;实验性网络平台功能&#8221;来使用。
-</p>
-
-<h2 id="toc-hello-world">Hello, Shadow World</h2>
-
-<p>
-有了 Shadow DOM，元素就可以和一个新类型的节点关联。这个新类型的节点称为 <b>shadow root。</b>与一个 shadow root 关联的元素称作一个 <b>shadow host。</b>shadow host 的内容不会渲染；shadow root 的内容会渲染。
-</p>
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://Robing.github.io/blog/2014/06/03/using-web-notifications/" data-via="" data-counturl="http://Robing.github.io/blog/2014/06/03/using-web-notifications/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/05/16/shadow-dom-101/">Read on &rarr;</a>
-    </footer>
-  
 
-
-    </article>
-  
-  
-    <article>
+    
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/15/css3-animation/">Css3 Animation</a></h1>
-    
-    
-      <p class="meta">
-        
+        <a class="basic-alignment left" href="/blog/2014/05/16/shadow-dom-301/" title="Previous Post: Shadow DOM 301">&laquo; Shadow DOM 301</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-05-15T22:28:04+08:00" pubdate data-updated="true">May 15<span>th</span>, 2014</time>
-        
-           | <a href="/blog/2014/05/15/css3-animation/#disqus_thread"
-             data-disqus-identifier="http://Robing.github.io/blog/2014/05/15/css3-animation/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>Introduction</h3>
-
-
-
-
-<p>Ladies and gentlemen, it is the second decade of the second millennium and we are still kicking around the same 2D interface we got three decades ago. Sure, Apple debuted a few apps for OSX 10.7 that have a couple more 3D flourishes, and Microsoft has had thatFlip 3Dfor a while. But c’mon, 2011 is right around the corner. That’sTwenty Elevenfolks. Where is our 3D virtual reality? By now, we should be zipping around theMetaverse in super-sonic motorbikes.</p>
-
-
-
-
-<p>Granted, the capability of rendering complex 3D environments has been present for years. On the Web, there already are number of solutions –Flash,three.jsin canvas, and eventually WebGL. And finally, we meager front-end developers have our own three-dimensional jewel: CSS 3D Transforms!</p>
-
-
-
-
-<h3>Rationale</h3>
-
-
-
-
-<p>Like a beautiful jewel, 3D transform can be dazzling, a true spectacle to behold. But before we start tacking 3D diamonds and rubies to our compositions like Liberace’s tailor, we owe it to our users to ask what can they benefit from this awesome feature.</p>
-
-
-
-
-<p>The entire application does not, and should not, take advantage of 3D. CSS was built to style documents, not generate explorable environments. I fail to find a benefit to filling out a web form that can be accessed by swiveling my viewport to the Sign-Up Room (although there have been proposals to make the Web just that). However, there is plenty of opportunity to use 3D transformsin betweenthe interface, via transitions.</p>
-
-
-
-
-<p>Take for instance the Weather App on the iPhone. The application uses two views: a details view and an options view. Switching between these two views is done with a 3D flip transition. This affords the user that the interface has two and only two views, as they can only exist on either side of the same plane.</p>
-
-
-
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/05/15/css3-animation/">Read on &rarr;</a>
-    </footer>
-  
 
-
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
-</div>
 <aside class="sidebar">
   
     <section>
@@ -766,6 +432,7 @@ Elements</a></li>
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -780,7 +447,10 @@ Elements</a></li>
       var disqus_shortname = 'rainboy';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://Robing.github.io/blog/2014/06/03/using-web-notifications/';
+        var disqus_url = 'http://Robing.github.io/blog/2014/06/03/using-web-notifications/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
