@@ -100,7 +100,7 @@
         <h2 id="Summary">Summary</h2>
         <p>The Web Notifications API allows a web page to send notifications that are displayed outside the page at the system level. This allows web apps to send information to a user even if the application is idle. One of the main obvious use cases is a webmail application that would notify the user each time a new e-mail is received, even if the user is doing something else with another application.</p>
         <p>To display notification you need to first request the appropriate permission and then instantiate a
-            <a href="/en-US/docs/Web/API/Notification" title="The Notification object is used to configure and display desktop notifications to the user."><code>Notification</code></a>
+            <a href="/en-US/docs/Web/API/Notification" title="The Notification object is used to configure and display desktop notifications to the user.">Notification</a>
             object:</p>
         <pre class="brush: js  language-js" data-number=""><code class=" language-js">Notification<span class="token punctuation">.</span><span class="token function">requestPermission<span class="token punctuation">(</span></span> <span class="token keyword">function</span><span class="token punctuation">(</span>status<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span>status<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // notifications will only be displayed if "granted"
@@ -110,15 +110,16 @@
         <h3 id="Web_content">Web content</h3>
         <p>Before an app is able to send a notification, the user must grant the application the right to do so. This is a common requirement when an API tries to interact with something outside a web page. This guarantees to avoid notification &#8220;spam&#8221; for the well-being of the user.</p>
         <p>An application that needs to send a notification can check the current permission status thanks to the
-            <a href="/en-US/docs/Web/API/Notification.permission" title="The permission property indicates the current permission granted by the user about web notification for the current application."><code>Notification.permission</code></a>read only property. It can have one of three possible values:</p>
+            <a href="/en-US/docs/Web/API/Notification.permission" title="The permission property indicates the current permission granted by the user about web notification for the current application.">Notification.permission</a>read only property. It can have one of three possible values:</p>
         <ul>
-            <li><code>default</code>: the user didn&#8217;t give any permission yet (and therefore no notification will be displayed to the user).</li><li><code>granted</code>: the user explicitly accepted to be notified by the application.</li>
-            <li><code>denied</code>: the user explicitly refused to be notified by the application.</li>
+            <li>default: the user didn&#8217;t give any permission yet (and therefore no notification will be displayed to the user).</li>
+            <li>granted: the user explicitly accepted to be notified by the application.</li>
+            <li>denied: the user explicitly refused to be notified by the application.</li>
         </ul>
         <div class="note">
-            <p><strong>Note:</strong>Chrome and Safari do not implement the<code>permission</code>property yet.</p>
+            <p><strong>Note:</strong>Chrome and Safari do not implement thepermissionproperty yet.</p>
         </div>
-        <p>If the permission is not granted, the application has to use the<a href="/en-US/docs/Web/API/Notification.requestPermission" title="The requestPermission static method is used to ask the user for his permission to display a Notification to him."><code>Notification.requestPermission()</code></a>method to let the user make a choice. This method accepts a callback function that receives the permission chosen by the user in order to react to it.</p>
+        <p>If the permission is not granted, the application has to use the<a href="/en-US/docs/Web/API/Notification.requestPermission" title="The requestPermission static method is used to ask the user for his permission to display a Notification to him.">Notification.requestPermission()</a>method to let the user make a choice. This method accepts a callback function that receives the permission chosen by the user in order to react to it.</p>
         <p>It&#8217;s a common practice to ask for the permission at the initialization of the app:</p>
         <pre class="brush: js  language-js" data-number=""><code class=" language-js">window<span class="token punctuation">.</span><span class="token function">addEventListener<span class="token punctuation">(</span></span><span class="token string">'load'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   Notification<span class="token punctuation">.</span><span class="token function">requestPermission<span class="token punctuation">(</span></span><span class="token keyword">function</span> <span class="token punctuation">(</span>status<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -131,7 +132,7 @@
         <div class="note">
             <p>
                 <strong>Note:</strong>Chrome does not allows to call
-                <a href="/en-US/docs/Web/API/Notification.requestPermission" title="The requestPermission static method is used to ask the user for his permission to display a Notification to him."><code>Notification.requestPermission()</code></a>on the<code>load</code>event (see <a class="external external-icon" href="https://code.google.com/p/chromium/issues/detail?id=274284" title="https://code.google.com/p/chromium/issues/detail?id=274284">issue 274284</a>).</p>
+                <a href="/en-US/docs/Web/API/Notification.requestPermission" title="The requestPermission static method is used to ask the user for his permission to display a Notification to him.">Notification.requestPermission()</a>on theloadevent (see <a class="external external-icon" href="https://code.google.com/p/chromium/issues/detail?id=274284" title="https://code.google.com/p/chromium/issues/detail?id=274284">issue 274284</a>).</p>
         </div>
         <h3 id="Installed_application">Installed application</h3>
         <p>When an application is installed, it&#8217;s possible to avoid to prompt the user for permission by adding the permission directly within the <a href="/en-US/docs/Web/Apps/Manifest" title="/en-US/docs/Web/Apps/Manifest">application manifest</a>:</p>
@@ -142,16 +143,16 @@
 <span class="token punctuation">}</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div></code></pre>
         <h2 id="Creating_a_notification">Creating a notification</h2>
         <p>Creating a notification is simply done using the
-            <a href="/en-US/docs/Web/API/Notification" title="The Notification object is used to configure and display desktop notifications to the user."><code>Notification</code></a>constructor. This constructor expects a title to display within the notification and some options to enhance the notification such as an
-            <a href="/en-US/docs/Web/API/Notification.icon" title="The icon property indicates the URL of the icon to use with the notification."><code>icon</code></a>or a text
-            <a href="/en-US/docs/Web/API/Notification.body" title="The body property represents the text content of the body of the notification."><code>body</code></a>.</p>
+            <a href="/en-US/docs/Web/API/Notification" title="The Notification object is used to configure and display desktop notifications to the user.">Notification</a>constructor. This constructor expects a title to display within the notification and some options to enhance the notification such as an
+            <a href="/en-US/docs/Web/API/Notification.icon" title="The icon property indicates the URL of the icon to use with the notification.">icon</a>or a text
+            <a href="/en-US/docs/Web/API/Notification.body" title="The body property represents the text content of the body of the notification.">body</a>.</p>
         <p>A notification is displayed as soon as possible when instantiated. To track the current state of a notification, four events are triggered at the
-            <a href="/en-US/docs/Web/API/Notification" title="The Notification object is used to configure and display desktop notifications to the user."><code>Notification</code></a>instance level:</p>
+            <a href="/en-US/docs/Web/API/Notification" title="The Notification object is used to configure and display desktop notifications to the user.">Notification</a>instance level:</p>
         <ul>
-            <li><code><a href="/en-US/docs/Web/Reference/Events/show" title="/en-US/docs/Web/Reference/Events/show">show</a></code>: triggered when the notification is displayed to the user.</li>
-            <li><code><a href="/en-US/docs/Web/Reference/Events/click" title="/en-US/docs/Web/Reference/Events/click">click</a></code>: triggered when the user clicks on the notification.</li>
-            <li><code><a class="new" href="/en-US/docs/Web/Reference/Events/close" title="/en-US/docs/Web/Reference/Events/close">close</a></code>: triggered when the notification is closed.</li>
-            <li><code><a href="/en-US/docs/Web/Reference/Events/error" title="/en-US/docs/Web/Reference/Events/error">error</a></code>: triggered when something wrong happens with the notification (mostly when something prevents the notification from being displayed)</li>
+            <li><a href="/en-US/docs/Web/Reference/Events/show" title="/en-US/docs/Web/Reference/Events/show">show</a>: triggered when the notification is displayed to the user.</li>
+            <li><a href="/en-US/docs/Web/Reference/Events/click" title="/en-US/docs/Web/Reference/Events/click">click</a></: triggered when the user clicks on the notification.</li>
+            <li><a class="new" href="/en-US/docs/Web/Reference/Events/close" title="/en-US/docs/Web/Reference/Events/close">close</a>: triggered when the notification is closed.</li>
+            <li><a href="/en-US/docs/Web/Reference/Events/error" title="/en-US/docs/Web/Reference/Events/error">error</a>: triggered when something wrong happens with the notification (mostly when something prevents the notification from being displayed)</li>
         </ul>
         <p>Those events can be tracked using the event handlers
             <a href="/en-US/docs/Web/API/Notification.onshow" title="Specifies an event listener to receive show events. These events occur when a Notification is displayed."><code>onshow</code></a>,
