@@ -4,7 +4,7 @@
   <title><![CDATA[Rainer's blog]]></title>
   <link href="http://Robing.github.io/atom.xml" rel="self"/>
   <link href="http://Robing.github.io/"/>
-  <updated>2014-06-05T09:48:59+08:00</updated>
+  <updated>2014-06-05T09:55:20+08:00</updated>
   <id>http://Robing.github.io/</id>
   <author>
     <name><![CDATA[Robin]]></name>
@@ -35,7 +35,7 @@
         <p>Before an app is able to send a notification, the user must grant the application the right to do so. This is a common requirement when an API tries to interact with something outside a web page. This guarantees to avoid notification &#8220;spam&#8221; for the well-being of the user.</p>
         <p>An application that needs to send a notification can check the current permission status thanks to the
             <a href="http://Robing.github.io/en-US/docs/Web/API/Notification.permission" title="The permission property indicates the current permission granted by the user about web notification for the current application.">Notification.permission</a>read only property. It can have one of three possible values:</p>
-        <ul>
+        <ul class="txtlist">
             <li>default: the user didn&#8217;t give any permission yet (and therefore no notification will be displayed to the user).</li>
             <li>granted: the user explicitly accepted to be notified by the application.</li>
             <li>denied: the user explicitly refused to be notified by the application.</li>
@@ -72,7 +72,7 @@
             <a href="http://Robing.github.io/en-US/docs/Web/API/Notification.body" title="The body property represents the text content of the body of the notification.">body</a>.</p>
         <p>A notification is displayed as soon as possible when instantiated. To track the current state of a notification, four events are triggered at the
             <a href="http://Robing.github.io/en-US/docs/Web/API/Notification" title="The Notification object is used to configure and display desktop notifications to the user.">Notification</a>instance level:</p>
-        <ul>
+        <ul class="txtlist">
             <li><a href="http://Robing.github.io/en-US/docs/Web/Reference/Events/show" title="/en-US/docs/Web/Reference/Events/show">show</a>: triggered when the notification is displayed to the user.</li>
             <li><a href="http://Robing.github.io/en-US/docs/Web/Reference/Events/click" title="/en-US/docs/Web/Reference/Events/click">click</a></: triggered when the user clicks on the notification.</li>
             <li><a class="new" href="http://Robing.github.io/en-US/docs/Web/Reference/Events/close" title="/en-US/docs/Web/Reference/Events/close">close</a>: triggered when the notification is closed.</li>
@@ -219,7 +219,7 @@ n<span class="token punctuation">.</span>onshow <span class="token operator">=</
         </p>
 
         <h3 id="Gecko_notes">Gecko notes</h3>
-        <ul>
+        <ul class="txtlist">
             <li>Prior to Firefox 22 (Firefox OS &lt;1.2), the instantiation of a new notification must be done with the
                 <a href="http://Robing.github.io/en-US/docs/Web/API/window.navigator.mozNotification" title="Provides support for creating notification objects, which are used to display desktop notification alerts to the user. Currently, these are only supported on Firefox Mobile and Firefox OS. See Displaying notifications for an example."><code>navigator.mozNotification</code></a>object through its<code>createNotification</code>method.</li>
             <li>Prior to Firefox 22 (Firefox OS &lt;1.2), the Notification was displayed when calling the<code>show</code>method and was supporting the<code>click</code>and<code>close</code>events only.</li>
@@ -227,14 +227,14 @@ n<span class="token punctuation">.</span>onshow <span class="token operator">=</
             <li>One particular Firefox OS issue is that you can <a class="external external-icon" href="https://github.com/nickdesaulniers/fxos-irc/blob/0160cf6c3a2b5c9fe33822aaf6bcba3b7e846da9/my.js#L171">pass a path to an icon</a> to use in the notification, but if the app is packaged you cannot use a relative path like<code>/my_icon.png</code>. You also can&#8217;t use<code>window.location.origin + "/my_icon.png"</code>because<code>window.location.origin</code>is null in packaged apps. The <a href="https://developer.mozilla.org/en-US/Apps/Developing/Manifest#origin">manifest origin field</a> fixes this, but it is only available in Firefox OS 1.1+. A potential solution for supporting Firefox OS &lt;1.1 is to <a class="external external-icon" href="https://github.com/nickdesaulniers/fxos-irc/blob/0160cf6c3a2b5c9fe33822aaf6bcba3b7e846da9/my.js#L168">pass an absolute URL to an externally hosted version of the icon</a>. This is less than ideal as the notification is displayed immediately with the icon missing, then the icon is fetched, but it works on all versions of Firefox OS.</li>
         </ul>
         <h3 id="Chrome_notes">Chrome notes</h3>
-        <ul>
+       <ul class="txtlist">
             <li>Prior to Chrome 22, the support for notification was following an <a class="external external-icon" href="http://www.chromium.org/developers/design-documents/desktop-notifications/api-specification" title="http://www.chromium.org/developers/design-documents/desktop-notifications/api-specification">old prefixed version of the specification</a> and was using the
                 <a class="new" href="http://Robing.github.io/en-US/docs/Web/API/window.navigator.webkitNotifications" title="The documentation about this has not yet been written; please consider contributing!"><code>navigator.webkitNotifications</code></a>object to instantiate a new notification.</li>
             <li>Prior to Chrome 32,
                 <a href="http://Robing.github.io/en-US/docs/Web/API/Notification.permission" title="The permission property indicates the current permission granted by the user about web notification for the current application."><code>Notification.permission</code></a>was not supported.</li>
         </ul>
         <h3 id="Safari_notes">Safari notes</h3>
-        <ul>
+        <ul class="txtlist">
             <li>Safari started supporting notification with Safari 6 but only on Mac OSX 10.8+ (Mountain Lion).</li>
         </ul>
         
