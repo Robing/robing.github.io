@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Shadow DOM 101 - Rainer's blog</title>
+  <title>Shadow DOM 一 - Rainer's blog</title>
   <meta name="author" content="Robin">
 
   
@@ -69,7 +69,7 @@
   
   <header>
     
-      <h1 class="entry-title">Shadow DOM 101</h1>
+      <h1 class="entry-title">Shadow DOM 一</h1>
     
     
       <p class="meta">
@@ -221,7 +221,6 @@ if (!HTMLElement.prototype.webkitCreateShadowRoot) {
 <p>
 现在我们来看看如何使用 Shadow DOM 来将内容从展现中分离出来。假设我们拥有如下姓名卡：
 </p>
-
 <style>
 .ex2a.outer {
   border: 2px solid brown;
@@ -257,38 +256,73 @@ if (!HTMLElement.prototype.webkitCreateShadowRoot) {
 <p>
 以下是标记，它并没有使用 Shadow DOM：
 </p>
+  
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>    <span class="nt">&lt;style&gt;</span>
+</span><span class='line'>      <span class="nc">.outer</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">border</span><span class="o">:</span> <span class="m">2px</span> <span class="k">solid</span> <span class="nb">brown</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">1em</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">background</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">font-size</span><span class="o">:</span> <span class="m">20pt</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">width</span><span class="o">:</span> <span class="m">12em</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">height</span><span class="o">:</span> <span class="m">7em</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">text-align</span><span class="o">:</span> <span class="k">center</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="nc">.boilerplate</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">font-family</span><span class="o">:</span> <span class="k">sans-serif</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">padding</span><span class="o">:</span> <span class="m">0.5em</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="nc">.name</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">color</span><span class="o">:</span> <span class="nb">black</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">background</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">font-family</span><span class="o">:</span> <span class="s2">&quot;Marker Felt&quot;</span><span class="o">,</span> <span class="k">cursive</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">font-size</span><span class="o">:</span> <span class="m">45pt</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">padding-top</span><span class="o">:</span> <span class="m">0.2em</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="nt">&lt;/style&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;outer&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;boilerplate&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          Hi! My name is
+</span><span class='line'>        <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;name&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          Bob
+</span><span class='line'>        <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
 
-<pre class="prettyprint"><span class="tag">&lt;style&gt;</span><span class="pln">
-</span><span class="pun">.</span><span class="pln">outer </span><span class="pun">{</span><span class="pln">
-  </span><span class="kwd">border</span><span class="pun">:</span><span class="pln"> </span><span class="lit">2px</span><span class="pln"> solid brown</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">border-radius</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1em</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">background</span><span class="pun">:</span><span class="pln"> red</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">font-size</span><span class="pun">:</span><span class="pln"> </span><span class="lit">20pt</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">width</span><span class="pun">:</span><span class="pln"> </span><span class="lit">12em</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">height</span><span class="pun">:</span><span class="pln"> </span><span class="lit">7em</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">text-align</span><span class="pun">:</span><span class="pln"> center</span><span class="pun">;</span><span class="pln">
-</span><span class="pun">}</span><span class="pln">
-</span><span class="pun">.</span><span class="pln">boilerplate </span><span class="pun">{</span><span class="pln">
-  </span><span class="kwd">color</span><span class="pun">:</span><span class="pln"> white</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">font-family</span><span class="pun">:</span><span class="pln"> sans-serif</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">padding</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0.5em</span><span class="pun">;</span><span class="pln">
-</span><span class="pun">}</span><span class="pln">
-</span><span class="pun">.</span><span class="pln">name </span><span class="pun">{</span><span class="pln">
-  </span><span class="kwd">color</span><span class="pun">:</span><span class="pln"> black</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">background</span><span class="pun">:</span><span class="pln"> white</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">font-family</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Marker Felt"</span><span class="pun">,</span><span class="pln"> cursive</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">font-size</span><span class="pun">:</span><span class="pln"> </span><span class="lit">45pt</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">padding-top</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0.2em</span><span class="pun">;</span><span class="pln">
-</span><span class="pun">}</span><span class="pln">
-</span><span class="tag">&lt;/style&gt;</span><span class="pln">
-</span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"outer"</span><span class="tag">&gt;</span><span class="pln">
-  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"boilerplate"</span><span class="tag">&gt;</span><span class="pln">
-    Hi! My name is
-  </span><span class="tag">&lt;/div&gt;</span><span class="pln">
-  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"name"</span><span class="tag">&gt;</span><span class="pln">
-    Bob
-  </span><span class="tag">&lt;/div&gt;</span><span class="pln">
-</span><span class="tag">&lt;/div&gt;</span></pre>
 
 <p>
 因为 DOM 树缺乏封装，整个姓名卡的结构都暴露给了文档。若是页面里其他的元素不经意间使用了同样的类名来设置样式或操作脚本，那么我们可就有苦日子过了。
@@ -311,42 +345,79 @@ if (!HTMLElement.prototype.webkitCreateShadowRoot) {
 首先，我们先按照最接近我们关心的语义的方式来书写标记：
 </p>
 
-<pre class="prettyprint"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"nameTag"</span><span class="tag">&gt;</span><span class="pln">Bob</span><span class="tag">&lt;/div&gt;</span></pre>
+  
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;nameTag&quot;</span><span class="nt">&gt;</span>Bob<span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>
 接下来我们把所有和展现相关的样式和 div 都放入一个 <code>&lt;template&gt;</code> 元素内：
 </p>
 
-<pre class="prettyprint"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"nameTag"</span><span class="tag">&gt;</span><span class="pln">Bob</span><span class="tag">&lt;/div&gt;</span><span class="pln">
-</span><b><span class="tag">&lt;template</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"nameTagTemplate"</span><span class="tag">&gt;</span></b><span class="pln">
-</span><span class="unchanged"><span class="tag">&lt;style&gt;</span><span class="pln">
-</span><span class="pun">.</span><span class="pln">outer </span><span class="pun">{</span><span class="pln">
-  </span><span class="kwd">border</span><span class="pun">:</span><span class="pln"> </span><span class="lit">2px</span><span class="pln"> solid brown</span><span class="pun">;</span><span class="pln">
 
-  </span><span class="pun">…</span><span class="pln"> </span><span class="pun">和上面一样</span><span class="pln"> </span><span class="pun">…</span><span class="pln">
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;nameTag&quot;</span><span class="nt">&gt;</span>Bob<span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;template</span> <span class="na">id=</span><span class="s">&quot;nameTagTemplate&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;style&gt;</span>
+</span><span class='line'>      <span class="nc">.outer</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">border</span><span class="o">:</span> <span class="m">2px</span> <span class="k">solid</span> <span class="nb">brown</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="err">…</span> <span class="err">和上面一样</span> <span class="err">…</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="nt">&lt;/style&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;outer&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;boilerplate&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          Hi! My name is
+</span><span class='line'>        <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;name&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          Bob
+</span><span class='line'>        <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/template&gt;</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
 
-</span><span class="tag">&lt;/style&gt;</span><span class="pln">
-</span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"outer"</span><span class="tag">&gt;</span><span class="pln">
-  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"boilerplate"</span><span class="tag">&gt;</span><span class="pln">
-    Hi! My name is
-  </span><span class="tag">&lt;/div&gt;</span><span class="pln">
-  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"name"</span><span class="tag">&gt;</span><span class="pln">
-    Bob
-  </span><span class="tag">&lt;/div&gt;</span><span class="pln">
-</span><span class="tag">&lt;/div&gt;</span></span><span class="pln">
-</span><b><span class="tag">&lt;/template&gt;</span></b>
-</pre>
 
 <p>
 此时，‘Bob’ 是唯一被渲染的内容。因为我们把与展现有关的 DOM 元素移动到了一个 <code>&lt;template&gt;</code> 元素内，它们是不会被渲染的，但是它们<em>能够</em>通过 JavaScript 来访问。接下来我们就会通过脚本来填充 shadow root：
 </p>
 
-<pre class="prettyprint"><span class="tag">&lt;script&gt;</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> shadow </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'#nameTag'</span><span class="pun">).</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> template </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'#nameTagTemplate'</span><span class="pun">);</span><span class="pln">
-shadow</span><span class="pun">.</span><span class="pln">appendChild</span><span class="pun">(</span><span class="pln">template</span><span class="pun">.</span><span class="pln">content</span><span class="pun">);</span><span class="pln">
-template</span><span class="pun">.</span><span class="pln">remove</span><span class="pun">();</span><span class="pln">
-</span><span class="tag">&lt;/script&gt;</span></pre>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>    <span class="nt">&lt;script&gt;</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">shadow</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;#nameTag&#39;</span><span class="p">).</span><span class="nx">createShadowRoot</span><span class="p">();</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">template</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;#nameTagTemplate&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">shadow</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">template</span><span class="p">.</span><span class="nx">content</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">template</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+</span><span class='line'>    <span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <blockquote class="commentary talkinghead">
 Templates，和 Shadow DOM 一样，也是一个完善中的规范。Chrome Canary 支持 <code>&lt;template&gt;</code> 元素。你也可以选择使用 <span class="property">innerHTML</span>，<span class="method">appendChild</span>，<span class="method">getElementById</span> 这样的方法或属性来填充 shadow root。本文主要讨论 Shadow DOM，所以不会涉及太多 template 元素的工作原理。如果你想了解更多 <code>&lt;template&gt;</code> 的内容，查看 <a href="/tutorials/webcomponents/template/">HTML 的新 Template 标签</a>.
@@ -356,7 +427,11 @@ Templates，和 Shadow DOM 一样，也是一个完善中的规范。Chrome Cana
 我们建立了一个 shadow root，姓名卡被再次渲染。如果你右键点击标签，选择检查元素，你将看到漂亮并富于语义的标记：
 </p>
 
-<pre class="prettyprint"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"nameTag"</span><span class="tag">&gt;</span><span class="pln">Bob</span><span class="tag">&lt;/div&gt;</span></pre>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;nameTag&quot;</span><span class="nt">&gt;</span>Bob<span class="nt">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>
 这便印证了，通过使用 Shadow DOM，我们可以将展现细节隐藏在姓名卡中。展现细节被封装在了 Shadow DOM 中。
@@ -386,20 +461,35 @@ HTML 元素是可组合的 — 比如说你可以把一个按钮放进一个表�
 如果我们把 Shadow DOM 里的标记做如下修改：
 </p>
 
-<pre class="prettyprint"><span class="unchanged"><span class="tag">&lt;template</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"nameTagTemplate"</span><span class="tag">&gt;</span><span class="pln">
-</span><span class="tag">&lt;style&gt;</span><span class="pln">
-  </span><span class="pun">…</span><span class="pln">
-</span><span class="tag">&lt;/style&gt;</span></span><span class="pln">
-</span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"outer"</span><span class="tag">&gt;</span><span class="pln">
-  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"boilerplate"</span><span class="tag">&gt;</span><span class="pln">
-    Hi! My name is
-  </span><span class="tag">&lt;/div&gt;</span><span class="pln">
-  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"name"</span><span class="tag">&gt;</span><span class="pln">
-    </span><b><span class="tag">&lt;content&gt;&lt;/content&gt;</span></b><span class="pln">
-  </span><span class="tag">&lt;/div&gt;</span><span class="pln">
-</span><span class="tag">&lt;/div&gt;</span><span class="pln">
-</span><span class="unchanged"><span class="tag">&lt;/template&gt;</span></span>
-</pre>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>    <span class="nt">&lt;template</span> <span class="na">id=</span><span class="s">&quot;nameTagTemplate&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;style&gt;</span>
+</span><span class='line'>        <span class="err">…</span>
+</span><span class='line'>      <span class="nt">&lt;/style&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;outer&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;boilerplate&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          Hi! My name is
+</span><span class='line'>        <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;name&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;content&gt;&lt;/content&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/template&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>
 当姓名卡渲染后，shadow host 的内容便投射(projected)到 <code>&lt;content&gt;</code> 元素出现的地方。
@@ -409,7 +499,11 @@ HTML 元素是可组合的 — 比如说你可以把一个按钮放进一个表�
 现在文档的结构简单了，因为名称只出现在了一个地方——就在文档里。如果想更新用户名称，你只需写：
 </p>
 
-<pre class="prettyprint"><span class="pln">document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'#nameTag'</span><span class="pun">).</span><span class="pln">textContent </span><span class="pun">=</span><span class="pln"> </span><span class="str">'Shellie'</span><span class="pun">;</span></pre>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>    document.querySelector(&#39;#nameTag&#39;).textContent = &#39;Shellie&#39;;
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>
 这就足够了。浏览器会自动更新渲染的姓名卡，因为我们把姓名卡的内容<b>投射</b>到了 <code>&lt;content&gt;</code> 元素内。
@@ -473,56 +567,84 @@ function updateClicked(nameTagSelector, textBoxSelector) {
 比方说，我们想将姓名卡本地化。因为它仍然是一个姓名卡，所以它在文档中的语义内容没有改变：
 </p>
 
-<pre class="prettyprint"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"nameTag"</span><span class="tag">&gt;</span><span class="pln">Bob</span><span class="tag">&lt;/div&gt;</span></pre>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;nameTag&quot;</span><span class="nt">&gt;</span>Bob<span class="nt">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>
 设置 shadow root 的代码保持不变。只是放进 shadow root 中的内容变了：
 </p>
 
-<pre class="prettyprint"><span class="tag">&lt;template</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"nameTagTemplate"</span><span class="tag">&gt;</span><span class="pln">
-</span><span class="tag">&lt;style&gt;</span><span class="pln">
-</span><span class="pun">.</span><span class="pln">outer </span><span class="pun">{</span><span class="pln">
-  </span><span class="kwd">border</span><span class="pun">:</span><span class="pln"> </span><span class="lit">2px</span><span class="pln"> solid pink</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">border-radius</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1em</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">background</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">url</span><span class="pun">(</span><span class="str">sakura.jpg</span><span class="pun">);</span><span class="pln">
-  </span><span class="kwd">font-size</span><span class="pun">:</span><span class="pln"> </span><span class="lit">20pt</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">width</span><span class="pun">:</span><span class="pln"> </span><span class="lit">12em</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">height</span><span class="pun">:</span><span class="pln"> </span><span class="lit">7em</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">text-align</span><span class="pun">:</span><span class="pln"> center</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">font-family</span><span class="pun">:</span><span class="pln"> sans-serif</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">font-weight</span><span class="pun">:</span><span class="pln"> bold</span><span class="pun">;</span><span class="pln">
-</span><span class="pun">}</span><span class="pln">
-</span><span class="pun">.</span><span class="pln">name </span><span class="pun">{</span><span class="pln">
-  </span><span class="kwd">font-size</span><span class="pun">:</span><span class="pln"> </span><span class="lit">45pt</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">font-weight</span><span class="pun">:</span><span class="pln"> normal</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">margin-top</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0.8em</span><span class="pun">;</span><span class="pln">
-  </span><span class="kwd">padding-top</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0.2em</span><span class="pun">;</span><span class="pln">
-</span><span class="pun">}</span><span class="pln">
-</span><span class="tag">&lt;/style&gt;</span><span class="pln">
-</span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"outer"</span><span class="tag">&gt;</span><span class="pln">
-  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"name"</span><span class="tag">&gt;</span><span class="pln">
-    </span><span class="tag">&lt;content&gt;&lt;/content&gt;</span><span class="pln">
-  </span><span class="tag">&lt;/div&gt;</span><span class="pln">
-  と申します。
-</span><span class="tag">&lt;/div&gt;</span><span class="pln">
-</span><span class="tag">&lt;/template&gt;</span></pre>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>    <span class="nt">&lt;template</span> <span class="na">id=</span><span class="s">&quot;nameTagTemplate&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;style&gt;</span>
+</span><span class='line'>      <span class="nc">.outer</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">border</span><span class="o">:</span> <span class="m">2px</span> <span class="k">solid</span> <span class="nb">pink</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">border</span><span class="o">-</span><span class="n">radius</span><span class="o">:</span> <span class="m">1em</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">background</span><span class="o">:</span> <span class="sx">url(sakura.jpg)</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">font-size</span><span class="o">:</span> <span class="m">20pt</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">width</span><span class="o">:</span> <span class="m">12em</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">height</span><span class="o">:</span> <span class="m">7em</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">text-align</span><span class="o">:</span> <span class="k">center</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">font-family</span><span class="o">:</span> <span class="k">sans-serif</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">font-weight</span><span class="o">:</span> <span class="k">bold</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="nc">.name</span> <span class="p">{</span>
+</span><span class='line'>        <span class="k">font-size</span><span class="o">:</span> <span class="m">45pt</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">font-weight</span><span class="o">:</span> <span class="k">normal</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">margin-top</span><span class="o">:</span> <span class="m">0.8em</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">padding-top</span><span class="o">:</span> <span class="m">0.2em</span><span class="p">;</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="nt">&lt;/style&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;outer&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;name&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;content&gt;&lt;/content&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>        と申します。
+</span><span class='line'>      <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/template&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>
 现在我们有了一个日文的姓名卡：
 </p>
-
 <div id="ex3a">
-
 <div id="ex3aNameTag">Bob</div>
-
 <p>
 <label for="ex3aNewName">新名字：</label>
 <input name="ex3aNewName" value="基子">
 <button onclick="updateClicked('#ex3aNameTag', 'input[name=ex3aNewName]');">更新</button>
 </p>
-
-
-
 </div>
 
 <script>
@@ -560,27 +682,48 @@ function updateClicked(nameTagSelector, textBoxSelector) {
 比如说，如果你有一个包含如下内容的文档：
 </p>
 
-<pre class="prettyprint"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"nameTag"</span><span class="tag">&gt;</span><span class="pln">
-  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"first"</span><span class="tag">&gt;</span><span class="pln">Bob</span><span class="tag">&lt;/div&gt;</span><span class="pln">
-  </span><span class="tag">&lt;div&gt;</span><span class="pln">B. Love</span><span class="tag">&lt;/div&gt;</span><span class="pln">
-  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"email"</span><span class="tag">&gt;</span><span class="pln">bob@</span><span class="tag">&lt;/div&gt;</span><span class="pln">
-</span><span class="tag">&lt;/div&gt;</span></pre>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;nameTag&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;first&quot;</span><span class="nt">&gt;</span>Bob<span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;div&gt;</span>B. Love<span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;email&quot;</span><span class="nt">&gt;</span>bob@<span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 <p>
 shadow root 使用 CSS 选择器来选择特定内容：
 </p>
 
-<pre class="prettyprint"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="kwd">background</span><span class="pun">:</span><span class="pln"> purple</span><span class="pun">;</span><span class="pln"> </span><span class="kwd">padding</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1em</span><span class="pun">;</span><span class="atv">"</span><span class="tag">&gt;</span><span class="pln">
-  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="kwd">color</span><span class="pun">:</span><span class="pln"> red</span><span class="pun">;</span><span class="atv">"</span><span class="tag">&gt;</span><span class="pln">
-    </span><span class="tag">&lt;content</span><span class="pln"> </span><b><span class="atn">select</span><span class="pun">=</span><span class="atv">".first"</span></b><span class="tag">&gt;&lt;/content&gt;</span><span class="pln">
-  </span><span class="tag">&lt;/div&gt;</span><span class="pln">
-  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="kwd">color</span><span class="pun">:</span><span class="pln"> yellow</span><span class="pun">;</span><span class="atv">"</span><span class="tag">&gt;</span><span class="pln">
-    </span><span class="tag">&lt;content</span><span class="pln"> </span><b><span class="atn">select</span><span class="pun">=</span><span class="atv">"div"</span></b><span class="tag">&gt;&lt;/content&gt;</span><span class="pln">
-  </span><span class="tag">&lt;/div&gt;</span><span class="pln">
-  </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="kwd">color</span><span class="pun">:</span><span class="pln"> blue</span><span class="pun">;</span><span class="atv">"</span><span class="tag">&gt;</span><span class="pln">
-    </span><span class="tag">&lt;content</span><span class="pln"> </span><b><span class="atn">select</span><span class="pun">=</span><span class="atv">".email"</span><span class="tag">&gt;</span></b><span class="tag">&lt;/content&gt;</span><span class="pln">
-  </span><span class="tag">&lt;/div&gt;</span><span class="pln">
-</span><span class="tag">&lt;/div&gt;</span></pre>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>    <span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;background: purple; padding: 1em;&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;color: red;&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;content</span> <span class="na">select=</span><span class="s">&quot;.first&quot;</span><span class="nt">&gt;&lt;/content&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;color: yellow;&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;content</span> <span class="na">select=</span><span class="s">&quot;div&quot;</span><span class="nt">&gt;&lt;/content&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;color: blue;&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;content</span> <span class="na">select=</span><span class="s">&quot;.email&quot;</span><span class="nt">&gt;&lt;/content&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p class="notice"><b>注意：</b> <span class="attribute">select</span> 只能选择 host 节点的直接子元素。也就是说，你不能选择后代元素(例如 <code>select="table tr"</code>)。</p>
 
@@ -642,13 +785,23 @@ type="date"&gt;</code> 你将得到一个简洁的弹出式日历。但如果你
 岛旅行选择一段日期(你知道吗……岛上有红葡萄藤做的吊床。)，文档表面上是这么写的：
 </p>
 
-<pre class="prettyprint"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"dateRangePicker"</span><span class="tag">&gt;</span><span class="pln">
-  </span><span class="tag">&lt;label</span><span class="pln"> </span><span class="atn">for</span><span class="pun">=</span><span class="atv">"start"</span><span class="tag">&gt;</span><span class="pln">Start:</span><span class="tag">&lt;/label&gt;</span><span class="pln">
-  </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"date"</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"startDate"</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"start"</span><span class="tag">&gt;</span><span class="pln">
-  </span><span class="tag">&lt;br&gt;</span><span class="pln">
-  </span><span class="tag">&lt;label</span><span class="pln"> </span><span class="atn">for</span><span class="pun">=</span><span class="atv">"end"</span><span class="tag">&gt;</span><span class="pln">End:</span><span class="tag">&lt;/label&gt;</span><span class="pln">
-  </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"date"</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"endDate"</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"end"</span><span class="tag">&gt;</span><span class="pln">
-</span><span class="tag">&lt;/div&gt;</span></pre>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;dateRangePicker&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;start&quot;</span><span class="nt">&gt;</span>Start:<span class="nt">&lt;/label&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;date&quot;</span> <span class="na">name=</span><span class="s">&quot;startDate&quot;</span> <span class="na">id=</span><span class="s">&quot;start&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;br&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;end&quot;</span><span class="nt">&gt;</span>End:<span class="nt">&lt;/label&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;date&quot;</span> <span class="na">name=</span><span class="s">&quot;endDate&quot;</span> <span class="na">id=</span><span class="s">&quot;end&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>
 但实际上会创建一个 Shadow DOM，在里面使用表格生成一个能够高亮日期范围的日历。
@@ -738,7 +891,7 @@ Fisher，Dimitri Glazkov，Alex Komoroske，Alex Russell，和 <a href="/profile
         <a class="basic-alignment left" href="/blog/2014/05/15/css3-animation/" title="Previous Post: Css3 animation">&laquo; Css3 animation</a>
       
       
-        <a class="basic-alignment right" href="/blog/2014/05/16/shadow-dom-201/" title="Next Post: Shadow DOM 201">Shadow DOM 201 &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2014/05/16/shadow-dom-201/" title="Next Post: Shadow DOM 二">Shadow DOM 二 &raquo;</a>
       
     </p>
   </footer>
@@ -759,23 +912,23 @@ Fisher，Dimitri Glazkov，Alex Komoroske，Alex Russell，和 <a href="/profile
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/06/20/history/">浏览器的历史记录</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/06/03/using-web-notifications/">Using Web Notifications</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/05/16/shadow-dom-301/">Shadow DOM 301</a>
+        <a href="/blog/2014/05/16/shadow-dom-301/">Shadow DOM 三</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/05/16/shadow-dom-201/">Shadow DOM 201</a>
+        <a href="/blog/2014/05/16/shadow-dom-201/">Shadow DOM 二</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/05/16/shadow-dom-101/">Shadow DOM 101</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/15/css3-animation/">Css3 Animation</a>
+        <a href="/blog/2014/05/16/shadow-dom-101/">Shadow DOM 一</a>
       </li>
     
   </ul>
@@ -784,7 +937,7 @@ Fisher，Dimitri Glazkov，Alex Komoroske，Alex Russell，和 <a href="/profile
   <h1>Categories</h1>
   <ul id="categories">
     <li class='category'><a href='/blog/categories/css3/'>Css3 (1)</a></li>
-<li class='category'><a href='/blog/categories/html5/'>HTML5 (4)</a></li>
+<li class='category'><a href='/blog/categories/html5/'>HTML5 (5)</a></li>
 
   </ul>
 </section><section id="tag_cloud">

@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Shadow DOM 301 - Rainer's blog</title>
+  <title>Shadow DOM 三 - Rainer's blog</title>
   <meta name="author" content="Robin">
 
   
@@ -69,7 +69,7 @@ and Shadow DOM &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Shadow DOM 301</h1>
+      <h1 class="entry-title">Shadow DOM 三</h1>
     
     
       <p class="meta">
@@ -107,14 +107,27 @@ You want the option of distributing groups of people across multiple rooms. Elem
 Shadow DOM can do this too, that is to say, they can host more than one shadow
 root at a time.</p>
 <p>Let&#8217;s see what happens if we try to attach multiple shadow roots to a host:</p>
-<pre class="prettyprint"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"example1"</span><span class="tag">&gt;</span><span class="pln">Light DOM</span><span class="tag">&lt;/div&gt;</span><span class="pln">
-</span><span class="tag">&lt;script&gt;</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> container </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'#example1'</span><span class="pun">);</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> root1 </span><span class="pun">=</span><span class="pln"> container</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> root2 </span><span class="pun">=</span><span class="pln"> container</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-root1</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">'&lt;div&gt;Root 1 FTW&lt;/div&gt;'</span><span class="pun">;</span><span class="pln">
-root2</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">'&lt;div&gt;Root 2 FTW&lt;/div&gt;'</span><span class="pun">;</span><span class="pln">
-</span><span class="tag">&lt;/script&gt;</span></pre>
+    
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>     <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;example1&quot;</span><span class="nt">&gt;</span>Light DOM<span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;script&gt;</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">container</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;#example1&#39;</span><span class="p">);</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">root1</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">createShadowRoot</span><span class="p">();</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">root2</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">createShadowRoot</span><span class="p">();</span>
+</span><span class='line'>      <span class="nx">root1</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&lt;div&gt;Root 1 FTW&lt;/div&gt;&#39;</span><span class="p">;</span>
+</span><span class='line'>      <span class="nx">root2</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&lt;div&gt;Root 2 FTW&lt;/div&gt;&#39;</span><span class="p">;</span>
+</span><span class='line'>      <span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>  
+</span></code></pre></td></tr></table></div></figure>
+
 
 <div class="demodevtools"> 
 <img src="http://rainer.qiniudn.com/stacking.png" title="Attaching multiple shadow trees" alt="Attaching multiple shadow trees" style="width:250px;">
@@ -163,14 +176,25 @@ in a shadow tree, only the first is recognized. The rest are ignored.</p>
 
 <p>Looking back to our original example, the first shadow <code>root1</code> got left off the
 invite list. Adding a <code>&lt;shadow&gt;</code> insertion point brings it back:</p>
-<pre class="prettyprint"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"example2"</span><span class="tag">&gt;</span><span class="pln">Light DOM</span><span class="tag">&lt;/div&gt;</span><span class="pln">
-</span><span class="tag">&lt;script&gt;</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> container </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'#example2'</span><span class="pun">);</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> root1 </span><span class="pun">=</span><span class="pln"> container</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> root2 </span><span class="pun">=</span><span class="pln"> container</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-root1</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">'&lt;div&gt;Root 1 FTW&lt;/div&gt;&lt;content&gt;&lt;/content&gt;'</span><span class="pun">;</span><span class="pln">
-</span><b><span class="pln">root2</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">'&lt;div&gt;Root 2 FTW&lt;/div&gt;&lt;shadow&gt;&lt;/shadow&gt;'</span><span class="pun">;</span></b><span class="pln">
-</span><span class="tag">&lt;/script&gt;</span></pre>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'> <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;example2&quot;</span><span class="nt">&gt;</span>Light DOM<span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;script&gt;</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">container</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;#example2&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">root1</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">createShadowRoot</span><span class="p">();</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">root2</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">createShadowRoot</span><span class="p">();</span>
+</span><span class='line'>  <span class="nx">root1</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&lt;div&gt;Root 1 FTW&lt;/div&gt;&lt;content&gt;&lt;/content&gt;&#39;</span><span class="p">;</span>
+</span><span class='line'>  <span class="nx">root2</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&lt;div&gt;Root 2 FTW&lt;/div&gt;&lt;shadow&gt;&lt;/shadow&gt;&#39;</span><span class="p">;</span>
+</span><span class='line'>  <span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <div class="demodevtools"> 
 <img src="http://rainer.qiniudn.com/shadow-insertion-point.png" title="Shadow insertion points" alt="Shadow insertion points" style="width:250px;">
@@ -199,22 +223,39 @@ the text node &#8220;Light DOM&#8221; come along for the rendering ride.</li>
 </ol>
 <p><b id="toc-shadow-older">What&#8217;s rendered at &lt;shadow&gt;?</b></p>
 <p>Sometimes it&#8217;s useful to know the older shadow tree being rendered at a <code>&lt;shadow&gt;</code>. You can get a reference to that tree through <code>.olderShadowRoot</code>:</p>
-<pre class="prettyprint"><b><span class="pln">root2</span><span class="pun">.</span><span class="pln">olderShadowRoot</span></b><span class="pln"> </span><span class="pun">===</span><span class="pln"> root1 </span><span class="com">//true</span></pre>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>   <span class="nx">root2</span><span class="p">.</span><span class="nx">olderShadowRoot</span> <span class="o">===</span> <span class="nx">root1</span> <span class="c1">//true</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h2 id="toc-get-shadowroot">Obtaining a host&#8217;s shadow root</h2>
 
 <p>If an element is hosting Shadow DOM you can access its <a href="#youngest-tree">youngest shadow root</a>
 using <code>.shadowRoot</code>:</p>
-<pre class="prettyprint"><span class="kwd">var</span><span class="pln"> root </span><span class="pun">=</span><span class="pln"> host</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">host</span><span class="pun">.</span><span class="pln">shadowRoot </span><span class="pun">===</span><span class="pln"> root</span><span class="pun">);</span><span class="pln"> </span><span class="com">// true</span><span class="pln">
-console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">document</span><span class="pun">.</span><span class="pln">body</span><span class="pun">.</span><span class="pln">shadowRoot</span><span class="pun">);</span><span class="pln"> </span><span class="com">// null</span></pre>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>   <span class="kd">var</span> <span class="nx">root</span> <span class="o">=</span> <span class="nx">host</span><span class="p">.</span><span class="nx">createShadowRoot</span><span class="p">();</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">host</span><span class="p">.</span><span class="nx">shadowRoot</span> <span class="o">===</span> <span class="nx">root</span><span class="p">);</span> <span class="c1">// true</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">shadowRoot</span><span class="p">);</span> <span class="c1">// null</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>If you&#8217;re worried about people crossing into your shadows, redefine
  <code>.shadowRoot</code> to be null:</p>
-<pre class="prettyprint"><span class="typ">Object</span><span class="pun">.</span><span class="pln">defineProperty</span><span class="pun">(</span><span class="pln">host</span><span class="pun">,</span><span class="pln"> </span><span class="str">'shadowRoot'</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-  </span><span class="kwd">get</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
-  </span><span class="kwd">set</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">value</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="pun">}</span><span class="pln">
-</span><span class="pun">});</span></pre>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>   <span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">host</span><span class="p">,</span> <span class="s1">&#39;shadowRoot&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">get</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">null</span><span class="p">;</span> <span class="p">},</span>
+</span><span class='line'>    <span class="nx">set</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</span><span class='line'>  <span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>A bit of a hack, but it works. In the end, it&#8217;s important to remember that while amazingly fantastic,
 <strong>Shadow DOM has not been designed to be a security feature</strong>. Don&#8217;t rely on it for
@@ -223,31 +264,59 @@ complete content isolation.</p>
 
 <p>If you prefer building DOM in JS, <code>HTMLContentElement</code> and <code>HTMLShadowElement</code>
 have interfaces for that.</p>
-<pre class="prettyprint"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"example3"</span><span class="tag">&gt;</span><span class="pln">
-  </span><span class="tag">&lt;span&gt;</span><span class="pln">Light DOM</span><span class="tag">&lt;/span&gt;</span><span class="pln">
-</span><span class="tag">&lt;/div&gt;</span><span class="pln">
-</span><span class="tag">&lt;script&gt;</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> container </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'#example3'</span><span class="pun">);</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> root1 </span><span class="pun">=</span><span class="pln"> container</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> root2 </span><span class="pun">=</span><span class="pln"> container</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
 
-</span><span class="kwd">var</span><span class="pln"> div </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">createElement</span><span class="pun">(</span><span class="str">'div'</span><span class="pun">);</span><span class="pln">
-div</span><span class="pun">.</span><span class="pln">textContent </span><span class="pun">=</span><span class="pln"> </span><span class="str">'Root 1 FTW'</span><span class="pun">;</span><span class="pln">
-root1</span><span class="pun">.</span><span class="pln">appendChild</span><span class="pun">(</span><span class="pln">div</span><span class="pun">);</span><span class="pln">
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'> <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;example3&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;span&gt;</span>Light DOM<span class="nt">&lt;/span&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;script&gt;</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">container</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;#example3&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">root1</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">createShadowRoot</span><span class="p">();</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">root2</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">createShadowRoot</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">div</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s1">&#39;Root 1 FTW&#39;</span><span class="p">;</span>
+</span><span class='line'>  <span class="nx">root1</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">div</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>   <span class="c1">// HTMLContentElement</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">content</span><span class="p">.</span><span class="nx">select</span> <span class="o">=</span> <span class="s1">&#39;span&#39;</span><span class="p">;</span> <span class="c1">// selects any spans the host node contains</span>
+</span><span class='line'>  <span class="nx">root1</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">div</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s1">&#39;Root 2 FTW&#39;</span><span class="p">;</span>
+</span><span class='line'>  <span class="nx">root2</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">div</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1">// HTMLShadowElement</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">shadow</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;shadow&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">root2</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">shadow</span><span class="p">);</span>
+</span><span class='line'>  <span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
- </span><span class="com">// HTMLContentElement</span><span class="pln">
-</span><b><span class="kwd">var</span><span class="pln"> content </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">createElement</span><span class="pun">(</span><span class="str">'content'</span><span class="pun">);</span><span class="pln">
-content</span><span class="pun">.</span><span class="pln">select </span><span class="pun">=</span><span class="pln"> </span><span class="str">'span'</span><span class="pun">;</span></b><span class="pln"> </span><span class="com">// selects any spans the host node contains</span><span class="pln">
-root1</span><span class="pun">.</span><span class="pln">appendChild</span><span class="pun">(</span><span class="pln">content</span><span class="pun">);</span><span class="pln">
-
-</span><span class="kwd">var</span><span class="pln"> div </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">createElement</span><span class="pun">(</span><span class="str">'div'</span><span class="pun">);</span><span class="pln">
-div</span><span class="pun">.</span><span class="pln">textContent </span><span class="pun">=</span><span class="pln"> </span><span class="str">'Root 2 FTW'</span><span class="pun">;</span><span class="pln">
-root2</span><span class="pun">.</span><span class="pln">appendChild</span><span class="pun">(</span><span class="pln">div</span><span class="pun">);</span><span class="pln">
-
-</span><span class="com">// HTMLShadowElement</span><span class="pln">
-</span><b><span class="kwd">var</span><span class="pln"> shadow </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">createElement</span><span class="pun">(</span><span class="str">'shadow'</span><span class="pun">);</span></b><span class="pln">
-root2</span><span class="pun">.</span><span class="pln">appendChild</span><span class="pun">(</span><span class="pln">shadow</span><span class="pun">);</span><span class="pln">
-</span><span class="tag">&lt;/script&gt;</span></pre>
 
 <p>This example is nearly identical to the one in the <a href="#toc-shadow-insertion">previous section</a>.
 The only difference is that now I&#8217;m using <code>select</code> to pull out the newly added <code>&lt;span&gt;</code>.</p>
@@ -262,15 +331,27 @@ from the host into the shadow tree. It&#8217;s a presentation/rendering thing: <
 <p class="notice fact">You cannot traverse the DOM into a <code>&lt;content&gt;</code>.</p>
 
 <p>For example:</p>
-<pre class="prettyprint"><span class="tag">&lt;div&gt;&lt;h2&gt;</span><span class="pln">Light DOM</span><span class="tag">&lt;/h2&gt;&lt;/div&gt;</span><span class="pln">
-</span><span class="tag">&lt;script&gt;</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> root </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'div'</span><span class="pun">).</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-root</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">'&lt;content select="h2"&gt;&lt;/content&gt;'</span><span class="pun">;</span><span class="pln">
 
-</span><span class="kwd">var</span><span class="pln"> h2 </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'h2'</span><span class="pun">);</span><span class="pln">
-console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">root</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'content[select="h2"] h2'</span><span class="pun">));</span><span class="pln"> </span><span class="com">// null;</span><span class="pln">
-console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">root</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'content'</span><span class="pun">).</span><span class="pln">contains</span><span class="pun">(</span><span class="pln">h2</span><span class="pun">));</span><span class="pln"> </span><span class="com">// false</span><span class="pln">
-</span><span class="tag">&lt;/script&gt;</span></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'> <span class="nt">&lt;div&gt;&lt;h2&gt;</span>Light DOM<span class="nt">&lt;/h2&gt;&lt;/div&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;script&gt;</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">root</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">).</span><span class="nx">createShadowRoot</span><span class="p">();</span>
+</span><span class='line'>  <span class="nx">root</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&lt;content select=&quot;h2&quot;&gt;&lt;/content&gt;&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">h2</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;h2&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;content[select=&quot;h2&quot;] h2&#39;</span><span class="p">));</span> <span class="c1">// null;</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">).</span><span class="nx">contains</span><span class="p">(</span><span class="nx">h2</span><span class="p">));</span> <span class="c1">// false</span>
+</span><span class='line'>  <span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Voilà! The <code>h2</code> isn&#8217;t a child of the shadow DOM. This leads to another tid bit:</p>
 <blockquote class="commentary talkinghead">
@@ -283,44 +364,85 @@ but unless I invite it into my Shadow DOM with an insertion point, it&#8217;s me
 
 <p>We can&#8217;t traverse into a <code>&lt;content&gt;</code>, but the <code>.getDistributedNodes()</code> API
 allows us to query the distributed nodes at an insertion point:</p>
-<pre class="prettyprint"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"example4"</span><span class="tag">&gt;</span><span class="pln">
-  </span><span class="tag">&lt;h2&gt;</span><span class="pln">Eric</span><span class="tag">&lt;/h2&gt;</span><span class="pln">
-  </span><span class="tag">&lt;h2&gt;</span><span class="pln">Bidelman</span><span class="tag">&lt;/h2&gt;</span><span class="pln">
-  </span><span class="tag">&lt;div&gt;</span><span class="pln">Digital Jedi</span><span class="tag">&lt;/div&gt;</span><span class="pln">
-  </span><span class="tag">&lt;h4&gt;</span><span class="pln">footer text</span><span class="tag">&lt;/h4&gt;</span><span class="pln">
-</span><span class="tag">&lt;/div&gt;</span><span class="pln">
 
-</span><span class="tag">&lt;template</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"sdom"</span><span class="tag">&gt;</span><span class="pln">
-  </span><span class="tag">&lt;header&gt;</span><span class="pln">
-    </span><span class="tag">&lt;content</span><span class="pln"> </span><span class="atn">select</span><span class="pun">=</span><span class="atv">"h2"</span><span class="tag">&gt;&lt;/content&gt;</span><span class="pln">
-  </span><span class="tag">&lt;/header&gt;</span><span class="pln">
-  </span><span class="tag">&lt;section&gt;</span><span class="pln">
-    </span><span class="tag">&lt;content</span><span class="pln"> </span><span class="atn">select</span><span class="pun">=</span><span class="atv">"div"</span><span class="tag">&gt;&lt;/content&gt;</span><span class="pln">
-  </span><span class="tag">&lt;/section&gt;</span><span class="pln">
-  </span><span class="tag">&lt;footer&gt;</span><span class="pln">
-    </span><span class="tag">&lt;content</span><span class="pln"> </span><span class="atn">select</span><span class="pun">=</span><span class="atv">"h4:first-of-type"</span><span class="tag">&gt;&lt;/content&gt;</span><span class="pln">
-  </span><span class="tag">&lt;/footer&gt;</span><span class="pln">
-</span><span class="tag">&lt;/template&gt;</span><span class="pln">
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'> <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;example4&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;h2&gt;</span>Eric<span class="nt">&lt;/h2&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;h2&gt;</span>Bidelman<span class="nt">&lt;/h2&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;div&gt;</span>Digital Jedi<span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;h4&gt;</span>footer text<span class="nt">&lt;/h4&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nt">&lt;template</span> <span class="na">id=</span><span class="s">&quot;sdom&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;header&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;content</span> <span class="na">select=</span><span class="s">&quot;h2&quot;</span><span class="nt">&gt;&lt;/content&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/header&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;section&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;content</span> <span class="na">select=</span><span class="s">&quot;div&quot;</span><span class="nt">&gt;&lt;/content&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/section&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;footer&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;content</span> <span class="na">select=</span><span class="s">&quot;h4:first-of-type&quot;</span><span class="nt">&gt;&lt;/content&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/footer&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/template&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nt">&lt;script&gt;</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">container</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;#example4&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">root</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">createShadowRoot</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;#sdom&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">clone</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">importNode</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span><span class='line'>  <span class="nx">root</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">clone</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">html</span> <span class="o">=</span> <span class="p">[];</span>
+</span><span class='line'>  <span class="p">[].</span><span class="nx">forEach</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">),</span> <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">html</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">outerHTML</span> <span class="o">+</span> <span class="s1">&#39;: &#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">nodes</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">getDistributedNodes</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">[].</span><span class="nx">forEach</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">nodes</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">html</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">outerHTML</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>    <span class="nx">html</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;\n&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>  <span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-</span><span class="tag">&lt;script&gt;</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> container </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'#example4'</span><span class="pun">);</span><span class="pln">
-
-</span><span class="kwd">var</span><span class="pln"> root </span><span class="pun">=</span><span class="pln"> container</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-
-</span><span class="kwd">var</span><span class="pln"> t </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'#sdom'</span><span class="pun">);</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> clone </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">importNode</span><span class="pun">(</span><span class="pln">t</span><span class="pun">.</span><span class="pln">content</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">);</span><span class="pln">
-root</span><span class="pun">.</span><span class="pln">appendChild</span><span class="pun">(</span><span class="pln">clone</span><span class="pun">);</span><span class="pln">
-
-</span><span class="kwd">var</span><span class="pln"> html </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[];</span><span class="pln">
-</span><span class="pun">[].</span><span class="pln">forEach</span><span class="pun">.</span><span class="pln">call</span><span class="pun">(</span><span class="pln">root</span><span class="pun">.</span><span class="pln">querySelectorAll</span><span class="pun">(</span><span class="str">'content'</span><span class="pun">),</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">el</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-  html</span><span class="pun">.</span><span class="pln">push</span><span class="pun">(</span><span class="pln">el</span><span class="pun">.</span><span class="pln">outerHTML </span><span class="pun">+</span><span class="pln"> </span><span class="str">': '</span><span class="pun">);</span><span class="pln">
-  </span><span class="kwd">var</span><span class="pln"> nodes </span><span class="pun">=</span><span class="pln"> el</span><span class="pun">.</span><span class="pln">getDistributedNodes</span><span class="pun">();</span><span class="pln">
-  </span><span class="pun">[].</span><span class="pln">forEach</span><span class="pun">.</span><span class="pln">call</span><span class="pun">(</span><span class="pln">nodes</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">node</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-    html</span><span class="pun">.</span><span class="pln">push</span><span class="pun">(</span><span class="pln">node</span><span class="pun">.</span><span class="pln">outerHTML</span><span class="pun">);</span><span class="pln">
-  </span><span class="pun">});</span><span class="pln">
-  html</span><span class="pun">.</span><span class="pln">push</span><span class="pun">(</span><span class="str">'\n'</span><span class="pun">);</span><span class="pln">
-</span><span class="pun">});</span><span class="pln">
-</span><span class="tag">&lt;/script&gt;</span></pre>
 
 <div id="example4" style="display:none">
   <h2>Eric</h2>
@@ -340,7 +462,7 @@ root</span><span class="pun">.</span><span class="pln">appendChild</span><span c
     <content select="h4:first-of-type"></content>
   </footer>
 </template></p>
-<div id="example4-log" class="demoarea">
+<div id="example4-log" class="demoarea none">
  <textarea readonly=""></textarea>
 </div>
 
@@ -373,29 +495,51 @@ if ('HTMLTemplateElement' in window) {
 
 <p>Similar to <code>.getDistributedNodes()</code>, you can check what insertion points
 a node is distributed into by calling its <code>.getDestinationInsertionPoints()</code>:</p>
-<pre class="prettyprint"><code><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"host"</span><span class="tag">&gt;</span><span class="pln">
-  </span><span class="tag">&lt;h2&gt;</span><span class="pln">Light DOM</span><span class="tag">&lt;/h2&gt;</span><span class="pln">
-</span><span class="tag">&lt;/div&gt;</span><span class="pln">
 
-</span><span class="tag">&lt;script&gt;</span><span class="pln">
-  </span><span class="kwd">var</span><span class="pln"> host </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'div'</span><span class="pun">);</span><span class="pln">
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'> <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;host&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;h2&gt;</span>Light DOM<span class="nt">&lt;/h2&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nt">&lt;script&gt;</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">host</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">root1</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">createShadowRoot</span><span class="p">();</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">root2</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">createShadowRoot</span><span class="p">();</span>
+</span><span class='line'>    <span class="nx">root1</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&lt;content select=&quot;h2&quot;&gt;&lt;/content&gt;&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">root2</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&lt;shadow&gt;&lt;/shadow&gt;&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">h2</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;#host h2&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">insertionPoints</span> <span class="o">=</span> <span class="nx">h2</span><span class="p">.</span><span class="nx">getDestinationInsertionPoints</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">[].</span><span class="nx">forEach</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">insertionPoints</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">contentEl</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">contentEl</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>  <span class="nt">&lt;/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-  </span><span class="kwd">var</span><span class="pln"> root1 </span><span class="pun">=</span><span class="pln"> container</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-  </span><span class="kwd">var</span><span class="pln"> root2 </span><span class="pun">=</span><span class="pln"> container</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-  root1</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">'&lt;content select="h2"&gt;&lt;/content&gt;'</span><span class="pun">;</span><span class="pln">
-  root2</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">'&lt;shadow&gt;&lt;/shadow&gt;'</span><span class="pun">;</span><span class="pln">
 
-  </span><span class="kwd">var</span><span class="pln"> h2 </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'#host h2'</span><span class="pun">);</span><span class="pln">
-  </span><span class="kwd">var</span><span class="pln"> insertionPoints </span><span class="pun">=</span><span class="pln"> h2</span><span class="pun">.</span><span class="pln">getDestinationInsertionPoints</span><span class="pun">();</span><span class="pln">
-  </span><span class="pun">[].</span><span class="pln">forEach</span><span class="pun">.</span><span class="pln">call</span><span class="pun">(</span><span class="pln">insertionPoints</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">contentEl</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-    console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">contentEl</span><span class="pun">);</span><span class="pln">
-  </span><span class="pun">});</span><span class="pln">
-</span><span class="tag">&lt;/script&gt;</span></code></pre>
 <div id="example5-gip" style="display:none">
   <h2>Light DOM</h2>
 </div>
 
-<div id="example5-getDestInsertinoPoints" class="demoarea">
+<div id="example5-getDestInsertinoPoints" class="demoarea none">
  <textarea readonly=""></textarea>
 </div>
 
@@ -456,7 +600,7 @@ around &#8220;I&#8217;m a node in the host&#8221; signifies that it is a distrib
 through the shadow&#8217;s <code>&lt;content&gt;</code> insertion point.</p>
 <p>The &#8220;Play Action&#8221; buttons show you different things to try. Give them a go to see
 how the <code>mouseout</code> and <code>focusin</code> events bubble up to the main page.</p>
-<div id="example5" class="demoarea">
+<div id="example5" class="demoarea none">
   <div data-host="">
     <div class="blue">I&#8217;m a node in the host</div>
   </div>
@@ -583,22 +727,22 @@ document.querySelector('#example5 .buttons').addEventListener('click', function(
 
 <p><strong>Play Action 1</strong></p>
 <ul>
-<li>This one is interesting. You should see a <code>mouseout</code> from the host element (<code>&lt;div data-host&gt;</code>)
-to the <span style="color:steelblue">blue</span> node. Even though it&#8217;s a distributed
-node, it&#8217;s still in the host, not the ShadowDOM. Mousing further down into 
-<span style="color:#ffcc00">yellow</span> again causes a <code>mouseout</code> on the <span style="color:steelblue">blue</span> node.</li>
+    <li>This one is interesting. You should see a <code>mouseout</code> from the host element (<code>&lt;div data-host&gt;</code>)
+    to the <span style="color:steelblue">blue</span> node. Even though it&#8217;s a distributed
+    node, it&#8217;s still in the host, not the ShadowDOM. Mousing further down into 
+    <span style="color:#ffcc00">yellow</span> again causes a <code>mouseout</code> on the <span style="color:steelblue">blue</span> node.</li>
 </ul>
 <p><strong>Play Action 2</strong></p>
 <ul>
-<li>There is one <code>mouseout</code> that appears on host (at the very end). Normally you&#8217;d
-see <code>mouseout</code> events trigger for all of the <span style="color:#ffcc00">yellow</span> blocks.
-However, in this case these elements are internal to the Shadow DOM and the event
-doesn&#8217;t bubble through its upper boundary.</li>
+    <li>There is one <code>mouseout</code> that appears on host (at the very end). Normally you&#8217;d
+    see <code>mouseout</code> events trigger for all of the <span style="color:#ffcc00">yellow</span> blocks.
+    However, in this case these elements are internal to the Shadow DOM and the event
+    doesn&#8217;t bubble through its upper boundary.</li>
 </ul>
 <p><strong>Play Action 3</strong></p>
 <ul>
-<li>Notice that when you click the input, the <code>focusin</code> doesn&#8217;t appear on the
-input but on the host node itself. It&#8217;s been retargeted!</li>
+    <li>Notice that when you click the input, the <code>focusin</code> doesn&#8217;t appear on the
+    input but on the host node itself. It&#8217;s been retargeted!</li>
 </ul>
 <h3 id="toc-events-stopped">Events that are always stopped</h3>
 
@@ -634,7 +778,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
 });
 </script>
 
-      </div>
+</div>
 
 </div>
 
@@ -681,7 +825,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/05/16/shadow-dom-201/" title="Previous Post: Shadow DOM 201">&laquo; Shadow DOM 201</a>
+        <a class="basic-alignment left" href="/blog/2014/05/16/shadow-dom-201/" title="Previous Post: Shadow DOM 二">&laquo; Shadow DOM 二</a>
       
       
         <a class="basic-alignment right" href="/blog/2014/06/03/using-web-notifications/" title="Next Post: Using Web Notifications">Using Web Notifications &raquo;</a>
@@ -705,23 +849,23 @@ document.addEventListener('DOMContentLoaded', function(e) {
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/06/20/history/">浏览器的历史记录</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/06/03/using-web-notifications/">Using Web Notifications</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/05/16/shadow-dom-301/">Shadow DOM 301</a>
+        <a href="/blog/2014/05/16/shadow-dom-301/">Shadow DOM 三</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/05/16/shadow-dom-201/">Shadow DOM 201</a>
+        <a href="/blog/2014/05/16/shadow-dom-201/">Shadow DOM 二</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2014/05/16/shadow-dom-101/">Shadow DOM 101</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/15/css3-animation/">Css3 Animation</a>
+        <a href="/blog/2014/05/16/shadow-dom-101/">Shadow DOM 一</a>
       </li>
     
   </ul>
@@ -730,7 +874,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
   <h1>Categories</h1>
   <ul id="categories">
     <li class='category'><a href='/blog/categories/css3/'>Css3 (1)</a></li>
-<li class='category'><a href='/blog/categories/html5/'>HTML5 (4)</a></li>
+<li class='category'><a href='/blog/categories/html5/'>HTML5 (5)</a></li>
 
   </ul>
 </section><section id="tag_cloud">
