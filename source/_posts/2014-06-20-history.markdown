@@ -1,0 +1,92 @@
+---
+layout: post
+title: "浏览器的历史记录"
+date: 2014-06-20 14:58:25 +0800
+comments: true
+categories: HTML5
+---
+<div>
+	<h3>老的History概览</h3>
+	<p>
+		window对象的history是一组包含最近访问过的url的数组，但是出于安全和用户隐私方面的考虑，脚本不能真正的访问这组数组原色。不过它提供了以下3个方法：
+		<ul class="txtlist">
+            <li>back(): 在历史记录中后退，等同于浏览器的后退按钮</li>
+            <li>forword(): 在历史记录中前进，等同于浏览器的前进按钮</li>
+            <li>go(): 通过指定一个特定的数值（相对于当前页，当前页是0，如果是正值，就前进几个记录，如果是负值就后退几个历史记录）；例如go(2)就是向前移动2页，go(-1)就是后退一页，go(0)就是刷新当前页面</li>
+        </ul>
+        <p>你可以通过length属性查看history数组中存放了多少历史记录</p>
+	</p>
+	<h3>HTML5新增方法</h3>
+	<p>
+		HTML5引进了history.pushState()方法和history.replaceState()方法，它们允许你逐条地添加和修改历史记录条目。这些方法可以协同window.onpopstate事件一起工作。
+	</p>
+	<h3 id="pushState().E6.96.B9.E6.B3.95">pushState()方法</h3>
+	<p>pushState()有三个参数：一个状态对象、一个标题（现在会被忽略），一个可选的URL地址。下面来单独考察这三个参数的细节：</p>
+	<ul class="txtlist">
+	  <li>
+	    <p><strong>状态对象（state object）</strong> — 一个JavaScript对象，与用pushState()方法创建的新历史记录条目关联。无论何时用户导航到新创建的状态，popstate事件都会被触发，并且通过事件对象的state属性都可以访问到找个状态对象。</p>
+	    <p>任何可序列化的对象都可以被当做状态对象。FireFox浏览器会把状态对象保存到用户的硬盘，这样它们就能在用户重启浏览器之后被还原，我们强行限制状态对象的大小为640k。如果你向pushState()方法传递了一个超过该限额的状态对象，该方法会抛出异常。如果你需要存储很大的数据，建议使用sessionStorage或localStorage。</p>
+	  </li>
+	  <li>
+	    <p><strong>标题（title）</strong> — FireFox浏览器目前会忽略该参数，虽然以后可能会用上。考虑到未来可能会对该方法进行修改，传一个空字符串会比较安全。或者，你也可以传入一个简短的标题，标明将要进入的状态。</p>
+	  </li>
+	  <li>
+	    <p><strong>地址（URL）</strong> — 新的历史记录条目的地址。浏览器不会在调用pushState()方法后加载该地址，但之后，可能会试图加载，例如用户重启浏览器。新的URL不一定是绝对路径；如果是相对路径，它将以当前URL为基准；传入的URL与当前URL应该是同源的，否则，pushState()会抛出异常。该参数是可选的；不指定的话则为文档当前URL。</p>
+	  </li>
+	</ul>
+	<!-- more -->
+	<h3>案例</h3>
+	假设 http://xxx.com/foo.html 将执行如下JavaScript代码：
+	{% codeblock lang:javascript %}
+		var stateObj = { foo: "bar" };
+		history.pushState(stateObj, "page 2", "bar.html");
+	{% endcodeblock %}
+	这将让浏览器的地址栏显示http://xxx.com/bar.html，但不会加载bar.html页面也不会检查bar.html是否存在。<br>
+	<p>假设现在用户输入了新的网址到了http://google.com，然后点击了后退按钮，此时，地址栏将会显示http://xxx.com/bar.html，并且页面会触发popstate事件，该事件中的状态对象（state object）包含stateObj的一个拷贝。该页面看起来像foo.html，尽管页面内容可能在popstate事件中被修改。如果我们再次点击后退按钮，URL将变回http://xxx.com/foo.html，文档将触发另一个popstate事件，这次的状态对象为null。回退同样不会改变文档内容。</p>
+	<p>某种意义上，调用pushState()有点类似于设置window.location='#foo'，它们都会在当前文档内创建和激活新的历史记录条目。但pushState()有自己的优势：</p>
+	<ul>
+	  <li>新的URL可以是任意的同源URL，与此相反，使用window.location方法时，只有仅修改hash才能保证停留在相同的<a href="/zh-CN/docs/DOM/document" title="此页面仍未被本地化, 期待您的翻译!"><code>document</code></a>中。</li>
+	  <li>根据个人需要来决定是否修改URL。相反，设置window.location='#foo'，只有在当前hash值不是foo时才创建一条新历史记录。</li>
+	  <li>你可以在新添加的历史记录条目中添加相关联的数据。如果使用基于hash的方法，你只能把相关数据转码成一个很短的字符串。</li>
+	</ul>
+	<p>注意pushState()方法永远不会触发hashchange事件，即便新的地址只变更了hash。</p>
+	<h3 id="">replaceState()方法</h3>
+	<p>history.replaceState()操作类似于history.pushState()，不同之处在于replaceState()方法会修改当前历史记录条目而并非创建新的条目。</p>
+	<p>当你为了响应用户的某些操作，而要更新当前历史记录条目的状态对象或URL时，使用replaceState()方法会特别合适。</p>
+	<p>每当激活的历史记录发生变化时，都会触发popstate事件。如果被激活的历史记录条目是由pushState所创建，或是被replaceState方法影响到的，popstate事件的状态属性将包含历史记录的状态对象的一个拷贝。</p>
+	<h3 id="">读取当前状态</h3>
+	<p>在页面加载时，可能会包含一个非空的状态对象。这种情况是会发生的，例如，如果页面中使用pushState()或replaceState()方法设置了一个状态对象，然后用户重启了浏览器。当页面重新加载时，页面会触发onload事件，但不会触发popstate事件。但是，如果你读取&nbsp;<span style="font-family: Courier New;">history.state</span>&nbsp;属性，你会得到一个与&nbsp;<span style="line-height: inherit;">&nbsp;</span><span style="line-height: inherit; font-family: 'Courier New';">popstate 事件触发时得到的一样的状态对象。</span></p>
+	<p>你可以直接读取当前历史记录条目的状态，而不需要等待popstate事件：</p>
+	{% codeblock lang:javascript %}
+	var currentState = history.state;
+	{% endcodeblock %}
+	<h2 id="">浏览器兼容性</h2>
+	<table class="table">
+    <tbody>
+      <tr>
+        <th>Feature</th>
+        <th>Chrome</th>
+        <th>Firefox (Gecko)</th>
+        <th>Internet Explorer</th>
+        <th>Opera</th>
+        <th>Safari</th>
+      </tr>
+      <tr>
+        <td>replaceState, pushState</td>
+        <td>5</td>
+        <td><a href="/en-US/Firefox/Releases/4" title="Released on 2011-03-22.">4.0</a> (2.0)</td>
+        <td>10</td>
+        <td>11.50</td>
+        <td>5.0</td>
+      </tr>
+      <tr>
+        <td>history.state</td>
+        <td>18</td>
+        <td><a href="/en-US/Firefox/Releases/4" title="Released on 2011-03-22.">4.0</a> (2.0)</td>
+        <td>10</td>
+        <td>11.50</td>
+        <td>6.0</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -12,12 +12,14 @@ tags: Notifications
         <h2 id="Summary">Summary</h2>
         <p>The Web Notifications API allows a web page to send notifications that are displayed outside the page at the system level. This allows web apps to send information to a user even if the application is idle. One of the main obvious use cases is a webmail application that would notify the user each time a new e-mail is received, even if the user is doing something else with another application.</p>
         <p>To display notification you need to first request the appropriate permission and then instantiate a
-            <a href="/en-US/docs/Web/API/Notification" title="The Notification object is used to configure and display desktop notifications to the user.">Notification</a>
-            object:</p>
-        <pre class="brush: js  language-js" data-number=""><code class=" language-js">Notification<span class="token punctuation">.</span><span class="token function">requestPermission<span class="token punctuation">(</span></span> <span class="token keyword">function</span><span class="token punctuation">(</span>status<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  console<span class="token punctuation">.</span><span class="token function">log<span class="token punctuation">(</span></span>status<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // notifications will only be displayed if "granted"
-</span>  <span class="token keyword">var</span> n <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Notification</span><span class="token punctuation">(</span><span class="token string">"title"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>body<span class="token punctuation">:</span> <span class="token string">"notification body"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true"> // this also shows the notification
-</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div></code></pre>
+            <a href="/en-US/docs/Web/API/Notification" title="The Notification object is used to configure and display desktop notifications to the user.">Notification</a>object:
+        </p>
+        {% codeblock lang:javascript %}
+            Notification.requestPermission( function(status) {
+                console.log(status); // notifications will only be displayed if "granted"
+                var n = new Notification("title", {body: "notification body"}); // this also shows the notification
+            });
+        {% endcodeblock %}
         <h2 id="Requesting_permission">Requesting permission</h2>
         <h3 id="Web_content">Web content</h3>
         <p>Before an app is able to send a notification, the user must grant the application the right to do so. This is a common requirement when an API tries to interact with something outside a web page. This guarantees to avoid notification "spam" for the well-being of the user.</p>
@@ -33,26 +35,32 @@ tags: Notifications
         </div>
         <p>If the permission is not granted, the application has to use the<a href="/en-US/docs/Web/API/Notification.requestPermission" title="The requestPermission static method is used to ask the user for his permission to display a Notification to him.">Notification.requestPermission()</a>method to let the user make a choice. This method accepts a callback function that receives the permission chosen by the user in order to react to it.</p>
         <p>It's a common practice to ask for the permission at the initialization of the app:</p>
-        <pre class="brush: js  language-js" data-number=""><code class=" language-js">window<span class="token punctuation">.</span><span class="token function">addEventListener<span class="token punctuation">(</span></span><span class="token string">'load'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  Notification<span class="token punctuation">.</span><span class="token function">requestPermission<span class="token punctuation">(</span></span><span class="token keyword">function</span> <span class="token punctuation">(</span>status<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-   <span class="token comment" spellcheck="true"> // This allows to use Notification.permission with Chrome/Safari
-</span>    <span class="token keyword">if</span> <span class="token punctuation">(</span>Notification<span class="token punctuation">.</span>permission <span class="token operator">!</span><span class="token operator">==</span> status<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      Notification<span class="token punctuation">.</span>permission <span class="token operator">=</span> status<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div></code></pre>
+        {% codeblock lang:javascript %}
+            window.addEventListener('load', function () {
+              Notification.requestPermission(function (status) {
+                // This allows to use Notification.permission with Chrome/Safari
+                if (Notification.permission !== status) {
+                  Notification.permission = status;
+                }
+              });
+            });
+        {% endcodeblock %}
         <div class="note">
             <p>
                 <strong>Note:</strong>Chrome does not allows to call
-                <a href="/en-US/docs/Web/API/Notification.requestPermission" title="The requestPermission static method is used to ask the user for his permission to display a Notification to him.">Notification.requestPermission()</a>on theloadevent (see <a class="external external-icon" href="https://code.google.com/p/chromium/issues/detail?id=274284" title="https://code.google.com/p/chromium/issues/detail?id=274284">issue 274284</a>).</p>
+                <a href="/en-US/docs/Web/API/Notification.requestPermission" title="The requestPermission static method is used to ask the user for his permission to display a Notification to him.">Notification.requestPermission()</a>on theloadevent (see <a class="external external-icon" href="https://code.google.com/p/chromium/issues/detail?id=274284" title="https://code.google.com/p/chromium/issues/detail?id=274284">issue 274284</a>).
+            </p>
         </div>
+        <!-- more -->
         <h3 id="Installed_application">Installed application</h3>
         <p>When an application is installed, it's possible to avoid to prompt the user for permission by adding the permission directly within the <a href="/en-US/docs/Web/Apps/Manifest" title="/en-US/docs/Web/Apps/Manifest">application manifest</a>:</p>
-        <pre class="brush: json  language-json" data-number=""><code class=" language-json"><span class="token key">"permissions":</span> <span class="token punctuation">{</span>
-  <span class="token key">"desktop-notification":</span> <span class="token punctuation">{</span>
-    <span class="token key">"description":</span> <span class="token string">"Allows to display notifications on the user's desktop."</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div></code></pre>
+        {% codeblock lang:javascript %}
+           "permissions": {
+              "desktop-notification": {
+                "description": "Allows to display notifications on the user's desktop."
+              }
+            }
+        {% endcodeblock %}
         <h2 id="Creating_a_notification">Creating a notification</h2>
         <p>Creating a notification is simply done using the
             <a href="/en-US/docs/Web/API/Notification" title="The Notification object is used to configure and display desktop notifications to the user.">Notification</a>constructor. This constructor expects a title to display within the notification and some options to enhance the notification such as an
@@ -79,128 +87,69 @@ tags: Notifications
                 <strong>Note:</strong>Firefox and Safari close the notifications automatically after a few moments, e.g. 4&nbsp; seconds.</p>
             <p>This can also be done at the web application level using the
                 <a href="/en-US/docs/Web/API/Notification.close" title="The close method is used to close a Notification that has been displayed."><code>Notification.close()</code></a>method, for example with the following code:</p>
-            <pre class="brush: js  language-js" data-number=""><code class=" language-js"><span class="token keyword">var</span> n <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Notification</span><span class="token punctuation">(</span><span class="token string">"Hi!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-n<span class="token punctuation">.</span>onshow <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
-  <span class="token function">setTimeout<span class="token punctuation">(</span></span>n<span class="token punctuation">.</span>close<span class="token punctuation">,</span> <span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
-<span class="token punctuation">}</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div></code></pre>
+                {% codeblock lang:javascript %}
+                   var n = new Notification("Hi!");
+                    n.onshow = function () { 
+                      setTimeout(n.close, 5000); 
+                    }
+                {% endcodeblock %}
             <p>When you receive a "close" event, there is no guarantee that it's the user who closed the notification. This is in line with the specification, which states: "When a notification is closed, either by the underlying notifications platform or by the user, the close steps for it must be run."</p>
         </div>
         <h3 id="Simple_example">Simple example</h3>
         <p>Assume the following basic HTML:</p>
-        <pre class="brush: html  language-html" data-number=""><code class=" language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">&gt;</span></span>Notify me!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span><div class="line-number" data-start="1" style="top: 0px;"></div></code></pre>
+        {% codeblock lang:javascript %}
+           <button>Notify me!</button>
+        {% endcodeblock %}
         <p>It's possible to handle notifications this way:</p>
-        <pre class="brush: js  language-js" data-number=""><code class=" language-js">window<span class="token punctuation">.</span><span class="token function">addEventListener<span class="token punctuation">(</span></span><span class="token string">'load'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
- <span class="token comment" spellcheck="true"> // At first, let's check if we have permission for notification
-</span> <span class="token comment" spellcheck="true"> // If not, let's ask for it
-</span>  <span class="token keyword">if</span> <span class="token punctuation">(</span>Notification <span class="token operator">&amp;&amp;</span> Notification<span class="token punctuation">.</span>permission <span class="token operator">!</span><span class="token operator">==</span> <span class="token string">"granted"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    Notification<span class="token punctuation">.</span><span class="token function">requestPermission<span class="token punctuation">(</span></span><span class="token keyword">function</span> <span class="token punctuation">(</span>status<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>Notification<span class="token punctuation">.</span>permission <span class="token operator">!</span><span class="token operator">==</span> status<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Notification<span class="token punctuation">.</span>permission <span class="token operator">=</span> status<span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
+        {% codeblock lang:javascript %}
+           window.addEventListener('load', function () {
+              // At first, let's check if we have permission for notification
+              // If not, let's ask for it
+              if (Notification && Notification.permission !== "granted") {
+                Notification.requestPermission(function (status) {
+                  if (Notification.permission !== status) {
+                    Notification.permission = status;
+                  }
+                });
+              }
 
-  <span class="token keyword">var</span> button <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementsByTagName<span class="token punctuation">(</span></span><span class="token string">'button'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+              var button = document.getElementsByTagName('button')[0];
 
-  button<span class="token punctuation">.</span><span class="token function">addEventListener<span class="token punctuation">(</span></span><span class="token string">'click'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-   <span class="token comment" spellcheck="true"> // If the user agreed to get notified
-</span>    <span class="token keyword">if</span> <span class="token punctuation">(</span>Notification <span class="token operator">&amp;&amp;</span> Notification<span class="token punctuation">.</span>permission <span class="token operator">==</span><span class="token operator">=</span> <span class="token string">"granted"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">var</span> n <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Notification</span><span class="token punctuation">(</span><span class="token string">"Hi!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+              button.addEventListener('click', function () {
+                // If the user agreed to get notified
+                if (Notification && Notification.permission === "granted") {
+                  var n = new Notification("Hi!");
+                }
 
-   <span class="token comment" spellcheck="true"> // If the user hasn't told if he wants to be notified or not
-</span>   <span class="token comment" spellcheck="true"> // Note: because of Chrome, we are not sure the permission property
-</span>   <span class="token comment" spellcheck="true"> // is set, therefore it's unsafe to check for the "default" value.
-</span>    <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>Notification <span class="token operator">&amp;&amp;</span> Notification<span class="token punctuation">.</span>permission <span class="token operator">!</span><span class="token operator">==</span> <span class="token string">"denied"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      Notification<span class="token punctuation">.</span><span class="token function">requestPermission<span class="token punctuation">(</span></span><span class="token keyword">function</span> <span class="token punctuation">(</span>status<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>Notification<span class="token punctuation">.</span>permission <span class="token operator">!</span><span class="token operator">==</span> status<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          Notification<span class="token punctuation">.</span>permission <span class="token operator">=</span> status<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+                // If the user hasn't told if he wants to be notified or not
+                // Note: because of Chrome, we are not sure the permission property
+                // is set, therefore it's unsafe to check for the "default" value.
+                else if (Notification && Notification.permission !== "denied") {
+                  Notification.requestPermission(function (status) {
+                    if (Notification.permission !== status) {
+                      Notification.permission = status;
+                    }
 
-       <span class="token comment" spellcheck="true"> // If the user said okay
-</span>        <span class="token keyword">if</span> <span class="token punctuation">(</span>status <span class="token operator">==</span><span class="token operator">=</span> <span class="token string">"granted"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">var</span> n <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Notification</span><span class="token punctuation">(</span><span class="token string">"Hi!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+                    // If the user said okay
+                    if (status === "granted") {
+                      var n = new Notification("Hi!");
+                    }
 
-       <span class="token comment" spellcheck="true"> // Otherwise, we can fallback to a regular modal alert
-</span>        <span class="token keyword">else</span> <span class="token punctuation">{</span>
-          <span class="token function">alert<span class="token punctuation">(</span></span><span class="token string">"Hi!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+                    // Otherwise, we can fallback to a regular modal alert
+                    else {
+                      alert("Hi!");
+                    }
+                  });
+                }
 
-   <span class="token comment" spellcheck="true"> // If the user refuses to get notified
-</span>    <span class="token keyword">else</span> <span class="token punctuation">{</span>
-     <span class="token comment" spellcheck="true"> // We can fallback to a regular modal alert
-</span>      <span class="token function">alert<span class="token punctuation">(</span></span><span class="token string">"Hi!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div><div class="line-number" data-start="10" style="top: 171px;"></div><div class="line-number" data-start="11" style="top: 190px;"></div><div class="line-number" data-start="12" style="top: 209px;"></div><div class="line-number" data-start="13" style="top: 228px;"></div><div class="line-number" data-start="14" style="top: 247px;"></div><div class="line-number" data-start="15" style="top: 266px;"></div><div class="line-number" data-start="16" style="top: 285px;"></div><div class="line-number" data-start="17" style="top: 304px;"></div><div class="line-number" data-start="18" style="top: 323px;"></div><div class="line-number" data-start="19" style="top: 342px;"></div><div class="line-number" data-start="20" style="top: 361px;"></div><div class="line-number" data-start="21" style="top: 380px;"></div><div class="line-number" data-start="22" style="top: 399px;"></div><div class="line-number" data-start="23" style="top: 418px;"></div><div class="line-number" data-start="24" style="top: 437px;"></div><div class="line-number" data-start="25" style="top: 456px;"></div><div class="line-number" data-start="26" style="top: 475px;"></div><div class="line-number" data-start="27" style="top: 494px;"></div><div class="line-number" data-start="28" style="top: 513px;"></div><div class="line-number" data-start="29" style="top: 532px;"></div><div class="line-number" data-start="30" style="top: 551px;"></div><div class="line-number" data-start="31" style="top: 570px;"></div><div class="line-number" data-start="32" style="top: 589px;"></div><div class="line-number" data-start="33" style="top: 608px;"></div><div class="line-number" data-start="34" style="top: 627px;"></div><div class="line-number" data-start="35" style="top: 646px;"></div><div class="line-number" data-start="36" style="top: 665px;"></div><div class="line-number" data-start="37" style="top: 684px;"></div><div class="line-number" data-start="38" style="top: 703px;"></div><div class="line-number" data-start="39" style="top: 722px;"></div><div class="line-number" data-start="40" style="top: 741px;"></div><div class="line-number" data-start="41" style="top: 760px;"></div><div class="line-number" data-start="42" style="top: 779px;"></div><div class="line-number" data-start="43" style="top: 798px;"></div><div class="line-number" data-start="44" style="top: 817px;"></div><div class="line-number" data-start="45" style="top: 836px;"></div><div class="line-number" data-start="46" style="top: 855px;"></div><div class="line-number" data-start="47" style="top: 874px;"></div></code></pre>
-        <p>And the live result:</p>
-        <p>
-            <iframe class="live-sample-frame" frameborder="0" height="30" src="https://mdn.mozillademos.org/en-US/docs/WebAPI/Using_Web_Notifications$samples/Simple_example?revision=561527" width="100%"></iframe>
-        </p>
-        <h2 id="Dealing_with_repeated_notifications">Dealing with repeated notifications</h2>
-        <p>In some cases it can be painful for the user to send him a high number of notifications--for example, if an application for instant messaging can notify a user for each incoming message. To avoid bloating the user desktop with hundreds of unnecessary notifications, it's possible to take over the queue of pending notifications.</p>
-        <p>To do this, it's possible to add a tag to any new notification. If a notification already has the same tag and has not been displayed yet, the new notification will replace that previous notification. If the notification with the same tag has been already displayed, the previous notification is closed and the new one is displayed.</p>
-        <h3 id="Tag_example">Tag example</h3>
-        <p>Assume the following basic HTML:</p>
-        <pre class="brush: html  language-html" data-number=""><code class=" language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span><span class="token punctuation">&gt;</span></span>Notify me!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span><div class="line-number" data-start="1" style="top: 0px;"></div></code></pre>
-        <p>It's possible to handle multiple notifications this way:</p>
-        <pre class="brush: js  language-js" data-number=""><code class=" language-js">window<span class="token punctuation">.</span><span class="token function">addEventListener<span class="token punctuation">(</span></span><span class="token string">'load'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
- <span class="token comment" spellcheck="true"> // At first, let's check if we have permission for notification
-</span> <span class="token comment" spellcheck="true"> // If not, let's ask for it
-</span>  <span class="token keyword">if</span> <span class="token punctuation">(</span>Notification <span class="token operator">&amp;&amp;</span> Notification<span class="token punctuation">.</span>permission <span class="token operator">!</span><span class="token operator">==</span> <span class="token string">"granted"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    Notification<span class="token punctuation">.</span><span class="token function">requestPermission<span class="token punctuation">(</span></span><span class="token keyword">function</span> <span class="token punctuation">(</span>status<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>Notification<span class="token punctuation">.</span>permission <span class="token operator">!</span><span class="token operator">==</span> status<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Notification<span class="token punctuation">.</span>permission <span class="token operator">=</span> status<span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-
-  <span class="token keyword">var</span> button <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementsByTagName<span class="token punctuation">(</span></span><span class="token string">'button'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-  button<span class="token punctuation">.</span><span class="token function">addEventListener<span class="token punctuation">(</span></span><span class="token string">'click'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-   <span class="token comment" spellcheck="true"> // If the user agreed to get notified
-</span>   <span class="token comment" spellcheck="true"> // Let's try to send ten notifications
-</span>    <span class="token keyword">if</span> <span class="token punctuation">(</span>Notification <span class="token operator">&amp;&amp;</span> Notification<span class="token punctuation">.</span>permission <span class="token operator">==</span><span class="token operator">=</span> <span class="token string">"granted"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-       <span class="token comment" spellcheck="true"> // Thanks to the tag, we should only see the "Hi! 9" notification
-</span>        <span class="token keyword">var</span> n <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Notification</span><span class="token punctuation">(</span><span class="token string">"Hi! "</span> <span class="token operator">+</span> i<span class="token punctuation">,</span> <span class="token punctuation">{</span>tag<span class="token punctuation">:</span> <span class="token string">'soManyNotification'</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-
-   <span class="token comment" spellcheck="true"> // If the user hasn't told if he wants to be notified or not
-</span>   <span class="token comment" spellcheck="true"> // Note: because of Chrome, we are not sure the permission property
-</span>   <span class="token comment" spellcheck="true"> // is set, therefore it's unsafe to check for the "default" value.
-</span>    <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>Notification <span class="token operator">&amp;&amp;</span> Notification<span class="token punctuation">.</span>permission <span class="token operator">!</span><span class="token operator">==</span> <span class="token string">"denied"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      Notification<span class="token punctuation">.</span><span class="token function">requestPermission<span class="token punctuation">(</span></span><span class="token keyword">function</span> <span class="token punctuation">(</span>status<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>Notification<span class="token punctuation">.</span>permission <span class="token operator">!</span><span class="token operator">==</span> status<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          Notification<span class="token punctuation">.</span>permission <span class="token operator">=</span> status<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-
-       <span class="token comment" spellcheck="true"> // If the user said okay
-</span>        <span class="token keyword">if</span> <span class="token punctuation">(</span>status <span class="token operator">==</span><span class="token operator">=</span> <span class="token string">"granted"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-           <span class="token comment" spellcheck="true"> // Thanks to the tag, we should only see the "Hi! 9" notification
-</span>            <span class="token keyword">var</span> n <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Notification</span><span class="token punctuation">(</span><span class="token string">"Hi! "</span> <span class="token operator">+</span> i<span class="token punctuation">,</span> <span class="token punctuation">{</span>tag<span class="token punctuation">:</span> <span class="token string">'soManyNotification'</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-          <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-
-       <span class="token comment" spellcheck="true"> // Otherwise, we can fallback to a regular modal alert
-</span>        <span class="token keyword">else</span> <span class="token punctuation">{</span>
-          <span class="token function">alert<span class="token punctuation">(</span></span><span class="token string">"Hi!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-   <span class="token comment" spellcheck="true"> // If the user refuses to get notified
-</span>    <span class="token keyword">else</span> <span class="token punctuation">{</span>
-     <span class="token comment" spellcheck="true"> // We can fallback to a regular modal alert
-</span>      <span class="token function">alert<span class="token punctuation">(</span></span><span class="token string">"Hi!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><div class="line-number" data-start="1" style="top: 0px;"></div><div class="line-number" data-start="2" style="top: 19px;"></div><div class="line-number" data-start="3" style="top: 38px;"></div><div class="line-number" data-start="4" style="top: 57px;"></div><div class="line-number" data-start="5" style="top: 76px;"></div><div class="line-number" data-start="6" style="top: 95px;"></div><div class="line-number" data-start="7" style="top: 114px;"></div><div class="line-number" data-start="8" style="top: 133px;"></div><div class="line-number" data-start="9" style="top: 152px;"></div><div class="line-number" data-start="10" style="top: 171px;"></div><div class="line-number" data-start="11" style="top: 190px;"></div><div class="line-number" data-start="12" style="top: 209px;"></div><div class="line-number" data-start="13" style="top: 228px;"></div><div class="line-number" data-start="14" style="top: 247px;"></div><div class="line-number" data-start="15" style="top: 266px;"></div><div class="line-number" data-start="16" style="top: 285px;"></div><div class="line-number" data-start="17" style="top: 304px;"></div><div class="line-number" data-start="18" style="top: 323px;"></div><div class="line-number" data-start="19" style="top: 342px;"></div><div class="line-number" data-start="20" style="top: 361px;"></div><div class="line-number" data-start="21" style="top: 380px;"></div><div class="line-number" data-start="22" style="top: 399px;"></div><div class="line-number" data-start="23" style="top: 418px;"></div><div class="line-number" data-start="24" style="top: 437px;"></div><div class="line-number" data-start="25" style="top: 456px;"></div><div class="line-number" data-start="26" style="top: 475px;"></div><div class="line-number" data-start="27" style="top: 494px;"></div><div class="line-number" data-start="28" style="top: 513px;"></div><div class="line-number" data-start="29" style="top: 532px;"></div><div class="line-number" data-start="30" style="top: 551px;"></div><div class="line-number" data-start="31" style="top: 570px;"></div><div class="line-number" data-start="32" style="top: 589px;"></div><div class="line-number" data-start="33" style="top: 608px;"></div><div class="line-number" data-start="34" style="top: 627px;"></div><div class="line-number" data-start="35" style="top: 646px;"></div><div class="line-number" data-start="36" style="top: 665px;"></div><div class="line-number" data-start="37" style="top: 684px;"></div><div class="line-number" data-start="38" style="top: 703px;"></div><div class="line-number" data-start="39" style="top: 722px;"></div><div class="line-number" data-start="40" style="top: 741px;"></div><div class="line-number" data-start="41" style="top: 760px;"></div><div class="line-number" data-start="42" style="top: 779px;"></div><div class="line-number" data-start="43" style="top: 798px;"></div><div class="line-number" data-start="44" style="top: 817px;"></div><div class="line-number" data-start="45" style="top: 836px;"></div><div class="line-number" data-start="46" style="top: 855px;"></div><div class="line-number" data-start="47" style="top: 874px;"></div><div class="line-number" data-start="48" style="top: 893px;"></div><div class="line-number" data-start="49" style="top: 912px;"></div><div class="line-number" data-start="50" style="top: 931px;"></div><div class="line-number" data-start="51" style="top: 950px;"></div><div class="line-number" data-start="52" style="top: 969px;"></div><div class="line-number" data-start="53" style="top: 988px;"></div><div class="line-number" data-start="54" style="top: 1007px;"></div></code></pre>
+                // If the user refuses to get notified
+                else {
+                  // We can fallback to a regular modal alert
+                  alert("Hi!");
+                }
+              });
+            });
+        {% endcodeblock %}
         <p>And the live result:</p>
         <p>
             <iframe class="live-sample-frame" frameborder="0" height="30" src="https://mdn.mozillademos.org/en-US/docs/WebAPI/Using_Web_Notifications$samples/Tag_example?revision=561527" width="100%"></iframe>
@@ -227,7 +176,6 @@ n<span class="token punctuation">.</span>onshow <span class="token operator">=</
         </ul>
         
     </article>
-
 
     <!-- attachments list -->
 </div>

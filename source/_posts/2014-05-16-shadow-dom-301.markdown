@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Shadow DOM 301"
+title: "Shadow DOM 三"
 date: 2014-05-16 12:21:36 +0800
 comments: true
 categories: HTML5
@@ -18,14 +18,16 @@ You want the option of distributing groups of people across multiple rooms. Elem
 Shadow DOM can do this too, that is to say, they can host more than one shadow
 root at a time.</p>
 <p>Let's see what happens if we try to attach multiple shadow roots to a host:</p>
-<pre class="prettyprint"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"example1"</span><span class="tag">&gt;</span><span class="pln">Light DOM</span><span class="tag">&lt;/div&gt;</span><span class="pln">
-</span><span class="tag">&lt;script&gt;</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> container </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'#example1'</span><span class="pun">);</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> root1 </span><span class="pun">=</span><span class="pln"> container</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> root2 </span><span class="pun">=</span><span class="pln"> container</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-root1</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">'&lt;div&gt;Root 1 FTW&lt;/div&gt;'</span><span class="pun">;</span><span class="pln">
-root2</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">'&lt;div&gt;Root 2 FTW&lt;/div&gt;'</span><span class="pun">;</span><span class="pln">
-</span><span class="tag">&lt;/script&gt;</span></pre>
+	{% codeblock lang:html %}
+		<div id="example1">Light DOM</div>
+		<script>
+		var container = document.querySelector('#example1');
+		var root1 = container.createShadowRoot();
+		var root2 = container.createShadowRoot();
+		root1.innerHTML = '<div>Root 1 FTW</div>';
+		root2.innerHTML = '<div>Root 2 FTW</div>';
+		</script>
+	{% endcodeblock %}
 
 <div class="demodevtools"> 
 <img src="http://rainer.qiniudn.com/stacking.png" title="Attaching multiple shadow trees" alt="Attaching multiple shadow trees" style="width:250px;">
@@ -74,14 +76,16 @@ in a shadow tree, only the first is recognized. The rest are ignored.</p>
 
 <p>Looking back to our original example, the first shadow <code>root1</code> got left off the
 invite list. Adding a <code>&lt;shadow&gt;</code> insertion point brings it back:</p>
-<pre class="prettyprint"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"example2"</span><span class="tag">&gt;</span><span class="pln">Light DOM</span><span class="tag">&lt;/div&gt;</span><span class="pln">
-</span><span class="tag">&lt;script&gt;</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> container </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'#example2'</span><span class="pun">);</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> root1 </span><span class="pun">=</span><span class="pln"> container</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> root2 </span><span class="pun">=</span><span class="pln"> container</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-root1</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">'&lt;div&gt;Root 1 FTW&lt;/div&gt;&lt;content&gt;&lt;/content&gt;'</span><span class="pun">;</span><span class="pln">
-</span><b><span class="pln">root2</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">'&lt;div&gt;Root 2 FTW&lt;/div&gt;&lt;shadow&gt;&lt;/shadow&gt;'</span><span class="pun">;</span></b><span class="pln">
-</span><span class="tag">&lt;/script&gt;</span></pre>
+{% codeblock lang:html %}
+	<div id="example2">Light DOM</div>
+	<script>
+	var container = document.querySelector('#example2');
+	var root1 = container.createShadowRoot();
+	var root2 = container.createShadowRoot();
+	root1.innerHTML = '<div>Root 1 FTW</div><content></content>';
+	root2.innerHTML = '<div>Root 2 FTW</div><shadow></shadow>';
+	</script>
+{% endcodeblock %}
 
 <div class="demodevtools"> 
 <img src="http://rainer.qiniudn.com/shadow-insertion-point.png" title="Shadow insertion points" alt="Shadow insertion points" style="width:250px;">
@@ -110,22 +114,28 @@ the text node "Light DOM" come along for the rendering ride.</li>
 </ol>
 <p><b id="toc-shadow-older">What's rendered at &lt;shadow&gt;?</b></p>
 <p>Sometimes it's useful to know the older shadow tree being rendered at a <code>&lt;shadow&gt;</code>. You can get a reference to that tree through <code>.olderShadowRoot</code>:</p>
-<pre class="prettyprint"><b><span class="pln">root2</span><span class="pun">.</span><span class="pln">olderShadowRoot</span></b><span class="pln"> </span><span class="pun">===</span><span class="pln"> root1 </span><span class="com">//true</span></pre>
+{% codeblock lang:javascript %}
+	root2.olderShadowRoot === root1 //true
+{% endcodeblock %}
 
 <h2 id="toc-get-shadowroot">Obtaining a host's shadow root</h2>
 
 <p>If an element is hosting Shadow DOM you can access its <a href="#youngest-tree">youngest shadow root</a>
 using <code>.shadowRoot</code>:</p>
-<pre class="prettyprint"><span class="kwd">var</span><span class="pln"> root </span><span class="pun">=</span><span class="pln"> host</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">host</span><span class="pun">.</span><span class="pln">shadowRoot </span><span class="pun">===</span><span class="pln"> root</span><span class="pun">);</span><span class="pln"> </span><span class="com">// true</span><span class="pln">
-console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">document</span><span class="pun">.</span><span class="pln">body</span><span class="pun">.</span><span class="pln">shadowRoot</span><span class="pun">);</span><span class="pln"> </span><span class="com">// null</span></pre>
+{% codeblock lang:javascript %}
+	var root = host.createShadowRoot();
+	console.log(host.shadowRoot === root); // true
+	console.log(document.body.shadowRoot); // null
+{% endcodeblock %}
 
 <p>If you're worried about people crossing into your shadows, redefine
  <code>.shadowRoot</code> to be null:</p>
-<pre class="prettyprint"><span class="typ">Object</span><span class="pun">.</span><span class="pln">defineProperty</span><span class="pun">(</span><span class="pln">host</span><span class="pun">,</span><span class="pln"> </span><span class="str">'shadowRoot'</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-  </span><span class="kwd">get</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
-  </span><span class="kwd">set</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">value</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="pun">}</span><span class="pln">
-</span><span class="pun">});</span></pre>
+{% codeblock lang:javascript %}
+	Object.defineProperty(host, 'shadowRoot', {
+	  get: function() { return null; },
+	  set: function(value) { }
+	})
+{% endcodeblock %}
 
 <p>A bit of a hack, but it works. In the end, it's important to remember that while amazingly fantastic,
 <strong>Shadow DOM has not been designed to be a security feature</strong>. Don't rely on it for
@@ -134,31 +144,33 @@ complete content isolation.</p>
 
 <p>If you prefer building DOM in JS, <code>HTMLContentElement</code> and <code>HTMLShadowElement</code>
 have interfaces for that.</p>
-<pre class="prettyprint"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"example3"</span><span class="tag">&gt;</span><span class="pln">
-  </span><span class="tag">&lt;span&gt;</span><span class="pln">Light DOM</span><span class="tag">&lt;/span&gt;</span><span class="pln">
-</span><span class="tag">&lt;/div&gt;</span><span class="pln">
-</span><span class="tag">&lt;script&gt;</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> container </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'#example3'</span><span class="pun">);</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> root1 </span><span class="pun">=</span><span class="pln"> container</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> root2 </span><span class="pun">=</span><span class="pln"> container</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
+{% codeblock lang:html %}
+	<div id="example3">
+	  <span>Light DOM</span>
+	</div>
+	<script>
+	var container = document.querySelector('#example3');
+	var root1 = container.createShadowRoot();
+	var root2 = container.createShadowRoot();
 
-</span><span class="kwd">var</span><span class="pln"> div </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">createElement</span><span class="pun">(</span><span class="str">'div'</span><span class="pun">);</span><span class="pln">
-div</span><span class="pun">.</span><span class="pln">textContent </span><span class="pun">=</span><span class="pln"> </span><span class="str">'Root 1 FTW'</span><span class="pun">;</span><span class="pln">
-root1</span><span class="pun">.</span><span class="pln">appendChild</span><span class="pun">(</span><span class="pln">div</span><span class="pun">);</span><span class="pln">
+	var div = document.createElement('div');
+	div.textContent = 'Root 1 FTW';
+	root1.appendChild(div);
 
- </span><span class="com">// HTMLContentElement</span><span class="pln">
-</span><b><span class="kwd">var</span><span class="pln"> content </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">createElement</span><span class="pun">(</span><span class="str">'content'</span><span class="pun">);</span><span class="pln">
-content</span><span class="pun">.</span><span class="pln">select </span><span class="pun">=</span><span class="pln"> </span><span class="str">'span'</span><span class="pun">;</span></b><span class="pln"> </span><span class="com">// selects any spans the host node contains</span><span class="pln">
-root1</span><span class="pun">.</span><span class="pln">appendChild</span><span class="pun">(</span><span class="pln">content</span><span class="pun">);</span><span class="pln">
+	 // HTMLContentElement
+	var content = document.createElement('content');
+	content.select = 'span'; // selects any spans the host node contains
+	root1.appendChild(content);
 
-</span><span class="kwd">var</span><span class="pln"> div </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">createElement</span><span class="pun">(</span><span class="str">'div'</span><span class="pun">);</span><span class="pln">
-div</span><span class="pun">.</span><span class="pln">textContent </span><span class="pun">=</span><span class="pln"> </span><span class="str">'Root 2 FTW'</span><span class="pun">;</span><span class="pln">
-root2</span><span class="pun">.</span><span class="pln">appendChild</span><span class="pun">(</span><span class="pln">div</span><span class="pun">);</span><span class="pln">
+	var div = document.createElement('div');
+	div.textContent = 'Root 2 FTW';
+	root2.appendChild(div);
 
-</span><span class="com">// HTMLShadowElement</span><span class="pln">
-</span><b><span class="kwd">var</span><span class="pln"> shadow </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">createElement</span><span class="pun">(</span><span class="str">'shadow'</span><span class="pun">);</span></b><span class="pln">
-root2</span><span class="pun">.</span><span class="pln">appendChild</span><span class="pun">(</span><span class="pln">shadow</span><span class="pun">);</span><span class="pln">
-</span><span class="tag">&lt;/script&gt;</span></pre>
+	// HTMLShadowElement
+	var shadow = document.createElement('shadow');
+	root2.appendChild(shadow);
+	</script>
+{% endcodeblock %}
 
 <p>This example is nearly identical to the one in the <a href="#toc-shadow-insertion">previous section</a>.
 The only difference is that now I'm using <code>select</code> to pull out the newly added <code>&lt;span&gt;</code>.</p>
@@ -173,15 +185,17 @@ from the host into the shadow tree. It's a presentation/rendering thing: <s>"Mov
 <p class="notice fact">You cannot traverse the DOM into a <code>&lt;content&gt;</code>.</p>
 
 <p>For example:</p>
-<pre class="prettyprint"><span class="tag">&lt;div&gt;&lt;h2&gt;</span><span class="pln">Light DOM</span><span class="tag">&lt;/h2&gt;&lt;/div&gt;</span><span class="pln">
-</span><span class="tag">&lt;script&gt;</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> root </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'div'</span><span class="pun">).</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-root</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">'&lt;content select="h2"&gt;&lt;/content&gt;'</span><span class="pun">;</span><span class="pln">
+{% codeblock lang:html %}
+	<div><h2>Light DOM</h2></div>
+	<script>
+	var root = document.querySelector('div').createShadowRoot();
+	root.innerHTML = '<content select="h2"></content>';
 
-</span><span class="kwd">var</span><span class="pln"> h2 </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'h2'</span><span class="pun">);</span><span class="pln">
-console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">root</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'content[select="h2"] h2'</span><span class="pun">));</span><span class="pln"> </span><span class="com">// null;</span><span class="pln">
-console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">root</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'content'</span><span class="pun">).</span><span class="pln">contains</span><span class="pun">(</span><span class="pln">h2</span><span class="pun">));</span><span class="pln"> </span><span class="com">// false</span><span class="pln">
-</span><span class="tag">&lt;/script&gt;</span></pre>
+	var h2 = document.querySelector('h2');
+	console.log(root.querySelector('content[select="h2"] h2')); // null;
+	console.log(root.querySelector('content').contains(h2)); // false
+	</script>
+{% endcodeblock %}
 
 <p>Voilà! The <code>h2</code> isn't a child of the shadow DOM. This leads to another tid bit:</p>
 <blockquote class="commentary talkinghead">
@@ -194,44 +208,46 @@ but unless I invite it into my Shadow DOM with an insertion point, it's meaningl
 
 <p>We can't traverse into a <code>&lt;content&gt;</code>, but the <code>.getDistributedNodes()</code> API
 allows us to query the distributed nodes at an insertion point:</p>
-<pre class="prettyprint"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"example4"</span><span class="tag">&gt;</span><span class="pln">
-  </span><span class="tag">&lt;h2&gt;</span><span class="pln">Eric</span><span class="tag">&lt;/h2&gt;</span><span class="pln">
-  </span><span class="tag">&lt;h2&gt;</span><span class="pln">Bidelman</span><span class="tag">&lt;/h2&gt;</span><span class="pln">
-  </span><span class="tag">&lt;div&gt;</span><span class="pln">Digital Jedi</span><span class="tag">&lt;/div&gt;</span><span class="pln">
-  </span><span class="tag">&lt;h4&gt;</span><span class="pln">footer text</span><span class="tag">&lt;/h4&gt;</span><span class="pln">
-</span><span class="tag">&lt;/div&gt;</span><span class="pln">
+{% codeblock lang:html %}
+	<div id="example4">
+	  <h2>Eric</h2>
+	  <h2>Bidelman</h2>
+	  <div>Digital Jedi</div>
+	  <h4>footer text</h4>
+	</div>
 
-</span><span class="tag">&lt;template</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"sdom"</span><span class="tag">&gt;</span><span class="pln">
-  </span><span class="tag">&lt;header&gt;</span><span class="pln">
-    </span><span class="tag">&lt;content</span><span class="pln"> </span><span class="atn">select</span><span class="pun">=</span><span class="atv">"h2"</span><span class="tag">&gt;&lt;/content&gt;</span><span class="pln">
-  </span><span class="tag">&lt;/header&gt;</span><span class="pln">
-  </span><span class="tag">&lt;section&gt;</span><span class="pln">
-    </span><span class="tag">&lt;content</span><span class="pln"> </span><span class="atn">select</span><span class="pun">=</span><span class="atv">"div"</span><span class="tag">&gt;&lt;/content&gt;</span><span class="pln">
-  </span><span class="tag">&lt;/section&gt;</span><span class="pln">
-  </span><span class="tag">&lt;footer&gt;</span><span class="pln">
-    </span><span class="tag">&lt;content</span><span class="pln"> </span><span class="atn">select</span><span class="pun">=</span><span class="atv">"h4:first-of-type"</span><span class="tag">&gt;&lt;/content&gt;</span><span class="pln">
-  </span><span class="tag">&lt;/footer&gt;</span><span class="pln">
-</span><span class="tag">&lt;/template&gt;</span><span class="pln">
+	<template id="sdom">
+	  <header>
+	    <content select="h2"></content>
+	  </header>
+	  <section>
+	    <content select="div"></content>
+	  </section>
+	  <footer>
+	    <content select="h4:first-of-type"></content>
+	  </footer>
+	</template>
 
-</span><span class="tag">&lt;script&gt;</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> container </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'#example4'</span><span class="pun">);</span><span class="pln">
+	<script>
+	var container = document.querySelector('#example4');
 
-</span><span class="kwd">var</span><span class="pln"> root </span><span class="pun">=</span><span class="pln"> container</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
+	var root = container.createShadowRoot();
 
-</span><span class="kwd">var</span><span class="pln"> t </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'#sdom'</span><span class="pun">);</span><span class="pln">
-</span><span class="kwd">var</span><span class="pln"> clone </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">importNode</span><span class="pun">(</span><span class="pln">t</span><span class="pun">.</span><span class="pln">content</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">);</span><span class="pln">
-root</span><span class="pun">.</span><span class="pln">appendChild</span><span class="pun">(</span><span class="pln">clone</span><span class="pun">);</span><span class="pln">
+	var t = document.querySelector('#sdom');
+	var clone = document.importNode(t.content, true);
+	root.appendChild(clone);
 
-</span><span class="kwd">var</span><span class="pln"> html </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[];</span><span class="pln">
-</span><span class="pun">[].</span><span class="pln">forEach</span><span class="pun">.</span><span class="pln">call</span><span class="pun">(</span><span class="pln">root</span><span class="pun">.</span><span class="pln">querySelectorAll</span><span class="pun">(</span><span class="str">'content'</span><span class="pun">),</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">el</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-  html</span><span class="pun">.</span><span class="pln">push</span><span class="pun">(</span><span class="pln">el</span><span class="pun">.</span><span class="pln">outerHTML </span><span class="pun">+</span><span class="pln"> </span><span class="str">': '</span><span class="pun">);</span><span class="pln">
-  </span><span class="kwd">var</span><span class="pln"> nodes </span><span class="pun">=</span><span class="pln"> el</span><span class="pun">.</span><span class="pln">getDistributedNodes</span><span class="pun">();</span><span class="pln">
-  </span><span class="pun">[].</span><span class="pln">forEach</span><span class="pun">.</span><span class="pln">call</span><span class="pun">(</span><span class="pln">nodes</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">node</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-    html</span><span class="pun">.</span><span class="pln">push</span><span class="pun">(</span><span class="pln">node</span><span class="pun">.</span><span class="pln">outerHTML</span><span class="pun">);</span><span class="pln">
-  </span><span class="pun">});</span><span class="pln">
-  html</span><span class="pun">.</span><span class="pln">push</span><span class="pun">(</span><span class="str">'\n'</span><span class="pun">);</span><span class="pln">
-</span><span class="pun">});</span><span class="pln">
-</span><span class="tag">&lt;/script&gt;</span></pre>
+	var html = [];
+	[].forEach.call(root.querySelectorAll('content'), function(el) {
+	  html.push(el.outerHTML + ': ');
+	  var nodes = el.getDistributedNodes();
+	  [].forEach.call(nodes, function(node) {
+	    html.push(node.outerHTML);
+	  });
+	  html.push('\n');
+	});
+	</script>
+{% endcodeblock %}
 
 <div id="example4" style="display:none">
   <h2>Eric</h2>
@@ -251,7 +267,7 @@ root</span><span class="pun">.</span><span class="pln">appendChild</span><span c
     <content select="h4:first-of-type"></content>
   </footer>
 </template></p>
-<div id="example4-log" class="demoarea">
+<div id="example4-log" class="demoarea none">
  <textarea readonly=""></textarea>
 </div>
 
@@ -284,29 +300,32 @@ if ('HTMLTemplateElement' in window) {
 
 <p>Similar to <code>.getDistributedNodes()</code>, you can check what insertion points
 a node is distributed into by calling its <code>.getDestinationInsertionPoints()</code>:</p>
-<pre class="prettyprint"><code><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"host"</span><span class="tag">&gt;</span><span class="pln">
-  </span><span class="tag">&lt;h2&gt;</span><span class="pln">Light DOM</span><span class="tag">&lt;/h2&gt;</span><span class="pln">
-</span><span class="tag">&lt;/div&gt;</span><span class="pln">
+{% codeblock lang:html %}
+	<div id="host">
+	  <h2>Light DOM</h2>
+	</div>
 
-</span><span class="tag">&lt;script&gt;</span><span class="pln">
-  </span><span class="kwd">var</span><span class="pln"> host </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'div'</span><span class="pun">);</span><span class="pln">
+	<script>
+	  var host = document.querySelector('div');
 
-  </span><span class="kwd">var</span><span class="pln"> root1 </span><span class="pun">=</span><span class="pln"> container</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-  </span><span class="kwd">var</span><span class="pln"> root2 </span><span class="pun">=</span><span class="pln"> container</span><span class="pun">.</span><span class="pln">createShadowRoot</span><span class="pun">();</span><span class="pln">
-  root1</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">'&lt;content select="h2"&gt;&lt;/content&gt;'</span><span class="pun">;</span><span class="pln">
-  root2</span><span class="pun">.</span><span class="pln">innerHTML </span><span class="pun">=</span><span class="pln"> </span><span class="str">'&lt;shadow&gt;&lt;/shadow&gt;'</span><span class="pun">;</span><span class="pln">
+	  var root1 = container.createShadowRoot();
+	  var root2 = container.createShadowRoot();
+	  root1.innerHTML = '<content select="h2"></content>';
+	  root2.innerHTML = '<shadow></shadow>';
 
-  </span><span class="kwd">var</span><span class="pln"> h2 </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">querySelector</span><span class="pun">(</span><span class="str">'#host h2'</span><span class="pun">);</span><span class="pln">
-  </span><span class="kwd">var</span><span class="pln"> insertionPoints </span><span class="pun">=</span><span class="pln"> h2</span><span class="pun">.</span><span class="pln">getDestinationInsertionPoints</span><span class="pun">();</span><span class="pln">
-  </span><span class="pun">[].</span><span class="pln">forEach</span><span class="pun">.</span><span class="pln">call</span><span class="pun">(</span><span class="pln">insertionPoints</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">contentEl</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-    console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">contentEl</span><span class="pun">);</span><span class="pln">
-  </span><span class="pun">});</span><span class="pln">
-</span><span class="tag">&lt;/script&gt;</span></code></pre>
+	  var h2 = document.querySelector('#host h2');
+	  var insertionPoints = h2.getDestinationInsertionPoints();
+	  [].forEach.call(insertionPoints, function(contentEl) {
+	    console.log(contentEl);
+	  });
+	</script>
+{% endcodeblock %}
+
 <div id="example5-gip" style="display:none">
   <h2>Light DOM</h2>
 </div>
 
-<div id="example5-getDestInsertinoPoints" class="demoarea">
+<div id="example5-getDestInsertinoPoints" class="demoarea none">
  <textarea readonly=""></textarea>
 </div>
 
@@ -367,7 +386,7 @@ around "I'm a node in the host" signifies that it is a distributed node, passing
 through the shadow's <code>&lt;content&gt;</code> insertion point.</p>
 <p>The "Play Action" buttons show you different things to try. Give them a go to see
 how the <code>mouseout</code> and <code>focusin</code> events bubble up to the main page.</p>
-<div id="example5" class="demoarea">
+<div id="example5" class="demoarea none">
   <div data-host="">
     <div class="blue">I'm a node in the host</div>
   </div>
@@ -494,22 +513,22 @@ document.querySelector('#example5 .buttons').addEventListener('click', function(
 
 <p><strong>Play Action 1</strong></p>
 <ul>
-<li>This one is interesting. You should see a <code>mouseout</code> from the host element (<code>&lt;div data-host&gt;</code>)
-to the <span style="color:steelblue">blue</span> node. Even though it's a distributed
-node, it's still in the host, not the ShadowDOM. Mousing further down into 
-<span style="color:#ffcc00">yellow</span> again causes a <code>mouseout</code> on the <span style="color:steelblue">blue</span> node.</li>
+	<li>This one is interesting. You should see a <code>mouseout</code> from the host element (<code>&lt;div data-host&gt;</code>)
+	to the <span style="color:steelblue">blue</span> node. Even though it's a distributed
+	node, it's still in the host, not the ShadowDOM. Mousing further down into 
+	<span style="color:#ffcc00">yellow</span> again causes a <code>mouseout</code> on the <span style="color:steelblue">blue</span> node.</li>
 </ul>
 <p><strong>Play Action 2</strong></p>
 <ul>
-<li>There is one <code>mouseout</code> that appears on host (at the very end). Normally you'd
-see <code>mouseout</code> events trigger for all of the <span style="color:#ffcc00">yellow</span> blocks.
-However, in this case these elements are internal to the Shadow DOM and the event
-doesn't bubble through its upper boundary.</li>
+	<li>There is one <code>mouseout</code> that appears on host (at the very end). Normally you'd
+	see <code>mouseout</code> events trigger for all of the <span style="color:#ffcc00">yellow</span> blocks.
+	However, in this case these elements are internal to the Shadow DOM and the event
+	doesn't bubble through its upper boundary.</li>
 </ul>
 <p><strong>Play Action 3</strong></p>
 <ul>
-<li>Notice that when you click the input, the <code>focusin</code> doesn't appear on the
-input but on the host node itself. It's been retargeted!</li>
+	<li>Notice that when you click the input, the <code>focusin</code> doesn't appear on the
+	input but on the host node itself. It's been retargeted!</li>
 </ul>
 <h3 id="toc-events-stopped">Events that are always stopped</h3>
 
@@ -545,4 +564,4 @@ document.addEventListener('DOMContentLoaded', function(e) {
 });
 </script>
 
-      </div>
+</div>
