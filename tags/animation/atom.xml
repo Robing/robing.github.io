@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Css3 | Rainer's blog]]></title>
-  <link href="http://Robing.github.io/blog/categories/css3/atom.xml" rel="self"/>
+  <title><![CDATA[Tag: animation | Rainer's blog]]></title>
+  <link href="http://Robing.github.io/tags/animation/atom.xml" rel="self"/>
   <link href="http://Robing.github.io/"/>
   <updated>2014-06-25T14:40:09+08:00</updated>
   <id>http://Robing.github.io/</id>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Css3 Animation]]></title>
+    <title type="html"><![CDATA[Css3 animation]]></title>
     <link href="http://Robing.github.io/blog/2014/05/15/css3-animation/"/>
     <updated>2014-05-15T22:28:04+08:00</updated>
     <id>http://Robing.github.io/blog/2014/05/15/css3-animation</id>
