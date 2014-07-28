@@ -18,9 +18,65 @@ article blockquote{
 	}
 }
 body > header{
-	background: #fff;
+	color:#fff;
+	// background: #fff;
+	background:linear-gradient(180deg, #3958d6,#04721e);
+	-webkit-animation:hue 60s infinite linear;
+	-moz-animation:hue 60s infinite linear;
+	-ms-animation:hue 60s infinite linear;
+	-o-animation:hue 60s infinite linear;
+	animation:hue 60s infinite linear;
 }
-
+@-webkit-keyframes hue{
+	from {
+    	-webkit-filter: hue-rotate(0deg);
+    	opacity: (0.8);
+  	}
+  	to {
+    	-webkit-filter: hue-rotate(-360deg);
+    	opacity: (0.6);
+  	}
+}
+@-moz-keyframes hue{
+	from {
+    	-webkit-filter: hue-rotate(0deg);
+    	opacity: (0.8);
+  	}
+  	to {
+    	-webkit-filter: hue-rotate(-360deg);
+    	opacity: (0.6);
+  	}
+}
+@-ms-keyframes hue{
+	from {
+    	-webkit-filter: hue-rotate(0deg);
+    	opacity: (0.8);
+  	}
+  	to {
+    	-webkit-filter: hue-rotate(-360deg);
+    	opacity: (0.6);
+  	}
+}
+@-o-keyframes hue{
+	from {
+    	-webkit-filter: hue-rotate(0deg);
+    	opacity: (0.8);
+  	}
+  	to {
+    	-webkit-filter: hue-rotate(-360deg);
+    	opacity: (0.6);
+  	}
+}
+@keyframes hue{
+	from {
+    	-webkit-filter: hue-rotate(0deg);
+    	opacity: (0.8);
+  	}
+  	to {
+    	-webkit-filter: hue-rotate(-360deg);
+    	opacity: (0.6);
+  	}
+}
 body > header h1 a, body > header h1 a:visited, body > header h1 a:hover{
 	color:#333;
 }
