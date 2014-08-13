@@ -95,13 +95,14 @@ body > footer{
 }
 
 body > nav{
-	background:linear-gradient(to top, #EEEEEE 10%, #FFFFFF 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	background:#f1f1f1;
+	//background:linear-gradient(to top, #EEEEEE 10%, #FFFFFF 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
 	// box-shadow: 0 -1px 0 0 #eee inset, 0 1px 0 0 #eee inset;
 	border:none;
 	padding-top:0.25em;
 	padding-bottom:0.25em;
-	border-top:1px solid #ccc;
-	border-bottom:1px solid #ccc;
+	border-top:1px solid #eee;
+	border-bottom:1px solid #eee;
 	// box-shadow: 2px 1px 5px #f5f5f5;
 	box-shadow: 5px 5px 20px 1px #e6e6e6;
 }
