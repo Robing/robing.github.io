@@ -4,7 +4,7 @@
   <title><![CDATA[Rainer's blog]]></title>
   <link href="http://Robing.github.io/atom.xml" rel="self"/>
   <link href="http://Robing.github.io/"/>
-  <updated>2014-07-28T15:42:32+08:00</updated>
+  <updated>2014-08-13T14:41:01+08:00</updated>
   <id>http://Robing.github.io/</id>
   <author>
     <name><![CDATA[Robin]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Web Component]]></title>
+    <link href="http://Robing.github.io/blog/2014/07/28/web-component/"/>
+    <updated>2014-07-28T16:52:47+08:00</updated>
+    <id>http://Robing.github.io/blog/2014/07/28/web-component</id>
+    <content type="html"><![CDATA[<blockquote><p>Web Components usher in a new era of web development based on encapsulated and interoperable custom elements that extend HTML itself.</p></blockquote>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[浏览器的历史记录]]></title>
