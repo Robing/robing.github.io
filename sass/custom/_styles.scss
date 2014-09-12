@@ -19,8 +19,8 @@ article blockquote{
 }
 body > header{
 	color:#fff;
-	// background: #fff;
-	background:linear-gradient(180deg, #3958d6,#04721e);
+	background:linear-gradient(to bottom, #3958d6 0%, #387e48 100%);
+	//background:linear-gradient(180deg, #3958d6,#04721e);
 	-webkit-animation:hue 60s infinite linear;
 	-moz-animation:hue 60s infinite linear;
 	-ms-animation:hue 60s infinite linear;
@@ -30,51 +30,51 @@ body > header{
 @-webkit-keyframes hue{
 	from {
     	-webkit-filter: hue-rotate(0deg);
-    	opacity: (0.8);
+    	opacity: (0.85);
   	}
   	to {
     	-webkit-filter: hue-rotate(-360deg);
-    	opacity: (0.6);
+    	opacity: (0.7);
   	}
 }
 @-moz-keyframes hue{
 	from {
     	-webkit-filter: hue-rotate(0deg);
-    	opacity: (0.8);
+    	opacity: (0.85);
   	}
   	to {
     	-webkit-filter: hue-rotate(-360deg);
-    	opacity: (0.6);
+    	opacity: (0.7);
   	}
 }
 @-ms-keyframes hue{
 	from {
     	-webkit-filter: hue-rotate(0deg);
-    	opacity: (0.8);
+    	opacity: (0.85);
   	}
   	to {
     	-webkit-filter: hue-rotate(-360deg);
-    	opacity: (0.6);
+    	opacity: (0.7);
   	}
 }
 @-o-keyframes hue{
 	from {
     	-webkit-filter: hue-rotate(0deg);
-    	opacity: (0.8);
+    	opacity: (0.85);
   	}
   	to {
     	-webkit-filter: hue-rotate(-360deg);
-    	opacity: (0.6);
+    	opacity: (0.7);
   	}
 }
 @keyframes hue{
 	from {
     	-webkit-filter: hue-rotate(0deg);
-    	opacity: (0.8);
+    	opacity: (0.85);
   	}
   	to {
     	-webkit-filter: hue-rotate(-360deg);
-    	opacity: (0.6);
+    	opacity: (0.7);
   	}
 }
 body > header h1 a, body > header h1 a:visited, body > header h1 a:hover{
